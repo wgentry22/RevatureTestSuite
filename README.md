@@ -1,6 +1,6 @@
 # RevatureTestSuite
 ### Contributors
 
--William
--Robin has added things onto this file.
--Andrew
+* William
+* Robin has added things onto this file.
+* Andrew
