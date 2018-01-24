@@ -37,7 +37,7 @@ public class TrainersPage {
 		return driver.findElement(By.xpath("//*[@id=\"input_208\"]"));
 	}
 	
-	public static WebElement addTrainerLastname(WebDriver driver) {
+	public static WebElement insertTrainerLastname(WebDriver driver) {
 		return driver.findElement(By.xpath("//*[@id=\"input_209\"]"));
 	}
 	
@@ -69,11 +69,11 @@ public class TrainersPage {
 		return driver.findElement(By.xpath("//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[2]"));
 	}
 	
-	public static WebElement addPTOStartDate(WebDriver driver) {
+	public static WebElement insertPTOStartDate(WebDriver driver) {
 		return driver.findElement(By.xpath("//*[@id=\"input_243\"]"));
 	}
 	
-	public static WebElement addPTOEndDate(WebDriver driver) {
+	public static WebElement insertPTOEndDate(WebDriver driver) {
 		return driver.findElement(By.xpath("//*[@id=\"input_245\"]"));
 	}
 	
