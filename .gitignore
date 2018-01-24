@@ -2,5 +2,6 @@
 /.metadata/
 /.settings/
 /bin
+/target
+/test-output
 .project
-target
