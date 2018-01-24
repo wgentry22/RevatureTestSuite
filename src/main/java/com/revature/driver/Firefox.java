@@ -3,14 +3,11 @@ package com.revature.driver;
 import java.io.File;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class Firefox {
+class Firefox implements IDriver {
 
-	private static WebDriver webdriver = null;
-	
-	public static FirefoxDriver selectDriver() {
+	 public WebDriver selectDriver() {
 		File f = null;
 		if (System.getenv("PATH").contains("/home/")) {
 			f = new File("src/main/resources/geckodriver");
