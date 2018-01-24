@@ -5,12 +5,10 @@ import java.io.File;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Chrome {
+class Chrome implements IDriver{
 
-	private static WebDriver webdriver = null;
 	
-	
-	public static ChromeDriver selectDriver() {
+	public WebDriver selectDriver() {
 		File f = null;
 		if (System.getenv("PATH").contains("/home/")) {
 			f = new File("src/main/resources/chromedriver");

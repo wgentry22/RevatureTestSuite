@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
@@ -44,6 +45,32 @@
           </reporter-output>
         </test-method> <!-- afterSuite -->
       </class> <!-- com.revature.tester.test.CurriculaTest -->
+=======
+<testng-results skipped="0" failed="0" ignored="2" total="3" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="5845" started-at="2018-01-24T03:46:26Z" finished-at="2018-01-24T03:46:32Z">
+    <groups>
+      <group name="VP">
+        <method signature="LoginTester.testVPLogin()[pri:0, instance:com.revature.tester.LoginTester@28d25987]" name="testVPLogin" class="com.revature.tester.LoginTester"/>
+      </group> <!-- VP -->
+    </groups>
+    <test name="Default test" duration-ms="5845" started-at="2018-01-24T03:46:26Z" finished-at="2018-01-24T03:46:32Z">
+      <class name="com.revature.tester.LoginTester">
+        <test-method status="PASS" signature="getDriverAndLoadProperties()[pri:0, instance:com.revature.tester.LoginTester@28d25987]" name="getDriverAndLoadProperties" is-config="true" duration-ms="4278" started-at="2018-01-23T22:46:22Z" finished-at="2018-01-23T22:46:26Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getDriverAndLoadProperties -->
+        <test-method status="PASS" signature="VerifyProperties()[pri:0, instance:com.revature.tester.LoginTester@28d25987]" name="VerifyProperties" is-config="true" duration-ms="0" started-at="2018-01-23T22:46:26Z" finished-at="2018-01-23T22:46:26Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- VerifyProperties -->
+        <test-method status="PASS" signature="testVPLogin()[pri:0, instance:com.revature.tester.LoginTester@28d25987]" name="testVPLogin" duration-ms="5817" started-at="2018-01-23T22:46:26Z" finished-at="2018-01-23T22:46:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVPLogin -->
+      </class> <!-- com.revature.tester.LoginTester -->
+>>>>>>> 6760d69885d4382ca722799dd3466490a53891f7
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

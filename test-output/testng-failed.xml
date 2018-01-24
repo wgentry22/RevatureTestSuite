@@ -3,6 +3,7 @@
 <suite thread-count="-1" guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
+<<<<<<< HEAD
       <class name="com.revature.tester.test.CurriculaTest">
         <methods>
           <include name="beforeTest"/>
@@ -12,6 +13,15 @@
           <include name="f"/>
         </methods>
       </class> <!-- com.revature.tester.test.CurriculaTest -->
+=======
+      <class name="com.revature.tester.LoginTester">
+        <methods>
+          <include name="VerifyProperties"/>
+          <include name="testVPLogin"/>
+          <include name="getDriverAndLoadProperties"/>
+        </methods>
+      </class> <!-- com.revature.tester.LoginTester -->
+>>>>>>> 6760d69885d4382ca722799dd3466490a53891f7
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
