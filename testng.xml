@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+  	<!-- <groups>
+  	  <run>
+  	    <include name="before"></include>
+  	    <include name="group1"></include>
+  	  </run>
+  	</groups> -->
+    <classes>
+      <class name="com.revature.tester.BatchTester"/>
+      <class name="com.revature.tester.CurriculumTester"/>
+      <class name="com.revature.tester.LocationTester"/>
+      <class name="com.revature.tester.LoginTester"/>
+      <class name="com.revature.tester.OverviewTester"/>
+      <class name="com.revature.tester.ReportTester"/>
+      <class name="com.revature.tester.SettingTester"/>
+      <class name="com.revature.tester.TrainerTester"/>
+    </classes>
+  </test> <!-- Test -->  
+</suite> <!-- Suite -->
