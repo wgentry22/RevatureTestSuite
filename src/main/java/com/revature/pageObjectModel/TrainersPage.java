@@ -33,7 +33,7 @@ public class TrainersPage {
 		return driver.findElement(By.xpath("/html/body/div[3]/md-dialog/form/md-dialog-actions/button[2]"));
 	}
 	
-	public static WebElement addTrainerFirstname(WebDriver driver) {
+	public static WebElement insertTrainerFirstname(WebDriver driver) {
 		return driver.findElement(By.xpath("//*[@id=\"input_208\"]"));
 	}
 	
