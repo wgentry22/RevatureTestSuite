@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.revature.driver.Chrome;
+import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.LoginPage;
 
 public class LoginTester {
@@ -24,7 +24,7 @@ public class LoginTester {
 			FileInputStream in = new FileInputStream("src/main/resources/locators.properties");
 			props.load(in);
 			in.close();
-			wd = Chrome.selectDriver();
+			wd = DriverFactory.getDriver("chrome");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

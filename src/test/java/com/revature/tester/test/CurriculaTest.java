@@ -7,22 +7,27 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.revature.driver.Chrome;
+import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.CirriculaPage;
 
 public class CurriculaTest {
 
-	WebDriver driver = Chrome.selectDriver();
+	WebDriver driver = DriverFactory.getDriver("chrome");
 	
-  @Test
+  @Test(enabled=false)
   public void f() {
-	  CirriculaPage.overviewTab(driver);
-	  CirriculaPage.batchesTab(driver);
-	  CirriculaPage.locationsTab(driver);
-	  CirriculaPage.curriculaTab(driver);
-	  CirriculaPage.trainersTab(driver);
-	  CirriculaPage.reportsTab(driver);
-	  CirriculaPage.settingsTab(driver);
+	  CirriculaPage.overviewTab(driver).click();
+	  CirriculaPage.batchesTab(driver).click();
+	  CirriculaPage.locationsTab(driver).click();
+	  CirriculaPage.curriculaTab(driver).click();
+	  CirriculaPage.trainersTab(driver).click();
+	  CirriculaPage.reportsTab(driver).click();
+	  CirriculaPage.settingsTab(driver).click();
+  }
+  
+  @Test(enabled=true)
+  public void testOverview() {
+	  CirriculaPage.curriculaTab(driver).click();
   }
   
 

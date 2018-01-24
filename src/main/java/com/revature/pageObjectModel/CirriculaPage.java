@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.revature.driver.Chrome;
-import com.revature.driver.Firefox;
 
 
 
@@ -50,7 +48,7 @@ public class CirriculaPage {
 	}
 	
 	public static WebElement overviewTab(WebDriver driver) {
-		e = driver.findElement(By.xpath("//a[@href=\"home\"]"));
+		e = driver.findElement(By.xpath("//*[@href=\"home\"]"));
 		return e;
 	}
 	
@@ -64,8 +62,9 @@ public class CirriculaPage {
 		return e;
 	}
 	
+//	/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]
 	public static WebElement curriculaTab(WebDriver driver) {
-		e = driver.findElement(By.xpath("//a[@href=\"curriculum\"]"));
+		e = driver.findElement(By.xpath("//a[@href=\"curriculum\"]/"));
 		return e;
 	}
 	
