@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-1">
+      <div class="sidenav">
+        <h3><a routerLink="overview">Overview</a></h3>
+        <h3>Tests</h3>
+        <ul class="nav nav-pills nav-stacked">
+          <li *ngFor="let test of tests">
+            <a routerLink="tests/{{test.id}}">{{test.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
