@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 
 import static com.revature.driver.DriverFactory.*;
-import static com.revature.pageObjectModel.TrainersPage.*;
+import static com.revature.pageObjectModel.TrainerPage.*;
 
 public class TrainerTester {
 
