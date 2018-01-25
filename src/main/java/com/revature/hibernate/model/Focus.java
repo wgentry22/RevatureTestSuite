@@ -2,6 +2,7 @@ package com.revature.hibernate.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,19 +30,21 @@ public class Focus {
 	private String focusName;
 	
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="skillFocus")
 	@JoinTable(name="focus_skill", joinColumns=@JoinColumn(name="focus_id"),
 	inverseJoinColumns=@JoinColumn(name="skill_id"))
 	private Collection<Skill> focusSkill;
 
-	@OneToOne
-	private Curriculum curriculum;
+
 	
 	//No args constructor
 	public Focus() {
 		super();
 	}
 	
+	public Focus(String name) {
+		this.focusName = name;
+	}
 	
 	
 	//All args constructor

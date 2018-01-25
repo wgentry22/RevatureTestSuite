@@ -9,11 +9,11 @@ import com.revature.hibernate.model.Room;
 public interface LocationDao {
 
 	void insertLocation(Location location);
-	Location selectById(int id);
-	Location selectByName(String name);
+	Location selectLocationById(int id);
+	Location selectLocationByName(String name);
 	int getLocationIdByName(String name);
 	void updateLocation(int id, String locationName, String locationCity, String locationState);
-	List<Location> selectAll();
+	List<Location> selectAllLocations();
 	void deleteLocation(String name);
 	void addBuilding(String locationName, Building building);
 	void addRoom(String buildingName, Room room);

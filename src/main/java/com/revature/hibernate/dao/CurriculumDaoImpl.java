@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.revature.hibernate.HibernateUtil;
 import com.revature.hibernate.model.Curriculum;
+import com.revature.hibernate.model.Skill;
 
 public class CurriculumDaoImpl implements CurriculumDao {
 
@@ -88,6 +89,45 @@ public class CurriculumDaoImpl implements CurriculumDao {
 			t = session.beginTransaction();
 			curriculum.setCurriculumName(name);
 			session.saveOrUpdate(curriculum);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void addSkill(String curriculumName, Skill skill) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction t = null;
+		try {
+			t = session.beginTransaction();
+			Curriculum curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", curriculumName)).list().get(0);
+			curriculum.getCurriculumSkill().add(skill);
+			skill.getSkillCurriculum().add(curriculum);
+			session.persist(curriculum);
+			session.persist(skill);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void deleteCurriculum(String name) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction t = null;
+		try {
+			Curriculum curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", name)).list().get(0);
+			t = session.beginTransaction();
+			session.delete(curriculum);
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			if (t != null) {

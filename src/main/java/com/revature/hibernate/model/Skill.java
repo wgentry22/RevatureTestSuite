@@ -27,10 +27,10 @@ public class Skill {
 	@Column(name="skill_name", nullable=false, updatable=false)
 	private String skillName;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="focusSkill")
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="focusSkill")
 	private Collection<Focus> skillFocus = new ArrayList<Focus>();
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="curriculumSkill")
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="curriculumSkill")
 	private Collection<Curriculum> skillCurriculum = new ArrayList<Curriculum>();
 
 	public Skill() {
@@ -41,6 +41,10 @@ public class Skill {
 		super();
 		this.skillId = skillId;
 		this.skillName = skillName;
+	}
+	
+	public Skill(String name) {
+		this.skillName = name;
 	}
 
 	public int getSkillId() {
@@ -57,6 +61,15 @@ public class Skill {
 
 	public void setSkillName(String skillName) {
 		this.skillName = skillName;
+	}
+
+	
+	public Collection<Curriculum> getSkillCurriculum() {
+		return skillCurriculum;
+	}
+
+	public void setSkillCurriculum(Collection<Curriculum> skillCurriculum) {
+		this.skillCurriculum = skillCurriculum;
 	}
 
 	@Override

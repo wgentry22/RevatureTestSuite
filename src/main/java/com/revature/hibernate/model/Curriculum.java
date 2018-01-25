@@ -32,14 +32,11 @@ public class Curriculum {
 	private String curriculumName;
 	
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="curriculum_skill", joinColumns=@JoinColumn(name="curriculum_id"),
 	inverseJoinColumns=@JoinColumn(name="skill_id"))
 	private Collection<Skill> curriculumSkill = new ArrayList<Skill>();
 
-	
-	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private Focus focus;
 	
 	
 	//No args constructor

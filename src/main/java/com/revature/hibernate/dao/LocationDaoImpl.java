@@ -46,7 +46,7 @@ public class LocationDaoImpl implements LocationDao {
 		}
 	}
 	
-	public Location selectById(int id) {
+	public Location selectLocationById(int id) {
 		Location location = null;
 		Session session = HibernateUtil.getSession();
 		try {
@@ -61,7 +61,7 @@ public class LocationDaoImpl implements LocationDao {
 		return location;
 	}
 	
-	public Location selectByName(String name) {
+	public Location selectLocationByName(String name) {
 		Location location = null;
 		Session session = HibernateUtil.getSession();
 		try {
@@ -75,7 +75,7 @@ public class LocationDaoImpl implements LocationDao {
 		return location;
 	}
 	
-	public List<Location> selectAll() {
+	public List<Location> selectAllLocations() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Location> list = null;
 		try {

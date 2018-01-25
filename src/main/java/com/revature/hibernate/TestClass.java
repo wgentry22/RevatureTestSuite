@@ -1,7 +1,7 @@
 package com.revature.hibernate;
 
 import com.revature.hibernate.dao.CurriculumDaoImpl;
-import com.revature.hibernate.model.Curriculum;
+import com.revature.hibernate.model.Skill;
 
 public class TestClass {
 
@@ -30,6 +30,14 @@ public class TestClass {
 //		Curriculum curriculum = CurriculumDaoImpl.getInstance().selectCurriculumByName("Java Test Automation");
 //		CurriculumDaoImpl.getInstance().updateCurriculum(curriculum, "JTA");
 //		System.out.println(CurriculumDaoImpl.getInstance().selectCurriculumByName("JTA"));
+		
+//		Skill skill = new Skill("SQL");
+//		CurriculumDaoImpl.getInstance().addSkill("JTA", skill );
+//		
+//		for (Skill s : CurriculumDaoImpl.getInstance().selectCurriculumByName("JTA").getCurriculumSkill()) {
+//			System.out.println(s);
+//		}
+		
 		
 		
 	}
