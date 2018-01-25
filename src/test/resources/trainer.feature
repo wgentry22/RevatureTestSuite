@@ -42,7 +42,7 @@
       #| name2 |     7 | Fail    |
       
 
-Feature: We want to navigate throughout the trainer page
+Feature: I want to navigate throughout the trainer page
 
 @VP
 Scenario: As a VP, I want to add a trainer
@@ -52,4 +52,8 @@ When I login, I click on the trainers tab
 Then I click on the add trainer button
 Then I input "TestingR" and "TestingP" of the trainer
 And I click save
+
+#@VP
+#Scenario: As a VP, I want to deactivate a trainer
+#	Given 
 

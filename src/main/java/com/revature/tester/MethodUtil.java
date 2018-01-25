@@ -12,13 +12,13 @@ public class MethodUtil {
 	int times;
 	public WebElement waitForLoad(WebDriver driver, String xpath) {
 		WebElement element = null;
-		while(times < 10 && element == null) {
+		while(element == null) {
 			try {
 				element = driver.findElement(By.xpath(xpath));
 			} catch(NoSuchElementException e) {
 				if(times < 10) {
 					try {
-						Thread.sleep(100);
+						Thread.sleep(200);
 						times++;
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
@@ -29,6 +29,7 @@ public class MethodUtil {
 				}
 			}
 		}
+		times = 0;
 		return element;
 	}
 }
