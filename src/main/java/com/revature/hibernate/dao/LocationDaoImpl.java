@@ -8,8 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-
 import com.revature.hibernate.HibernateUtil;
+import com.revature.hibernate.model.Building;
 import com.revature.hibernate.model.Location;
 
 public class LocationDaoImpl implements LocationDao {
@@ -78,15 +78,16 @@ public class LocationDaoImpl implements LocationDao {
 		return HibernateUtil.getSession().createQuery("from Location").list();
 	}
 	
-	public void updateLocation(Location location) {
+	public void updateLocation(int id, String locationName, String locationCity, String locationState) {
 		Session session = HibernateUtil.getSession();
 		Transaction t = null;
+		Location l1 = null;
 		try {
 			t = session.beginTransaction();
-			Location l1 = (Location) session.createCriteria(Location.class).add(Restrictions.eq("locationId", location.getLocationId())).list().get(0);
-			l1.setLocationName(location.getLocationName());
-			l1.setLocationCity(location.getLocationCity());
-			l1.setLocationState(location.getLocationState());
+			l1 = (Location) session.createCriteria(Location.class).add(Restrictions.eq("locationId", id)).list().get(0);
+			l1.setLocationName(locationName);
+			l1.setLocationCity(locationCity);
+			l1.setLocationState(locationState);
 			session.saveOrUpdate(l1);
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
@@ -98,6 +99,46 @@ public class LocationDaoImpl implements LocationDao {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public int getLocationIdByName(String name) {
+		int locationId = 0;
+		Session session = HibernateUtil.getSession();
+		Transaction t = null;
+		Location location = null;
+		try {
+			t = session.beginTransaction();
+			location = (Location) session.createCriteria(Location.class).add(Restrictions.eq("locationName", name)).list().get(0);
+			locationId = location.getLocationId();
+		} catch (HibernateException e) {
+			logger.warn(e);
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 		
+		return locationId;
+	}
+	
+	public void addBuilding(String locationName, Building building) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction t = null;
+		try {
+			Location location = LocationDaoImpl.getInstance().selectByName(locationName);
+			location.getBuildings().add(building);
+			building.setLocation(location);
+			
+			t = session.beginTransaction();
+			session.save(location);
+			session.save(building);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 	}
 }

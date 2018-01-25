@@ -1,5 +1,7 @@
 package com.revature.hibernate.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.*;
@@ -14,20 +16,29 @@ public class Location {
 	@Column(name="LOCATION_ID", nullable=false, updatable=false)
 	private int locationId;
 	
-	@Column(name="LOCATION_NAME", nullable=false, updatable=false, length=20)
+	@Column(name="LOCATION_NAME", nullable=false, updatable=true, length=20)
 	private String locationName;
 	
-	@Column(name="LOCATION_CITY", nullable=false, updatable=false, length=20)
+	@Column(name="LOCATION_CITY", nullable=false, updatable=true, length=20)
 	private String locationCity;
 	
-	@Column(name="LOCATION_STATE", nullable=false, updatable=false, length=20)
+	@Column(name="LOCATION_STATE", nullable=false, updatable=true, length=20)
 	private String locationState;
 	
+	@OneToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="LOCATION_BUILDING", joinColumns=@JoinColumn(name="LOCATION_ID"), inverseJoinColumns=@JoinColumn(name="BUILDING_ID"))
+	private Collection<Building> buildings = new ArrayList<Building>();
 	
 	
-//	private List<Building> buildings;
 	
-	
+	public Collection<Building> getBuildings() {
+		return buildings;
+	}
+
+	public void setBuildings(Collection<Building> buildings) {
+		this.buildings = buildings;
+	}
+
 	public Location() {
 		super();
 	}
