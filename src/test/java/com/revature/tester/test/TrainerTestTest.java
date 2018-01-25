@@ -86,7 +86,7 @@ public class TrainerTestTest {
 	  assertTrue(true);
   }
   
-  @Test
+  @Test(groups="VP")
   public void clickCancelPTORequest() {
 	  try {
 		  TrainerPage.selectCancelPTORequest(wd).click();
@@ -96,7 +96,7 @@ public class TrainerTestTest {
 	  assertTrue(true);
   }
   
-  @Test
+  @Test(groups="VP")
   public void clickDownloadResume() {
 	  try {
 		  TrainerPage.selectCancelAddTrainer(wd).click();
@@ -109,6 +109,17 @@ public class TrainerTestTest {
   @Test
   public void clickDeactivateTrainer() {
 	  TrainerPage.selectDeactivateTrainer(wd);
+	  assertTrue(true);
+  }
+  
+  @Test(enabled=false)
+  public void clickReactivateTrainer() {
+	 //TODO create reactivatetrainerbutton on trainerpage
+  }
+  
+  @Test
+  public void stuff() {
+	  
   }
   
   @BeforeMethod

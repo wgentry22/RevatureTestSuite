@@ -26,6 +26,7 @@ public class MethodUtil {
 				}
 				else {
 					e.printStackTrace();
+					throw new NoSuchElementException("Element did not load in time", e);
 				}
 			}
 		}
