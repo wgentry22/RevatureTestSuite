@@ -6,6 +6,11 @@ import org.openqa.selenium.WebElement;
 
 public class SettingsPage {
 	
+	public static void navigateToSettingsPage(WebDriver wd) {
+		try { Thread.sleep(3000); } catch (InterruptedException e) { e.printStackTrace(); }
+		wd.findElement(By.xpath("/html/body/div[1]/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[8]/a")).click();
+	}
+	
 	public static WebElement timelineTrainersPerPage(WebDriver wd) {
 		return wd.findElement(By.id("input_3"));
 //		return wd.findElement(By.xpath("//*[@id=\"input_181\"]"));			// xpath/id changes when the page is loaded/reloaded
