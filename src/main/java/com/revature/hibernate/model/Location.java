@@ -25,19 +25,10 @@ public class Location {
 	@Column(name="LOCATION_STATE", nullable=false, updatable=true, length=20)
 	private String locationState;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JoinTable(name="LOCATION_BUILDING", joinColumns=@JoinColumn(name="LOCATION_ID"), inverseJoinColumns=@JoinColumn(name="BUILDING_ID"))
 	private Collection<Building> buildings = new ArrayList<Building>();
 	
-	
-	
-	public Collection<Building> getBuildings() {
-		return buildings;
-	}
-
-	public void setBuildings(Collection<Building> buildings) {
-		this.buildings = buildings;
-	}
 
 	public Location() {
 		super();
@@ -66,15 +57,15 @@ public class Location {
 	}
 	
 
-//	public Location(int locationId, String locationName, String locationCity, String locationState,
-//			List<Building> buildings) {
-//		super();
-//		this.locationId = locationId;
-//		this.locationName = locationName;
-//		this.locationCity = locationCity;
-//		this.locationState = locationState;
-//		this.buildings = buildings;
-//	}
+	public Location(int locationId, String locationName, String locationCity, String locationState,
+			List<Building> buildings) {
+		super();
+		this.locationId = locationId;
+		this.locationName = locationName;
+		this.locationCity = locationCity;
+		this.locationState = locationState;
+		this.buildings = buildings;
+	}
 
 	public int getLocationId() {
 		return locationId;
@@ -108,20 +99,21 @@ public class Location {
 		this.locationState = locationState;
 	}
 
-//	@OneToMany(fetch= FetchType.LAZY, mappedBy = "buildingId")
-//	public List<Building> getBuildings() {
-//		return buildings;
-//	}
-//	
-//	public void setBuildings(List<Building> buildings) {
-//		this.buildings = buildings;
-//	}
+	public Collection<Building> getBuildings() {
+		return buildings;
+	}
+
+	public void setBuildings(Collection<Building> buildings) {
+		this.buildings = buildings;
+	}
 
 	@Override
 	public String toString() {
 		return "Location [locationId=" + locationId + ", locationName=" + locationName + ", locationCity="
-				+ locationCity + ", locationState=" + locationState + "]";
+				+ locationCity + ", locationState=" + locationState + ", buildings=" + buildings + "]";
 	}
+
+	
 
 	
 	

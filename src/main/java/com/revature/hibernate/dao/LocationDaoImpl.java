@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import com.revature.hibernate.HibernateUtil;
 import com.revature.hibernate.model.Building;
 import com.revature.hibernate.model.Location;
+import com.revature.hibernate.model.Room;
 
 public class LocationDaoImpl implements LocationDao {
 
@@ -78,6 +79,9 @@ public class LocationDaoImpl implements LocationDao {
 		return HibernateUtil.getSession().createQuery("from Location").list();
 	}
 	
+	
+	
+	
 	public void updateLocation(int id, String locationName, String locationCity, String locationState) {
 		Session session = HibernateUtil.getSession();
 		Transaction t = null;
@@ -120,17 +124,58 @@ public class LocationDaoImpl implements LocationDao {
 		return locationId;
 	}
 	
+	public void deleteLocation(String name) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction t = null;
+		try {
+			Location location = (Location) session.createCriteria(Location.class).add(Restrictions.eq("locationName", name)).list().get(0);
+			t = session.beginTransaction();
+			session.delete(location);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
 	public void addBuilding(String locationName, Building building) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = null;
 		try {
-			Location location = LocationDaoImpl.getInstance().selectByName(locationName);
+			Location location = (Location) session.createCriteria(Location.class).add(Restrictions.eq("locationName", locationName)).list().get(0);
 			location.getBuildings().add(building);
 			building.setLocation(location);
 			
 			t = session.beginTransaction();
-			session.save(location);
-			session.save(building);
+			session.persist(location);
+//			session.saveOrUpdate(location);
+//			session.saveOrUpdate(building);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	
+	public void addRoom(String buildingName, Room room) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction t = null;
+		try {
+			Building building = (Building) session.createCriteria(Building.class).add(Restrictions.eq("buildingName", buildingName)).list().get(0);
+			building.getRooms().add(room);
+			room.setBuilding(building);
+			
+			t = session.beginTransaction();
+			session.persist(building); 
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			if (t != null) {

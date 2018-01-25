@@ -15,6 +15,7 @@
 	
 	<mapping class="com.revature.hibernate.model.Location"></mapping>
 	<mapping class="com.revature.hibernate.model.Building"></mapping> 
+	<mapping class="com.revature.hibernate.model.Room"></mapping>
  
  </session-factory>
  </hibernate-configuration>
