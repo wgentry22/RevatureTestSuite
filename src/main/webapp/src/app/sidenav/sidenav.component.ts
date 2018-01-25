@@ -9,7 +9,9 @@ import { mockArray } from '../mockArray';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-  tests: Array<testObject> = mockArray;
+  allTests: Array<testObject> = mockArray;
+  
+  groups: Array<String> = ["VP","Trainer","Unit"];
 
   constructor(/*testService*/) { }
 

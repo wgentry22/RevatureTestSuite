@@ -6,6 +6,8 @@ import { TestsOverviewComponent } from './tests-overview/tests-overview.componen
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { TestDetailComponent } from './test-detail/test-detail.component';
+import { GroupDetailComponent } from './group-detail/group-detail.component';
+import { MetricsViewComponent } from './metrics-view/metrics-view.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { TestDetailComponent } from './test-detail/test-detail.component';
     AppComponent,
     TestsOverviewComponent,
     SidenavComponent,
-    TestDetailComponent
+    TestDetailComponent,
+    GroupDetailComponent,
+    MetricsViewComponent
   ],
   imports: [
     BrowserModule,
