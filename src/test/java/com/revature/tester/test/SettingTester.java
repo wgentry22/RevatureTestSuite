@@ -1,4 +1,4 @@
-package com.revature.tester;
+package com.revature.tester.test;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;

@@ -15,6 +15,5 @@ public class DriverFactory {
 			driver = new Firefox();
 			return driver.selectDriver();
 		}
-		
 	}
 }
