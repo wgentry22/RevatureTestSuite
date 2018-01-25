@@ -1,7 +1,9 @@
 package com.revature.hibernate.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,11 +27,11 @@ public class Skill {
 	@Column(name="skill_name", nullable=false, updatable=false)
 	private String skillName;
 	
-	@ManyToMany(fetch=FetchType.LAZY, mappedBy="focusSkill")
-	private Collection<Focus> skillFocus;
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="focusSkill")
+	private Collection<Focus> skillFocus = new ArrayList<Focus>();
 	
-	@ManyToMany(fetch=FetchType.LAZY, mappedBy="curriculumSkill")
-	private Collection<Curriculum> skillCurriculum;
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="curriculumSkill")
+	private Collection<Curriculum> skillCurriculum = new ArrayList<Curriculum>();
 
 	public Skill() {
 		super();

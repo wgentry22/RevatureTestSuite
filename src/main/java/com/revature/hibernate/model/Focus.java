@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -33,10 +34,15 @@ public class Focus {
 	inverseJoinColumns=@JoinColumn(name="skill_id"))
 	private Collection<Skill> focusSkill;
 
+	@OneToOne
+	private Curriculum curriculum;
+	
 	//No args constructor
 	public Focus() {
 		super();
 	}
+	
+	
 	
 	//All args constructor
 	public Focus(int focusId, String focusName, Collection<Skill> focusSkill) {

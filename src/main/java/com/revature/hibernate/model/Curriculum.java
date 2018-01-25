@@ -1,7 +1,9 @@
 package com.revature.hibernate.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,14 +32,24 @@ public class Curriculum {
 	private String curriculumName;
 	
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="curriculum_skill", joinColumns=@JoinColumn(name="curriculum_id"),
 	inverseJoinColumns=@JoinColumn(name="skill_id"))
-	private Collection<Skill> curriculumSkill;
+	private Collection<Skill> curriculumSkill = new ArrayList<Skill>();
 
+	
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private Focus focus;
+	
+	
 	//No args constructor
 	public Curriculum() {
 		super();
+	}
+	
+	//Curricumum Name Constructor
+	public Curriculum(String name) {
+		this.curriculumName = name;
 	}
 	
 	//All args constructor

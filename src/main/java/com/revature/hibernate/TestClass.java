@@ -1,7 +1,7 @@
 package com.revature.hibernate;
 
-import com.revature.hibernate.dao.LocationDaoImpl;
-import com.revature.hibernate.model.*;
+import com.revature.hibernate.dao.CurriculumDaoImpl;
+import com.revature.hibernate.model.Curriculum;
 
 public class TestClass {
 
@@ -21,8 +21,16 @@ public class TestClass {
 		
 //		LocationDaoImpl.getInstance().deleteLocation(location.getLocationName());
 		
-		Room room = new Room("Test Room 1");
-		LocationDaoImpl.getInstance().addRoom("Cali Test 1", room);
+//		Room room = new Room("Test Room 1");
+//		LocationDaoImpl.getInstance().addRoom("Cali Test 1", room);
+		
+//		Curriculum curriculum = new Curriculum("Java Test Automation");
+//		CurriculumDaoImpl.getInstance().insertCurriculum(curriculum);
+		
+//		Curriculum curriculum = CurriculumDaoImpl.getInstance().selectCurriculumByName("Java Test Automation");
+//		CurriculumDaoImpl.getInstance().updateCurriculum(curriculum, "JTA");
+//		System.out.println(CurriculumDaoImpl.getInstance().selectCurriculumByName("JTA"));
+		
 		
 	}
 	

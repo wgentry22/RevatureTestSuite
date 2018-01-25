@@ -76,7 +76,14 @@ public class LocationDaoImpl implements LocationDao {
 	}
 	
 	public List<Location> selectAll() {
-		return HibernateUtil.getSession().createQuery("from Location").list();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Location> list = null;
+		try {
+			list = session.createQuery("from Location").list();
+		} finally {
+			session.close();
+		}
+		return list;
 	}
 	
 	
