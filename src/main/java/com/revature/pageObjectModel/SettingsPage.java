@@ -8,6 +8,7 @@ public class SettingsPage {
 	
 	public static WebElement timelineTrainersPerPage(WebDriver wd) {
 		return wd.findElement(By.id("input_3"));
+//		return wd.findElement(By.xpath("//*[@id=\"input_181\"]"));			// xpath/id changes when the page is loaded/reloaded
 	}
 	
 	public static WebElement reportsOutgoingGrads(WebDriver wd) {
@@ -42,5 +43,15 @@ public class SettingsPage {
 	
 	public static WebElement minBetweenTrainerBatch(WebDriver wd) {
 		return wd.findElement(By.id("input_13"));
+	}
+	
+	// only used when logged-in as VP
+	public static WebElement findSaveButton(WebDriver wd) {
+		return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-content/md-list/section/button[1]"));
+	}
+	
+	// only used when logged-in as VP
+	public static WebElement findResetButton(WebDriver wd) {
+		return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-content/md-list/section/button[2]"));
 	}
 }
