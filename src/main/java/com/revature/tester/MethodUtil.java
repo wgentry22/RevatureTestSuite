@@ -18,8 +18,8 @@ public class MethodUtil {
 			} catch(NoSuchElementException e) {
 				if(times < 10) {
 					try {
-						Thread.sleep(200);
 						times++;
+						Thread.sleep(200);
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}

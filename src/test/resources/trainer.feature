@@ -54,6 +54,7 @@ Then I input "TestingR" and "TestingP" of the trainer
 And I click save
 
 #@VP
-#Scenario: As a VP, I want to deactivate a trainer
-#	Given 
+#Scenario: As a VP, I want to give paid time off
+#	Given I am on the trainers page
+	
 
