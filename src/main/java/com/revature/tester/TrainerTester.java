@@ -3,7 +3,6 @@ package com.revature.tester;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.TrainerPage;
 
