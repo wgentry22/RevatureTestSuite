@@ -2,9 +2,10 @@ package com.revature.hibernate.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,11 +28,15 @@ public class Skill {
 	@Column(name="skill_name", nullable=false, updatable=false)
 	private String skillName;
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="focusSkill")
+	@ManyToMany(mappedBy="focusSkill")
 	private Collection<Focus> skillFocus = new ArrayList<Focus>();
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="curriculumSkill")
+	@ManyToMany(mappedBy="curriculumSkill")
 	private Collection<Curriculum> skillCurriculum = new ArrayList<Curriculum>();
+	
+//	@ManyToMany(fetch=FetchType.LAZY, mappedBy="trainerSkill")
+//	@ElementCollection(targetClass=Trainer.class)
+//	private List<Trainer> skillTrainer = new ArrayList<Trainer>();
 
 	public Skill() {
 		super();
@@ -71,6 +76,14 @@ public class Skill {
 	public void setSkillCurriculum(Collection<Curriculum> skillCurriculum) {
 		this.skillCurriculum = skillCurriculum;
 	}
+
+//	public List<Trainer> getSkillTrainer() {
+//		return skillTrainer;
+//	}
+//
+//	public void setSkillTrainer(List<Trainer> skillTrainer) {
+//		this.skillTrainer = skillTrainer;
+//	}
 
 	@Override
 	public String toString() {

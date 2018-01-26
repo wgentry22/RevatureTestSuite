@@ -19,5 +19,6 @@
 		<mapping class="com.revature.hibernate.model.Curriculum"></mapping>
 		<mapping class="com.revature.hibernate.model.Focus"></mapping>
 		<mapping class="com.revature.hibernate.model.Skill"></mapping>
+		<mapping class="com.revature.hibernate.model.Trainer"></mapping>
 	</session-factory>
 </hibernate-configuration>

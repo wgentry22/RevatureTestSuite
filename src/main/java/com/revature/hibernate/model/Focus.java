@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,7 +29,7 @@ public class Focus {
 	private String focusName;
 	
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="skillFocus")
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="focus_skill", joinColumns=@JoinColumn(name="focus_id"),
 	inverseJoinColumns=@JoinColumn(name="skill_id"))
 	private Collection<Skill> focusSkill;
