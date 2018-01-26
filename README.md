@@ -1,7 +1,7 @@
 # RevatureTestSuite
 ### Contributors
 
-* William
+* William (AssignForce Pipeline Test)
 * Robin
 * Andrew
 * Joseph
