@@ -14,8 +14,8 @@ public class CurriculaTest {
 
 	WebDriver driver = DriverFactory.getDriver("chrome");
 	
-  @Test(enabled=false)
-  public void f() {
+  @Test(enabled=false, priority=0)
+  public void cycleThroughAllTabs() {
 	  CirriculaPage.overviewTab(driver).click();
 	  CirriculaPage.batchesTab(driver).click();
 	  CirriculaPage.locationsTab(driver).click();
@@ -25,15 +25,40 @@ public class CurriculaTest {
 	  CirriculaPage.settingsTab(driver).click();
   }
   
-  @Test(enabled=true)
-  public void testOverview() {
+  @Test(enabled=true, priority = 0)
+  public void testCurriculaTab() {
 	  CirriculaPage.curriculaTab(driver).click();
+  }
+  
+  @Test()
+  public void testCoreCurriculaPanel() {
+	  CirriculaPage.toggleCoreCurriculaPanel(driver).click();
+	  //Sleeping for 1 second to illustrate that the panel click works
+	  try {
+		  Thread.sleep(1000);
+	  } catch (InterruptedException e) {
+		  e.printStackTrace();
+	  }
+	  CirriculaPage.toggleCoreCurriculaPanel(driver).click();
+  }
+
+  @Test()
+  public void testFocusPanel() {
+	  CirriculaPage.toggleFocusPanel(driver).click();
+	  //Sleeping for 1 second to illustrate that the panel click works
+	  try {
+		  Thread.sleep(1000);
+	  } catch (InterruptedException e) {
+		  e.printStackTrace();
+	  }
+	  CirriculaPage.toggleFocusPanel(driver).click();
   }
   
 
   @BeforeTest
   public void beforeTest() {
 	  CirriculaPage.loginVPCredentials(driver);
+	  //LoginTester go
 //	  CirriculaPage.authenticate(driver);
   }
 
@@ -45,7 +70,7 @@ public class CurriculaTest {
   @BeforeSuite
   public void beforeSuite() {
 	  CirriculaPage.openSalesforceChrome(driver);
-  }
+  }	
 
   @AfterSuite
   public void afterSuite() {

@@ -40,6 +40,7 @@ public class TrainerPage {
 	public static WebElement selectSaveNewTrainer(WebDriver wd) {
 		//return wd.findElement(By.xpath("/html/body/div[3]/md-dialog/form/md-dialog-actions/button[1]"));
 		return waiting.waitForLoad(wd, "/html/body/div[3]/md-dialog/form/md-dialog-actions/button[1]");
+		
 	}
 	
 	public static WebElement selectCancelAddTrainer(WebDriver wd) {
@@ -49,12 +50,12 @@ public class TrainerPage {
 	
 	public static WebElement insertTrainerFirstname(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"input_208\"]"));
-		return waiting.waitForLoad(wd, "//*[@id=\"input_208\"]");
+		return waiting.waitForLoad(wd, "//*[@id=\"input_1\"]");
 	}
 	
 	public static WebElement insertTrainerLastname(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"input_209\"]"));
-		return waiting.waitForLoad(wd, "//*[@id=\"input_209\"]");
+		return waiting.waitForLoad(wd, "//*[@id=\"input_2\"]");
 	}
 	
 	public static WebElement selectMoveBackInCalendar(WebDriver wd) {
