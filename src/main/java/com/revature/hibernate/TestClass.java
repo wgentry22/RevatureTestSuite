@@ -39,13 +39,13 @@ public class TestClass {
 //		for (Skill s : CurriculumDaoImpl.getInstance().selectCurriculumByName("JTA").getCurriculumSkill()) {
 //			System.out.println(s);
 //		}
-		Skill skill = new Skill("testskill");
-		SkillDaoImpl skilldao = new SkillDaoImpl();
-		skilldao.insertSkill(skill);
-		Trainer trainer = new Trainer("Test", "Test");
-		TrainerDaoImpl trainerdao = new TrainerDaoImpl();
-		trainerdao.insertTrainer(trainer);
-		trainerdao.addSkill(trainer.getTrainerFirstName(), trainer.getTrainerLastName(), skill);
+//		Skill skill = new Skill("testskill");
+//		SkillDaoImpl skilldao = new SkillDaoImpl();
+//		skilldao.insertSkill(skill);
+//		Trainer trainer = new Trainer("Test", "Test");
+//		TrainerDaoImpl trainerdao = new TrainerDaoImpl();
+//		trainerdao.insertTrainer(trainer);
+//		trainerdao.addSkill(trainer.getTrainerFirstName(), trainer.getTrainerLastName(), skill);
 		
 	}
 	
