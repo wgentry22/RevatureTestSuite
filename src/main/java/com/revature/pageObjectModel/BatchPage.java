@@ -64,6 +64,7 @@ public class BatchPage {
 	
 	public static WebElement getBatchNameInput(WebDriver wd) {
 		return MethodUtil.waitForLoad(wd,"(//input)[4]");
+		// return MethodUtil.waitForLoad(wd, "//input[@ng-model=\"bCtrl.batch.name\"]");
 	}
 	
 	public static WebElement getBatchTrainerSelect(WebDriver wd) {
