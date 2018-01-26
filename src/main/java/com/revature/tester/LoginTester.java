@@ -2,12 +2,10 @@ package com.revature.tester;
 
 import static org.testng.Assert.assertEquals;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
@@ -22,18 +20,17 @@ public class LoginTester {
 
 	@BeforeSuite
 	public static void loadProperties() {
-		try {
-			FileInputStream in = new FileInputStream("src/main/resources/locators.properties");
-			props.load(in);
-			in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		MethodUtil.loadPropertiesFile(props);
+	}
+	
+	@AfterClass
+	public static void logout() {
+		MethodUtil.waitForLoad(wd, "(//button)[1]").click();
 	}
 	
 	@AfterSuite
-	public static void logout() {
-		wd.findElement(By.xpath("/html/body/div[1]/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[9]/button")).click();
+	public static void closeDriver() {
+		MethodUtil.waitAndCloseDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
 	}
 	
 	@BeforeTest
@@ -43,19 +40,19 @@ public class LoginTester {
 
 	@Test(groups= {"VP"},priority=2)
 	public static void testVPLogin() {
-		wd.get("http://dev.assignforce.revaturelabs.com/");
-		LoginPage.loginAs(wd, "test.vpoftech@revature.com.int1", "p@$$w0rd1");
+		wd.get(props.getProperty("EntryURL"));
+		LoginPage.loginAs(wd, props.getProperty("VPUsername"), props.getProperty("VPPassword"));
 	}
 	
 	@Test(enabled=false,groups= {"Trainer"})
 	public static void testTrainerLogin() {
-		wd.get("http://dev.assignforce.revaturelabs.com/");
-		LoginPage.loginAs(wd, "test.trainer@revature.com.int1", "trainer123");
+		wd.get(props.getProperty("EntryURL"));
+		LoginPage.loginAs(wd, props.getProperty("TrainerUsername"), props.getProperty("TrainerPassword"));
 	}
 	
 	@Test(enabled=true,priority=1)
 	public static void testIfOnLoginPage() {
-		wd.get("http://dev.assignforce.revaturelabs.com/");
+		wd.get(props.getProperty("EntryURL"));
 		assertEquals("Login | Salesforce",wd.getTitle());
 	}
 
