@@ -2,6 +2,7 @@ package com.revature.hibernate.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -13,6 +14,7 @@ import com.revature.hibernate.model.Skill;
 
 public class CurriculumDaoImpl implements CurriculumDao {
 
+	private static final Logger logger = Logger.getLogger(CurriculumDaoImpl.class);
 	private static CurriculumDaoImpl currDao;
 	
 	private CurriculumDaoImpl () {}
@@ -37,6 +39,7 @@ public class CurriculumDaoImpl implements CurriculumDao {
 				t.rollback();
 			}
 			e.printStackTrace();
+			logger.warn(e);
 		} finally {
 			session.close();
 		}
@@ -44,7 +47,6 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	
 	public Curriculum selectCurriculumByName(String name) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction t = null;
 		Curriculum curriculum = null;
 		try {
 			curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", name)).list().get(0);
@@ -61,10 +63,12 @@ public class CurriculumDaoImpl implements CurriculumDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Curriculum curriculum = null;
 		try {
-			curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumId", id)).list().get(0);
+			curriculum = (Curriculum) session.load(Curriculum.class, id);
+			//curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumId", id)).list().get(0);
 			
 		} catch (HibernateException e) {
 			e.printStackTrace();
+			logger.warn(e);
 		} finally {
 			session.close();
 		}
@@ -101,24 +105,24 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	}
 	
 	public void addSkill(String curriculumName, Skill skill) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction t = null;
-		try {
-			t = session.beginTransaction();
-			Curriculum curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", curriculumName)).list().get(0);
-			curriculum.getCurriculumSkill().add(skill);
-			skill.getSkillCurriculum().add(curriculum);
-			session.persist(curriculum);
-			session.persist(skill);
-			session.getTransaction().commit();
-		} catch (HibernateException e) {
-			if (t != null) {
-				t.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+//		Session session = HibernateUtil.getSessionFactory().openSession();
+//		Transaction t = null;
+//		try {
+//			t = session.beginTransaction();
+//			Curriculum curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", curriculumName)).list().get(0);
+//			curriculum.getCurriculumSkill().add(skill);
+//			skill.getSkillCurriculum().add(curriculum);
+//			session.persist(curriculum);
+//			session.persist(skill);
+//			session.getTransaction().commit();
+//		} catch (HibernateException e) {
+//			if (t != null) {
+//				t.rollback();
+//			}
+//			e.printStackTrace();
+//		} finally {
+//			session.close();
+//		}
 	}
 	
 	public void deleteCurriculum(String name) {

@@ -1,9 +1,6 @@
 package com.revature.hibernate;
 
-import com.revature.hibernate.dao.SkillDaoImpl;
-import com.revature.hibernate.dao.TrainerDaoImpl;
-import com.revature.hibernate.model.Skill;
-import com.revature.hibernate.model.Trainer;
+
 
 public class TestClass {
 

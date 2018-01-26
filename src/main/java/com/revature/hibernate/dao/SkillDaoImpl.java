@@ -2,14 +2,18 @@ package com.revature.hibernate.dao;
 
 import static com.revature.hibernate.HibernateUtil.getSession;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.revature.hibernate.model.Skill;
 
 public class SkillDaoImpl implements SkillDao {
 
+	private static final Logger logger = Logger.getLogger(SkillDaoImpl.class);
+	
 	@Override
 	public void insertSkill(Skill skill) {
 		Session session = null;
@@ -19,7 +23,24 @@ public class SkillDaoImpl implements SkillDao {
 			session.saveOrUpdate(skill);
 			t.commit();
 		} catch (HibernateException e) {
-			
+			logger.warn(e);
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void deleteSkill(String skillName) {
+		Session session = null;
+		try {
+			session = getSession();
+			Transaction t = session.beginTransaction();
+			Skill skill = (Skill) session.createCriteria(Skill.class).add(Restrictions.eq("skillName", skillName)).list().get(0);
+			session.delete(skill);
+			t.commit();
+		} catch (HibernateException e) {
+			logger.warn(e);
+			e.printStackTrace();
 		} finally {
 			session.close();
 		}

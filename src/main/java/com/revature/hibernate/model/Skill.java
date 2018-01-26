@@ -25,14 +25,14 @@ public class Skill {
 	@Column(name="skill_id", nullable=false, updatable=false)
 	private int skillId;
 	
-	@Column(name="skill_name", nullable=false, updatable=false)
+	@Column(name="skill_name", nullable=false, updatable=false, unique=true)
 	private String skillName;
 	
 	@ManyToMany(mappedBy="focusSkill")
 	private Collection<Focus> skillFocus = new ArrayList<Focus>();
 	
-	@ManyToMany(mappedBy="curriculumSkill")
-	private Collection<Curriculum> skillCurriculum = new ArrayList<Curriculum>();
+//	@ManyToMany(mappedBy="curriculumSkill")
+//	private Collection<Curriculum> skillCurriculum = new ArrayList<Curriculum>();
 	
 //	@ManyToMany(fetch=FetchType.LAZY, mappedBy="trainerSkill")
 //	@ElementCollection(targetClass=Trainer.class)
@@ -69,13 +69,13 @@ public class Skill {
 	}
 
 	
-	public Collection<Curriculum> getSkillCurriculum() {
-		return skillCurriculum;
-	}
-
-	public void setSkillCurriculum(Collection<Curriculum> skillCurriculum) {
-		this.skillCurriculum = skillCurriculum;
-	}
+//	public Collection<Curriculum> getSkillCurriculum() {
+//		return skillCurriculum;
+//	}
+//
+//	public void setSkillCurriculum(Collection<Curriculum> skillCurriculum) {
+//		this.skillCurriculum = skillCurriculum;
+//	}
 
 //	public List<Trainer> getSkillTrainer() {
 //		return skillTrainer;
