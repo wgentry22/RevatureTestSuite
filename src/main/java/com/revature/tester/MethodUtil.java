@@ -37,7 +37,7 @@ public class MethodUtil {
 	}
 
 	public static WebElement waitForLoad(WebDriver driver, String xpath) {
-		waitForLoad(driver, xpath, 10);
+		return waitForLoad(driver, xpath, 10);
 	}
 	
 	public static void loadPropertiesFile(Properties props) {
