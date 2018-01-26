@@ -16,7 +16,7 @@ public class MethodUtil {
 			try {
 				element = driver.findElement(By.xpath(xpath));
 			} catch(NoSuchElementException e) {
-				if(times < 10) {
+				if(times < 20) {
 					try {
 						times++;
 						Thread.sleep(200);
