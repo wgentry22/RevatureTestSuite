@@ -1,8 +1,9 @@
 package com.revature.pageObjectModel;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.revature.tester.MethodUtil;
 
 public class BatchPage {
 	static WebElement we;
@@ -21,11 +22,11 @@ public class BatchPage {
 //	Room field 			  
 	
 	public static WebElement getSelectMenuOption(WebDriver wd,int selectMenuNum,int optionNum) {
-		return wd.findElement(By.xpath("(//md-select-menu)["+selectMenuNum+"]/md-option["+optionNum+"]"));
+		return MethodUtil.waitForLoad(wd,"(//md-select-menu)["+selectMenuNum+"]/md-option["+optionNum+"]");
 	}
 	
 	public static WebElement getBatchCurriculumSelect(WebDriver wd) {
-		return wd.findElement(By.xpath("(//md-select)[1]"));		
+		return MethodUtil.waitForLoad(wd,"(//md-select)[1]");		
 	}
 	
 		public static WebElement getBatchCurriculumOption(WebDriver wd) {
@@ -33,7 +34,7 @@ public class BatchPage {
 		}
 	
 	public static WebElement getBatchFocusSelect(WebDriver wd) {
-		return wd.findElement(By.xpath("(//md-select)[2]"));
+		return MethodUtil.waitForLoad(wd,"(//md-select)[2]");
 	}
 	
 		public static WebElement getBatchFocusOption(WebDriver wd) {
@@ -41,7 +42,7 @@ public class BatchPage {
 		}
 	
 	public static WebElement getBatchSkillsSelect(WebDriver wd) {
-		return wd.findElement(By.xpath("(//md-select)[3]"));
+		return MethodUtil.waitForLoad(wd,"(//md-select)[3]");
 	}
 	
 		public static WebElement getBatchSkillsOption(WebDriver wd) {
@@ -49,24 +50,25 @@ public class BatchPage {
 		}
 	
 	public static WebElement getBatchStartDateInput(WebDriver wd) {
-		return wd.findElement(By.xpath("(//input)[1]"));
+		return MethodUtil.waitForLoad(wd,"(//input)[1]");
 	}
 	
 	public static WebElement getBatchEndDateInput(WebDriver wd) {
-		return wd.findElement(By.xpath("(//input)[2]"));
+		return MethodUtil.waitForLoad(wd,"(//input)[2]");
 	}
 	
 	public static WebElement getBatchWeekSpanInput(WebDriver wd) {
 		// NOTE: this input is read-only
-		return wd.findElement(By.xpath("(//input)[3]"));
+		return MethodUtil.waitForLoad(wd,"(//input)[3]");
 	}
 	
 	public static WebElement getBatchNameInput(WebDriver wd) {
-		return wd.findElement(By.xpath("(//input)[4]"));
+		return MethodUtil.waitForLoad(wd,"(//input)[4]");
+		// return MethodUtil.waitForLoad(wd, "//input[@ng-model=\"bCtrl.batch.name\"]");
 	}
 	
 	public static WebElement getBatchTrainerSelect(WebDriver wd) {
-		return wd.findElement(By.xpath("(//md-select)[4]"));
+		return MethodUtil.waitForLoad(wd,"(//md-select)[4]");
 	}
 	
 		public static WebElement getBatchTrainerOption(WebDriver wd) {
@@ -74,39 +76,38 @@ public class BatchPage {
 		}
 	
 	public static WebElement getBatchCoTrainerSelect(WebDriver wd) {
-		return wd.findElement(By.xpath("(//md-select)[5]"));
+		return MethodUtil.waitForLoad(wd,"(//md-select)[5]");
 	}
 		public static WebElement getBatchCoTrainerOption(WebDriver wd) {
 			return getSelectMenuOption(wd, 2, 1);
 		}
 	
 	public static WebElement getBatchLocationSelect(WebDriver wd) {
-		return wd.findElement(By.xpath("(//md-select)[6]"));
+		return MethodUtil.waitForLoad(wd,"(//md-select)[6]");
 	}
 		public static WebElement getBatchLocationOption(WebDriver wd) {
 			return getSelectMenuOption(wd, 3, 1);
 		}
 	
 	public static WebElement getBatchBuildingSelect(WebDriver wd) {
-		return wd.findElement(By.xpath("(//md-select)[7]"));
+		return MethodUtil.waitForLoad(wd,"(//md-select)[7]");
 	}
 		public static WebElement getBatchBuildingOption(WebDriver wd) {
 			return getSelectMenuOption(wd, 4, 1);
 		}
 	
 	public static WebElement getBatchRoomSelect(WebDriver wd) {
-		return wd.findElement(By.xpath("(//md-select)[8]"));
+		return MethodUtil.waitForLoad(wd,"(//md-select)[8]");
 	}
 		public static WebElement getBatchRoomOption(WebDriver wd) {
 			return getSelectMenuOption(wd, 5, 1);
 		}
 	
 	public static WebElement getBatchSubmitBtn(WebDriver wd) {
-		return wd.findElement(By.xpath("(//button)[2]"));
-		//*[@id="view"]/md-card/md-content[1]/form/md-toolbar/button[1]
+		return MethodUtil.waitForLoad(wd,"(//button)[2]");
 	}
 	
 	public static WebElement getBatchCancelBtn(WebDriver wd) {
-		return wd.findElement(By.xpath("(//button)[3]"));
+		return MethodUtil.waitForLoad(wd,"(//button)[3]");
 	}
 }
