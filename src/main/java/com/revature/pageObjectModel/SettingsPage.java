@@ -12,50 +12,49 @@ public class SettingsPage {
 	}
 	
 	public static WebElement timelineTrainersPerPage(WebDriver wd) {
-		return wd.findElement(By.id("input_3"));
-//		return wd.findElement(By.xpath("//*[@id=\"input_181\"]"));			// xpath/id changes when the page is loaded/reloaded
+		return wd.findElement(By.cssSelector("[ng-model*='sCtrl.settings.trainersPerPage']"));
 	}
 	
 	public static WebElement reportsOutgoingGrads(WebDriver wd) {
-		return wd.findElement(By.id("input_4"));
+		return wd.findElement(By.cssSelector("[ng-model*='sCtrl.settings.reportGrads']"));
 	}
 	
 	public static WebElement reportsIncomingCandidates(WebDriver wd) {
-		return wd.findElement(By.id("input_5"));
+		return wd.findElement(By.cssSelector("[ng-model*='sCtrl.settings.reportIncomingGrads']"));
 	}
 	
 	// Drop Down Menu
 	public static WebElement defaultLocation(WebDriver wd) {
-		return wd.findElement(By.id("select_6"));
+		return wd.findElement(By.cssSelector("[ng-model*='sCtrl.settings.defaultLocation']"));
 	}
 
-	// Drop Down Menu
+	// Drop Down Menu - only updates when the page is updated
 	public static WebElement defaultBuilding(WebDriver wd) {
-		return wd.findElement(By.id("select_7"));
+		return wd.findElement(By.cssSelector("[ng-model*='sCtrl.settings.defaultBuilding']"));
 	}
 	
 	public static WebElement minBatchSize(WebDriver wd) {
-		return wd.findElement(By.id("input_10"));
+		return wd.findElement(By.cssSelector("[ng-model*='sCtrl.settings.minBatchSize']"));
 	}
 	
 	public static WebElement maxBatchSize(WebDriver wd) {
-		return wd.findElement(By.id("input_11"));
+		return wd.findElement(By.cssSelector("[ng-model*='sCtrl.settings.maxBatchSize']"));
 	}
 	
 	public static WebElement defaultBatchLength(WebDriver wd) {
-		return wd.findElement(By.id("input_12"));
+		return wd.findElement(By.cssSelector("[ng-model*='sCtrl.settings.batchLength']"));
 	}
 	
 	public static WebElement minBetweenTrainerBatch(WebDriver wd) {
-		return wd.findElement(By.id("input_13"));
+		return wd.findElement(By.cssSelector("[ng-model*='sCtrl.settings.trainerBreakDays']"));
 	}
 	
-	// only used when logged-in as VP
+	// -------- only used when logged-in as VP --------
 	public static WebElement findSaveButton(WebDriver wd) {
 		return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-content/md-list/section/button[1]"));
 	}
-	
-	// only used when logged-in as VP
+
+	// -------- only used when logged-in as VP --------
 	public static WebElement findResetButton(WebDriver wd) {
 		return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-content/md-list/section/button[2]"));
 	}
