@@ -13,13 +13,13 @@ public class SettingTester {											// TestNG Framework
 
 	static WebDriver wd = DriverFactory.getDriver("chrome");
 	
-	@BeforeSuite(enabled = false, groups = "VP")
+	@BeforeSuite(enabled = true, groups = "VP")
 	private static void loginAsVP() {									// don't need if we driver is already open
 		wd.get("https://dev.assignforce.revaturelabs.com");
 		LoginPage.loginAs(wd, "test.vpoftech@revature.com.int1", "yuvi1712");
 	}
 	
-	@BeforeSuite(enabled = true, groups = "Trainer")
+	@BeforeSuite(enabled = false, groups = "Trainer")
 	private static void loginAsTrainer() {								// don't need if we driver is already open
 		wd.get("https://dev.assignforce.revaturelabs.com");
 		LoginPage.loginAs(wd, "test.trainer@revature.com.int1", "trainer123");
@@ -30,7 +30,7 @@ public class SettingTester {											// TestNG Framework
 		SettingsPage.navigateToSettingsPage(wd);
 	}
 	
-	@Test(enabled = false, groups = "VP")
+	@Test(enabled = true, groups = "VP")
 	public static void testSettingsPageAsVP() {
 		
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		// makes sure the page loads, before changing the fields
@@ -66,7 +66,7 @@ public class SettingTester {											// TestNG Framework
 //		SettingsPage.findSaveButton(wd).click();
 	}
 	
-	@Test(enabled = true, groups = "Trainer")
+	@Test(enabled = false, groups = "Trainer")
 	public static void testSettingsPageAsTrainer() {
 		
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		// makes sure the page loads, before changing the fields
