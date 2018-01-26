@@ -65,9 +65,9 @@ public class CirriculaPage {
 		return e;
 	}
 	
-//	/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]
+//	/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]/a
 	public static WebElement curriculaTab(WebDriver driver) {
-		e = util.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]/a");
+		e = util.waitForLoad(driver, "//li[@name=\"curricula\"][@href=\"curriculum\"]/a[@href=\"curriculum\"]");
 		return e;
 		
 	}
@@ -106,6 +106,21 @@ public class CirriculaPage {
 		return e;
 	}
 	
+//	//*[@id="core"]/md-list/md-list-item[6]/button[2]
+	public static WebElement removeCurriculaButton(WebDriver driver) {
+		e = util.waitForLoad(driver, "//*[@id=\"core\"]/md-list/md-list-item[6]/button[2]");
+		return e;
+	}
 	
+	
+	public static WebElement cancelRemoveCurriculumButton(WebDriver driver) {
+		e = util.waitForLoad(driver, "/html/body/div[3]/md-dialog/md-dialog-actions/button[1]");
+		return e;
+	}
+	
+	public static WebElement confirmRemoveCurriculumButton(WebDriver driver) {
+		e = util.waitForLoad(driver, "/html/body/div[3]/md-dialog/md-dialog-actions/button[2]");
+		return e;
+	}
 	
 }

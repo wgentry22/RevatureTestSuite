@@ -14,14 +14,28 @@ public class CurriculaTest {
 
 	WebDriver driver = DriverFactory.getDriver("chrome");
 	
-  @Test(enabled=false, priority=0)
-  public void cycleThroughAllTabs() {
-	  CirriculaPage.overviewTab(driver).click();
+  @Test(enabled=false)
+  public void testBatchesTab() {
 	  CirriculaPage.batchesTab(driver).click();
+  }
+  
+  @Test(enabled=false)
+  public void testLocationsTab() {
 	  CirriculaPage.locationsTab(driver).click();
-	  CirriculaPage.curriculaTab(driver).click();
+  }
+  
+  @Test(enabled=false)
+  public void testTrainersTab() {
 	  CirriculaPage.trainersTab(driver).click();
+  }
+  
+  @Test(enabled=false)
+  public void testReportsTab() {
 	  CirriculaPage.reportsTab(driver).click();
+  }
+  
+  @Test(enabled=false)
+  public void testSettingsTab() {
 	  CirriculaPage.settingsTab(driver).click();
   }
   
@@ -35,7 +49,7 @@ public class CurriculaTest {
 	  CirriculaPage.toggleCoreCurriculaPanel(driver).click();
 	  //Sleeping for 1 second to illustrate that the panel click works
 	  try {
-		  Thread.sleep(1000);
+		  Thread.sleep(2000);
 	  } catch (InterruptedException e) {
 		  e.printStackTrace();
 	  }
@@ -47,18 +61,23 @@ public class CurriculaTest {
 	  CirriculaPage.toggleFocusPanel(driver).click();
 	  //Sleeping for 1 second to illustrate that the panel click works
 	  try {
-		  Thread.sleep(1000);
+		  Thread.sleep(2000);
 	  } catch (InterruptedException e) {
 		  e.printStackTrace();
 	  }
 	  CirriculaPage.toggleFocusPanel(driver).click();
   }
   
+  @Test
+  public void testRemoveCurricula() {
+	  CirriculaPage.toggleFocusPanel(driver).click();
+	  CirriculaPage.removeCurriculaButton(driver).click();
+	  CirriculaPage.cancelRemoveCurriculumButton(driver).click();
+  }
 
   @BeforeTest
   public void beforeTest() {
 	  CirriculaPage.loginVPCredentials(driver);
-	  //LoginTester go
 //	  CirriculaPage.authenticate(driver);
   }
 
