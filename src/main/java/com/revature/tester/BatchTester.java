@@ -5,29 +5,53 @@ import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
+import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.BatchPage;
 
 public class BatchTester {
-	WebDriver wd;
-	Properties props;
+	static WebDriver wd = DriverFactory.getDriver("chrome");
+	static Properties props;
+	
+	public static void fillInputs() {
+		BatchPage.getBatchCurriculumSelect(wd).click();
+		BatchPage.getBatchCurriculumOption(wd).click();
+		BatchPage.getBatchFocusSelect(wd).click();
+		BatchPage.getBatchFocusOption(wd).click();
+		BatchPage.getBatchSkillsSelect(wd).click();
+		BatchPage.getBatchSkillsOption(wd).click();
+		BatchPage.getBatchTrainerSelect(wd).click();
+		BatchPage.getBatchTrainerOption(wd).click();
+		BatchPage.getBatchCoTrainerSelect(wd).click();
+		BatchPage.getBatchCoTrainerOption(wd).click();
+		BatchPage.getBatchStartDateInput(wd).sendKeys("12/11/2017");
+		BatchPage.getBatchEndDateInput(wd).sendKeys("03/11/2018");
+		// Don't need to mess with week span
+		//BatchPage.getBatchWeekSpanInput(wd).click();
+		BatchPage.getBatchLocationSelect(wd).click();
+		BatchPage.getBatchLocationOption(wd).click();
+		BatchPage.getBatchBuildingSelect(wd).click();
+		BatchPage.getBatchBuildingOption(wd).click();
+		BatchPage.getBatchRoomSelect(wd).click();
+		BatchPage.getBatchRoomOption(wd).click();
+	}
 	
 	@Test(groups= {"VP"})
-	public void testVPCreateBatch() {
+	public static void testVPCreateBatch() {
 		// navigate to correct page
-		wd.get("");
+		wd.get("https://dev.assignforce.revaturelabs.com/batches");
 		// input new batch info into fields
-		BatchPage.getBatchCurriculumInput(wd).sendKeys("Java");
-		BatchPage.getBatchFocusInput(wd).sendKeys("Testing");
-		BatchPage.getBatchSkillsInput(wd).sendKeys("Automation");
-		BatchPage.getBatchTrainerInput(wd).sendKeys("Yuvi");
-		BatchPage.getBatchCoTrainerInput(wd).sendKeys("N/A");
-		BatchPage.getBatchStartDateInput(wd).sendKeys("12/08/2017");
-		BatchPage.getBatchEndDateInput(wd).sendKeys("03/08/2018");
-		BatchPage.getBatchWeekSpanInput(wd).sendKeys("11");
-		BatchPage.getBatchLocationInput(wd).sendKeys("DC");
-		BatchPage.getBatchBuildingInput(wd).sendKeys("11730");
-		BatchPage.getBatchRoomInput(wd).sendKeys("201");
+		fillInputs();
 		// submit button/create new batch
 		BatchPage.getBatchSubmitBtn(wd).click();
+	}
+	
+	@Test(groups= {"VP"})
+	public static void testVPCancelBatchCreation() {
+		// navigate to correct page
+		wd.get("https://dev.assignforce.revaturelabs.com/batches");
+		// input new batch info into fields
+		fillInputs();
+		// hit button to cancel new batch creation
+		BatchPage.getBatchCancelBtn(wd).click();
 	}
 }
