@@ -33,12 +33,12 @@ public class BatchTester {
 			e.printStackTrace();
 		} // wait 5 seconds
 		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "(//button)[1]"));
-		MethodUtil.waitAndCloseDriver(wd, Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
+		MethodUtil.waitAndQuitDriver(wd, Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
 	}
 	
 	@AfterSuite
 	public static void closeDriver() {
-		MethodUtil.waitAndCloseDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
+		MethodUtil.waitAndQuitDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
 	}
 	
 	public static void fillInputs() {

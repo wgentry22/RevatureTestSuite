@@ -30,7 +30,7 @@ public class LoginTester {
 	
 	@AfterSuite
 	public static void closeDriver() {
-		MethodUtil.waitAndCloseDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
+		MethodUtil.waitAndQuitDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
 	}
 	
 	@BeforeTest
