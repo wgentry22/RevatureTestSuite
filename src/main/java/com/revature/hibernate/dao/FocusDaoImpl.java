@@ -104,7 +104,7 @@ public class FocusDaoImpl implements FocusDao {
 		try {
 			session = getSession();
 			Transaction t = session.beginTransaction();
-			Focus focus = (Focus) session.createCriteria(Trainer.class).add(Restrictions.eq("focusName", focusName)).list().get(0);
+			Focus focus = (Focus) session.createCriteria(Focus.class).add(Restrictions.eq("focusName", focusName)).list().get(0);
 			focus.getFocusSkill().add(skill);
 			session.saveOrUpdate(focus);
 			t.commit();
