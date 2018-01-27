@@ -20,125 +20,94 @@ import com.revature.pageObjectModel.TrainerPage;
 
 public class TrainerTestTest {
 	WebDriver wd = DriverFactory.getDriver("chrome");
-  @Test(groups= {"VP","Trainer"}, priority=0)
+  @Test(groups= {"VPAccept","VPDeny","Trainer","first"})
   public void clickTrainersTab() { 
-	  try {
-		  TrainerPage.selectTrainersTab(wd);
-	  } catch(Exception e) {
-		  fail();
-	  }
-	  assertTrue(true);
+	  TrainerPage.selectTrainersTab(wd);
   }
   
-  @Test(groups="VP", priority=1)
+  @Test(groups= {"VPAccept","VPDeny","first"}, priority=1)
   public void clickAddTrainer() {
 	  TrainerPage.selectAddTrainer(wd).click();
-	  assertTrue(true);
+	  //writeTrainerFullName();
   }
-  @Test(groups="VP")
-  public void writeTrainerFullName(String firstname, String lastname) {
-	  try {
-		  TrainerPage.insertTrainerFirstname(wd).sendKeys(firstname);
-		  TrainerPage.insertTrainerLastname(wd).sendKeys(lastname);
-	  } catch(Exception e) {
-		  fail();
-	  }
-	  assertTrue(true);
+  @Test(groups= {"VPAccept","VPDeny"}, dependsOnMethods="clickAddTrainer", priority=1)
+  public void writeTrainerFullName() {
+	  TrainerPage.insertTrainerFirstname(wd).sendKeys("Testing");
+	  TrainerPage.insertTrainerLastname(wd).sendKeys("Testing");
+	  clickAcceptTrainerInput();
   }
   
-  @Test(groups="VP")
-  public void acceptTrainerInput() {
-	  try {
-		  TrainerPage.selectSaveNewTrainer(wd).click();
-	  } catch(Exception e) {
-		  fail();
-	  }
-	  assertTrue(true);
+  //@Test(groups= {"VPAccept"}, dependsOnMethods="writeTrainerFullName", priority=3)
+  public void clickAcceptTrainerInput() {
+	  TrainerPage.selectSaveNewTrainer(wd).click();
   }
   
-  @Test(groups="VP")
+  @Test(groups= {"VPAccept","VPDeny"}, dependsOnMethods="clickAddTrainer", priority=4)
   public void clickCancelTrainerInput() {
-	  try {
-		  TrainerPage.selectCancelAddTrainer(wd).click();
-	  } catch (Exception e) {
-		  fail();
-	  }
-	  assertTrue(true);
+	  TrainerPage.selectCancelAddTrainer(wd).click();
   }
   
-  @Test(groups="VP")
+  @Test(groups= {"VPAccept","VPDeny","first"}, priority=5)
   public void clickPTOCalendar() {
-	  try {
-		  TrainerPage.selectViewPTOCalendar(wd).click();
-	  } catch (Exception e) {
-		  fail();
-	  }
-	  assertTrue(true);
+	  TrainerPage.selectViewPTOCalendar(wd).click();
   }
   
-  @Test(groups="VP")
+  @Test(groups= {"VPAccept"}, dependsOnMethods="clickPTOCalendar", priority=6)
   public void clickNewPTORequest() {
-	  try {
 		  TrainerPage.selectAddPTORequest(wd).click();
-	  } catch (Exception e) {
-		  fail();
-	  }
-	  assertTrue(true);
   }
   
-  @Test(groups="VP")
+  @Test(groups= {"VPDeny"}, dependsOnMethods="clickPTOCalendar", priority=7)
   public void clickCancelPTORequest() {
-	  try {
-		  TrainerPage.selectCancelPTORequest(wd).click();
-	  } catch (Exception e) {
-		  fail();
-	  }
-	  assertTrue(true);
+	  TrainerPage.selectCancelPTORequest(wd).click();
   }
   
-  @Test(groups="VP")
-  public void clickDownloadResume() {
-	  try {
-		  TrainerPage.selectCancelAddTrainer(wd).click();
-	  } catch (Exception e) {
-		  fail();
-	  }
-	  assertTrue(true);
+  @Test(groups= {"VPAccept","VPDeny","first"}, priority=8)
+  public void clickProfile() {
+	  TrainerPage.selectCancelAddTrainer(wd).click();
   }
   
-  @Test
+  @Test(groups= {"VPDeny"}, priority=9)
   public void clickDeactivateTrainer() {
 	  TrainerPage.selectDeactivateTrainer(wd);
-	  assertTrue(true);
   }
   
-  @Test(enabled=false)
+  @Test(groups= {"VPAccept"}, priority=10)
   public void clickReactivateTrainer() {
-	 //TODO create reactivatetrainerbutton on trainerpage
+	 TrainerPage.selectReactivateTrainer(wd).click();
   }
   
-  @Test
-  public void stuff() {
-	  
+  @Test(groups= {"VPAccept","VPDeny",}, priority=11)
+  public void clickDownloadResume() {
+	  TrainerPage.selectDownloadResume(wd).click();
   }
   
-  @BeforeMethod
+  @BeforeMethod//(groups="first")//(groups= {"VPAccept","VPDeny","trainer"})
   public void beforeMethod() {
+	  try {
+		Thread.sleep(230);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
   }
 
   @AfterMethod
   public void afterMethod() {
+	  TrainerPage.selectTrainersTab(wd);
   }
 
-  @BeforeClass
+  @BeforeClass(groups= {"VPAccept","VPDeny","trainer"})
   public void signInAsVP() {
+	  LoginPage.goToAssignForce(wd);
 	  LoginPage.getUsernameInput(wd).sendKeys("test.vpoftech@revature.com.int1");
 	  LoginPage.getPasswordInput(wd).sendKeys("yuvi1712");
 	  LoginPage.getLoginBtn(wd).submit();
+	  TrainerPage.selectTrainersTab(wd).click();
   }
 
-  @AfterClass
+  @AfterClass(groups= {"VPAccept","VPDeny","trainer"})
   public void afterClass() {
+	  TrainerPage.selectLogout(wd).click();
   }
 
   @BeforeTest

@@ -1,31 +1,28 @@
 package com.revature.tester;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.SettingsPage;
 
 public class SettingTester {											// TestNG Framework
 
-	static WebDriver wd = null;											// don't need if we driver is already open
-//	static WebDriver wd = DriverFactory.getDriver("chrome");
+	static WebDriver wd = DriverFactory.getDriver("chrome");
 	
-	@BeforeSuite(enabled = false, groups = "VP")
+	@BeforeSuite(enabled = true, groups = "VP")
 	private static void loginAsVP() {									// don't need if we driver is already open
-		wd = DriverFactory.getDriver("chrome");
 		wd.get("https://dev.assignforce.revaturelabs.com");
-		wd.findElement(By.name("username")).sendKeys("test.trainer@revature.com.int1");
-		wd.findElement(By.name("pw")).sendKeys("trainer123");
-		wd.findElement(By.xpath("//*[@id=\"Login\"]")).submit();
-//		LoginPage.loginAs(wd, "test.vpoftech@revature.com.int1", "yuvi1234");
+		LoginPage.loginAs(wd, "test.vpoftech@revature.com.int1", "yuvi1712");
 	}
 	
-	@BeforeSuite(enabled = true, groups = "Trainer")
+	@BeforeSuite(enabled = false, groups = "Trainer")
 	private static void loginAsTrainer() {								// don't need if we driver is already open
+		wd.get("https://dev.assignforce.revaturelabs.com");
+		LoginPage.loginAs(wd, "test.trainer@revature.com.int1", "trainer123");
 	}
 	
 	@BeforeTest(enabled = true)
@@ -33,10 +30,10 @@ public class SettingTester {											// TestNG Framework
 		SettingsPage.navigateToSettingsPage(wd);
 	}
 	
-	@Test(enabled = false, groups = "VP")
+	@Test(enabled = true, groups = "VP")
 	public static void testSettingsPageAsVP() {
 		
-		try { Thread.sleep(3000); } catch (InterruptedException e) { e.printStackTrace(); }		// makes sure the page loads, before changing the fields
+		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		// makes sure the page loads, before changing the fields
 		
 		SettingsPage.timelineTrainersPerPage(wd).clear();
 		SettingsPage.timelineTrainersPerPage(wd).sendKeys("10");
@@ -55,7 +52,7 @@ public class SettingTester {											// TestNG Framework
 		
 		String newLocation = "Revature";
 		String newLocation2 = "New York City";
-		SettingsPage.defaultLocation(wd).sendKeys(newLocation);
+		SettingsPage.defaultLocation(wd).sendKeys(newLocation2);
 		
 //		SettingsPage.defaultBuilding(wd).sendKeys();		// Default Building field doesn't update until you save the default location AND refresh the page...
 		
@@ -65,14 +62,14 @@ public class SettingTester {											// TestNG Framework
 		SettingsPage.maxBatchSize(wd).clear();
 		SettingsPage.maxBatchSize(wd).sendKeys("10");
 		
-		// ----- saving the changes -----
-//		SettingsPage.findSaveButton(wd).click();			// only available as VP
+		// ----- saving the changes : only available as VP -----
+//		SettingsPage.findSaveButton(wd).click();
 	}
 	
-	@Test(enabled = true, groups = "Trainer")
+	@Test(enabled = false, groups = "Trainer")
 	public static void testSettingsPageAsTrainer() {
 		
-		try { Thread.sleep(3000); } catch (InterruptedException e) { e.printStackTrace(); }		// makes sure the page loads, before changing the fields
+		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		// makes sure the page loads, before changing the fields
 		
 		SettingsPage.timelineTrainersPerPage(wd).clear();
 		SettingsPage.timelineTrainersPerPage(wd).sendKeys("20");
@@ -91,7 +88,7 @@ public class SettingTester {											// TestNG Framework
 		
 		String newLocation = "Revature";
 		String newLocation2 = "New York City";
-		SettingsPage.defaultLocation(wd).sendKeys(newLocation);
+		SettingsPage.defaultLocation(wd).sendKeys(newLocation2);
 		
 		SettingsPage.minBatchSize(wd).clear();
 		SettingsPage.minBatchSize(wd).sendKeys("20");

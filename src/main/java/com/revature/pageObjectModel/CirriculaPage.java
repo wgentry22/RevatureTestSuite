@@ -32,7 +32,7 @@ public class CirriculaPage {
 	
 	
 	public static void authenticate(WebDriver driver) {
-		driver.findElement(By.id("emc")).sendKeys("19655");
+		driver.findElement(By.id("emc")).sendKeys("91757");
 		driver.findElement(By.id("save")).click();
 	}
 	
@@ -65,7 +65,7 @@ public class CirriculaPage {
 		return e;
 	}
 	
-//	/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]
+//	/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]/a
 	public static WebElement curriculaTab(WebDriver driver) {
 		e = util.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]/a");
 		return e;
@@ -106,6 +106,21 @@ public class CirriculaPage {
 		return e;
 	}
 	
+//	//*[@id="core"]/md-list/md-list-item[6]/button[2]
+	public static WebElement removeCurriculaButton(WebDriver driver) {
+		e = util.waitForLoad(driver, "//div[@class=\"md-dialog-content\"]//*button[1]");
+		return e;
+	}
 	
+//	/html/body/div[3]/md-dialog/md-dialog-actions/button[1]
+	public static WebElement cancelRemoveCurriculumButton(WebDriver driver) {
+		e = util.waitForLoad(driver, "//*[@class=\"md-dialog-content\"]//*button[1]");
+		return e;
+	}
+	
+	public static WebElement confirmRemoveCurriculumButton(WebDriver driver) {
+		e = util.waitForLoad(driver, "//*[@class=\"md-dialog-content\"]//*button[2]");
+		return e;
+	}
 	
 }

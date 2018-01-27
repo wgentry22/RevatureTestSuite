@@ -11,15 +11,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class MethodUtil {
-
-	public static WebElement waitForLoad(WebDriver driver, String xpath) {
-		WebElement element = null;
+	
+	public static WebElement waitForLoad(WebDriver driver, String xpath, int nTimes200Mill) {
 		int times = 0;
+		WebElement element = null;
 		while(element == null) {
 			try {
 				element = driver.findElement(By.xpath(xpath));
 			} catch(NoSuchElementException e) {
-				if(times < 10) {
+				if(times < nTimes200Mill) {
+
 					try {
 						times++;
 						Thread.sleep(200);
@@ -33,8 +34,11 @@ public class MethodUtil {
 				}
 			}
 		}
-		times = 0;
 		return element;
+	}
+
+	public static WebElement waitForLoad(WebDriver driver, String xpath) {
+		return waitForLoad(driver, xpath, 10);
 	}
 	
 	public static void loadPropertiesFile(Properties props) {
