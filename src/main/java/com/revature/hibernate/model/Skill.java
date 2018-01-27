@@ -1,17 +1,10 @@
 package com.revature.hibernate.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,8 +21,8 @@ public class Skill {
 	@Column(name="skill_name", nullable=false, updatable=false, unique=true)
 	private String skillName;
 	
-	@ManyToMany(mappedBy="focusSkill")
-	private Collection<Focus> skillFocus = new ArrayList<Focus>();
+//	@ManyToMany(mappedBy="focusSkill")
+//	private Collection<Focus> skillFocus = new ArrayList<Focus>();
 	
 //	@ManyToMany(mappedBy="curriculumSkill")
 //	private Collection<Curriculum> skillCurriculum = new ArrayList<Curriculum>();

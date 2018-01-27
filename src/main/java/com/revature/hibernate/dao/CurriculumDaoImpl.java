@@ -65,7 +65,6 @@ public class CurriculumDaoImpl implements CurriculumDao {
 		try {
 			curriculum = (Curriculum) session.load(Curriculum.class, id);
 			//curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumId", id)).list().get(0);
-			
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			logger.warn(e);
@@ -92,7 +91,7 @@ public class CurriculumDaoImpl implements CurriculumDao {
 		try {
 			t = session.beginTransaction();
 			curriculum.setCurriculumName(name);
-			session.saveOrUpdate(curriculum);
+			session.update(curriculum);
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			if (t != null) {
@@ -105,24 +104,22 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	}
 	
 	public void addSkill(String curriculumName, Skill skill) {
-//		Session session = HibernateUtil.getSessionFactory().openSession();
-//		Transaction t = null;
-//		try {
-//			t = session.beginTransaction();
-//			Curriculum curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", curriculumName)).list().get(0);
-//			curriculum.getCurriculumSkill().add(skill);
-//			skill.getSkillCurriculum().add(curriculum);
-//			session.persist(curriculum);
-//			session.persist(skill);
-//			session.getTransaction().commit();
-//		} catch (HibernateException e) {
-//			if (t != null) {
-//				t.rollback();
-//			}
-//			e.printStackTrace();
-//		} finally {
-//			session.close();
-//		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction t = null;
+		try {
+			t = session.beginTransaction();
+			Curriculum curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", curriculumName)).list().get(0);
+			curriculum.getCurriculumSkill().add(skill);
+			session.persist(curriculum);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 	}
 	
 	public void deleteCurriculum(String name) {

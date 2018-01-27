@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,6 +35,7 @@ public class Curriculum {
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="curriculum_skill", joinColumns=@JoinColumn(name="curriculum_id"),
 	inverseJoinColumns=@JoinColumn(name="skill_id"))
+	@ElementCollection(targetClass=Skill.class)
 	private Collection<Skill> curriculumSkill = new ArrayList<Skill>();
 
 	

@@ -1,18 +1,24 @@
 package com.revature.hibernate.dao;
 
+import static com.revature.hibernate.HibernateUtil.getSession;
+
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 import com.revature.hibernate.HibernateUtil;
 import com.revature.hibernate.model.Focus;
 import com.revature.hibernate.model.Skill;
+import com.revature.hibernate.model.Trainer;
 
 public class FocusDaoImpl implements FocusDao {
 
+	private static final Logger logger = Logger.getLogger(FocusDaoImpl.class);
 	public void insertFocus(Focus focus) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = null;
@@ -49,6 +55,7 @@ public class FocusDaoImpl implements FocusDao {
 		try {
 			focus = (Focus) session.createCriteria(Focus.class).add(Restrictions.eq("focusName", name)).list().get(0);
 		} catch (HibernateException e) {
+			logger.warn(e);
 			e.printStackTrace();
 		} finally {
 			session.close();
@@ -63,6 +70,7 @@ public class FocusDaoImpl implements FocusDao {
 		try {
 			focus = (Focus) session.createCriteria(Focus.class).add(Restrictions.eq("focusId", id)).list().get(0);
 		} catch (HibernateException e) {
+			logger.warn(e);
 			e.printStackTrace();
 		} finally {
 			session.close();
@@ -83,6 +91,7 @@ public class FocusDaoImpl implements FocusDao {
 			if (t != null) {
 				t.rollback();
 			}
+			logger.warn(e);
 			e.printStackTrace();
 		} finally {
 			session.close();
@@ -91,8 +100,20 @@ public class FocusDaoImpl implements FocusDao {
 
 	@Override
 	public void addSkill(String focusName, Skill skill) {
-		// TODO Auto-generated method stub
-		
+		Session session = null;
+		try {
+			session = getSession();
+			Transaction t = session.beginTransaction();
+			Focus focus = (Focus) session.createCriteria(Trainer.class).add(Restrictions.eq("focusName", focusName)).list().get(0);
+			focus.getFocusSkill().add(skill);
+			session.saveOrUpdate(focus);
+			t.commit();
+		} catch (HibernateException e) {
+			logger.warn(e);
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}		
 	}
 
 }
