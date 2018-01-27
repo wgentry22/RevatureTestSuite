@@ -32,7 +32,7 @@ public class CirriculaPage {
 	
 	
 	public static void authenticate(WebDriver driver) {
-		driver.findElement(By.id("emc")).sendKeys("19655");
+		driver.findElement(By.id("emc")).sendKeys("91757");
 		driver.findElement(By.id("save")).click();
 	}
 	
