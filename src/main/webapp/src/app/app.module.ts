@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+//import {JsonpModule, Jsonp, Response} from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TestsOverviewComponent } from './tests-overview/tests-overview.component';
@@ -21,9 +23,11 @@ import { MetricsViewComponent } from './metrics-view/metrics-view.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    HttpClientJsonpModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
