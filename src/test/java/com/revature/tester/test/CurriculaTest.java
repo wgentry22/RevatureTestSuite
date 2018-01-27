@@ -1,5 +1,7 @@
 package com.revature.tester.test;
 
+import java.io.IOException;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
@@ -15,21 +17,66 @@ public class CurriculaTest {
 	WebDriver driver = DriverFactory.getDriver("chrome");
 	
   @Test(enabled=false)
-  public void f() {
-	  CirriculaPage.overviewTab(driver).click();
+  public void testBatchesTab() {
 	  CirriculaPage.batchesTab(driver).click();
+  }
+  
+  @Test(enabled=false)
+  public void testLocationsTab() {
 	  CirriculaPage.locationsTab(driver).click();
-	  CirriculaPage.curriculaTab(driver).click();
+  }
+  
+  @Test(enabled=false)
+  public void testTrainersTab() {
 	  CirriculaPage.trainersTab(driver).click();
+  }
+  
+  @Test(enabled=false)
+  public void testReportsTab() {
 	  CirriculaPage.reportsTab(driver).click();
+  }
+  
+  @Test(enabled=false)
+  public void testSettingsTab() {
 	  CirriculaPage.settingsTab(driver).click();
   }
   
-  @Test(enabled=true)
-  public void testOverview() {
-	  CirriculaPage.curriculaTab(driver).click();
+  @Test(enabled=true, priority = 0)
+  public void testCurriculaTab() {
+	 CirriculaPage.curriculaTab(driver).click();
   }
   
+  @Test(enabled=true, priority=1)
+  public void testCoreCurriculaPanel() {
+	  CirriculaPage.toggleCoreCurriculaPanel(driver).click();
+	  //Sleeping for 1 second to illustrate that the panel click works
+//	  try {
+//		  Thread.sleep(2000);
+//	  } catch (InterruptedException e) {
+//		  e.printStackTrace();
+//	  }
+	  CirriculaPage.toggleCoreCurriculaPanel(driver).click();
+  }
+
+  @Test(enabled=true, priority=2)
+  public void testFocusPanel() {
+	  CirriculaPage.toggleFocusPanel(driver).click();
+	  //Sleeping for 1 second to illustrate that the panel click works
+//	  try {
+//		  Thread.sleep(2000);
+//	  } catch (InterruptedException e) {
+//		  e.printStackTrace();
+//	  }
+	  CirriculaPage.toggleFocusPanel(driver).click();
+  }
+  
+  @Test(enabled=true, priority=3)
+  public void testRemoveCurricula() {
+	  CirriculaPage.toggleFocusPanel(driver).click();
+	  CirriculaPage.removeCurriculaButton(driver).click();
+	  
+	  CirriculaPage.cancelRemoveCurriculumButton(driver).click();
+  }
 
   @BeforeTest
   public void beforeTest() {
@@ -45,7 +92,7 @@ public class CurriculaTest {
   @BeforeSuite
   public void beforeSuite() {
 	  CirriculaPage.openSalesforceChrome(driver);
-  }
+  }	
 
   @AfterSuite
   public void afterSuite() {

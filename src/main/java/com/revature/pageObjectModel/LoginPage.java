@@ -6,6 +6,10 @@ import org.openqa.selenium.WebElement;
 
 public class LoginPage {
 	
+	public static void goToAssignForce(WebDriver wd) {
+		wd.get("http://dev.assignforce.revaturelabs.com/");
+	}
+	
 	public static WebElement getUsernameInput(WebDriver wd) {
 		return wd.findElement(By.id("username"));
 	}
@@ -16,5 +20,12 @@ public class LoginPage {
 	
 	public static WebElement getLoginBtn(WebDriver wd) {
 		return wd.findElement(By.id("Login"));
+	}
+	
+	public static void loginAs(WebDriver wd,String username,String password) {
+		wd.manage().window().maximize();
+		getUsernameInput(wd).sendKeys(username);
+		getPasswordInput(wd).sendKeys(password);
+		getLoginBtn(wd).click();
 	}
 }
