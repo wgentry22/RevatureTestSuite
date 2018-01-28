@@ -89,13 +89,13 @@ public class TrainerPage {
 	public static WebElement selectAddPTORequest(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[1]"));
 		//return waitForLoad(wd, "//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[1]");
-		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*= 'tCtrl.showPTODialog()']"));
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*='tCtrl.showPTODialog()']"));
 	}
 	
 	public static WebElement selectCancelCalendar(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[2]"));
 		//return waitForLoad(wd, "//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[2]");
-		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*= 'tCtrl.hideCalendar()']"));
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*='tCtrl.hideCalendar()']"));
 	}
 	
 	public static WebElement insertPTOStartDate(WebDriver wd) {
@@ -150,7 +150,8 @@ public class TrainerPage {
 	}
 
 	public static WebElement selectLogout(WebDriver wd) {
-		return waitForLoad(wd, "(//button)[0]");
+		//return waitForLoad(wd, "(//button)[1]");
+		return waitForLoadByAnyType(wd, By.xpath("(//button)[1]"));
 	}
 	
 }

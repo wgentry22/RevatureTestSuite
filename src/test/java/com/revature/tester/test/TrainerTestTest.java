@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.TrainerPage;
+import com.revature.tester.MethodUtil;
 
 public class TrainerTestTest {
 	WebDriver wd = DriverFactory.getDriver("chrome");
@@ -42,11 +43,12 @@ public class TrainerTestTest {
 	  clickPTOCalendar();
 	  clickNewPTORequest();
 	  clickCancelPTORequest();
+	  beforeMethod();
 	  clickCancelPTOCalendar();
   }
   
   public void clickCancelPTOCalendar() {
-	  TrainerPage.selectCancelCalendar(wd).click();
+	  MethodUtil.executeJSClick(wd,TrainerPage.selectCancelCalendar(wd));
   }
   
   //@Test(groups= {"VPAccept","VPDeny"}, dependsOnMethods="clickAddTrainer", priority=1)
@@ -87,21 +89,21 @@ public class TrainerTestTest {
   
   //@Test(groups= {"VPDeny"}, dependsOnMethods="clickPTOCalendar", priority=7)
   public void clickCancelPTORequest() {
-	  TrainerPage.selectCancelPTORequest(wd).submit();
+	  TrainerPage.selectCancelPTORequest(wd).click();
   }
   
-  @Test(groups= {"VP"}, priority=4)
+  @Test(groups= {"VP"}, priority=4, enabled=false)
   public void clickProfile() {
 	  TrainerPage.selectProfile(wd).click();
 	  wd.navigate().back();
   }
   
-  @Test(groups= {"VP"}, priority=5)
+  @Test(groups= {"VP"}, priority=5, enabled=false)
   public void clickDeactivateTrainer() {
 	  TrainerPage.selectDeactivateTrainer(wd);
   }
   
-  @Test(groups= {"VP"}, priority=6)
+  @Test(groups= {"VP"}, priority=6, enabled=false)
   public void clickReactivateTrainer() {
 	 TrainerPage.selectReactivateTrainer(wd).click();
   }
@@ -136,9 +138,8 @@ public class TrainerTestTest {
 
   @AfterClass(groups= {"VP","trainer"})
   public void afterClass() {
-	  TrainerPage.selectLogout(wd).click();
-	  wd.close();
-	  wd.quit();
+	  MethodUtil.executeJSClick(wd, TrainerPage.selectLogout(wd));
+	  MethodUtil.waitAndCloseDriver(wd, 1000);
   }
 
   @BeforeTest
