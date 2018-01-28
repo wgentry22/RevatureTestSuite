@@ -2,8 +2,9 @@
 
 <suite name="Suite" parallel="false">
 	 <groups>
+	 
 	  <run>
-	    <include name="VP"/>
+	  	<include name="Trainer"/>
 	  </run>
 	</groups>
   <test name="Test">

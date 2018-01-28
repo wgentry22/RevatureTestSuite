@@ -1,23 +1,27 @@
 package com.revature.driver;
 
 import java.io.File;
+import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.revature.tester.MethodUtil;
+
 class Chrome implements IDriver{
 
 	public WebDriver selectDriver() {
+	Properties props = new Properties();
+	MethodUtil.loadPropertiesFile(props);
 		File f = null;
 		if (System.getenv("PATH").contains("/home/")) {
 			f = new File("src/main/resources/chromedriver");
-			System.setProperty("webdriver.chrome.driver", f.getAbsolutePath());
-			return new ChromeDriver();
+			System.setProperty(props.getProperty("ChromeDriverName"), f.getAbsolutePath());
 		} else {
-			f = new File("src/main/resources/chromedriver.exe");
-			//f = new File("C:/git_repos/RevatureTestSuite/src/main/resources/chromedriver.exe");
-			System.setProperty("webdriver.chrome.driver", f.getAbsolutePath());
-			return new ChromeDriver();
+			f = new File(System.getProperty("user.dir") + props.getProperty("ChromeDriverPathWindows"));
+			System.out.println(f.getAbsolutePath());
+			System.setProperty(props.getProperty("ChromeDriverName"), f.getAbsolutePath());
 		}
+		return new ChromeDriver(); 
 	}
 }
