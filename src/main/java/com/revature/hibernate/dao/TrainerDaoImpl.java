@@ -18,6 +18,17 @@ public class TrainerDaoImpl implements TrainerDao {
 	
 	private static final Logger logger = Logger.getLogger(TrainerDaoImpl.class);
 
+	private static TrainerDaoImpl daoImpl;
+	
+	private TrainerDaoImpl() {}
+	
+	public static TrainerDaoImpl getInstance() {
+		if (daoImpl == null) {
+			daoImpl = new TrainerDaoImpl();
+		}
+		return daoImpl;
+	}
+	
 	@Override
 	public void insertTrainer(Trainer trainer) {
 		Session session = getSession();
@@ -40,7 +51,7 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Trainer> selectAllTraineres() {
+	public List<Trainer> selectAllTrainers() {
 		Session session = getSession();
 		List<Trainer> list = null;
 		try {
@@ -55,11 +66,12 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 	@Override
-	public Trainer selectTrainerByName(String name) {
+	public Trainer selectTrainerByName(String trainerFirstName, String trainerLastName) {
 		Session session = getSession();
 		Trainer trainer = null;
 		try {
-			trainer = (Trainer) session.createCriteria(Trainer.class).add(Restrictions.eq("trainerName", name)).list().get(0);
+			Criterion crit = Restrictions.conjunction().add(Restrictions.eq("trainerFirstName", trainerFirstName)).add(Restrictions.eq("trainerLastName", trainerLastName));
+			trainer = (Trainer) session.createCriteria(Trainer.class).add(crit).list().get(0);
 		} catch (HibernateException e) {
 			logger.warn(e);
 			e.printStackTrace();
@@ -83,10 +95,11 @@ public class TrainerDaoImpl implements TrainerDao {
 	}
 
 	@Override
-	public void deleteTrainer(String name) {
+	public void deleteTrainer(String trainerFirstName, String trainerLastName) {
 		Session session = getSession();
 		try {
-			Trainer trainer = (Trainer) session.createCriteria(Trainer.class).add(Restrictions.eq("trainerName", name)).list().get(0);
+			Criterion crit = Restrictions.conjunction().add(Restrictions.eq("trainerFirstName", trainerFirstName)).add(Restrictions.eq("trainerLastName", trainerLastName));
+			Trainer trainer = (Trainer) session.createCriteria(Trainer.class).add(crit).list().get(0);
 			Transaction t = session.beginTransaction();
 			session.delete(trainer);
 			t.commit();

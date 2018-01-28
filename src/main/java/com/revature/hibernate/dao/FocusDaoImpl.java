@@ -19,6 +19,19 @@ import com.revature.hibernate.model.Trainer;
 public class FocusDaoImpl implements FocusDao {
 
 	private static final Logger logger = Logger.getLogger(FocusDaoImpl.class);
+	
+	private static FocusDaoImpl daoImpl;
+	
+	private FocusDaoImpl () {}
+	
+	public static FocusDaoImpl getInstance() {
+		if (daoImpl == null) {
+			daoImpl = new FocusDaoImpl();
+		}
+		return daoImpl;
+	}
+	
+	
 	public void insertFocus(Focus focus) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = null;

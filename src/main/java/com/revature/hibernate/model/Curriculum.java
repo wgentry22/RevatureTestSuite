@@ -1,7 +1,7 @@
 package com.revature.hibernate.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,11 +32,11 @@ public class Curriculum {
 	private String curriculumName;
 	
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="curriculum_skill", joinColumns=@JoinColumn(name="curriculum_id"),
 	inverseJoinColumns=@JoinColumn(name="skill_id"))
 	@ElementCollection(targetClass=Skill.class)
-	private Collection<Skill> curriculumSkill = new ArrayList<Skill>();
+	private Set<Skill> curriculumSkill;
 
 	
 	
@@ -51,7 +51,7 @@ public class Curriculum {
 	}
 	
 	//All args constructor
-	public Curriculum(int curriculumId, String curriculumName, Collection<Skill> curriculumSkill) {
+	public Curriculum(int curriculumId, String curriculumName, Set<Skill> curriculumSkill) {
 	super();
 	this.curriculumId = curriculumId;
 	this.curriculumName = curriculumName;
@@ -76,11 +76,11 @@ public class Curriculum {
 		this.curriculumName = curriculumName;
 	}
 
-	public Collection<Skill> getCurriculumSkill() {
+	public Set<Skill> getCurriculumSkill() {
 		return curriculumSkill;
 	}
 
-	public void setCurriculumSkill(Collection<Skill> curriculumSkill) {
+	public void setCurriculumSkill(Set<Skill> curriculumSkill) {
 		this.curriculumSkill = curriculumSkill;
 	}
 	

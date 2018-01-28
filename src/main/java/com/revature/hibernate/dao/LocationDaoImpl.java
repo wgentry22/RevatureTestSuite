@@ -76,7 +76,7 @@ public class LocationDaoImpl implements LocationDao {
 	}
 	
 	public List<Location> selectAllLocations() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		List<Location> list = null;
 		try {
 			list = session.createQuery("from Location").list();
@@ -132,7 +132,7 @@ public class LocationDaoImpl implements LocationDao {
 	}
 	
 	public void deleteLocation(String name) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = null;
 		try {
 			Location location = (Location) session.createCriteria(Location.class).add(Restrictions.eq("locationName", name)).list().get(0);
@@ -150,7 +150,7 @@ public class LocationDaoImpl implements LocationDao {
 	}
 	
 	public void addBuilding(String locationName, Building building) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = null;
 		try {
 			Location location = (Location) session.createCriteria(Location.class).add(Restrictions.eq("locationName", locationName)).list().get(0);
@@ -174,7 +174,7 @@ public class LocationDaoImpl implements LocationDao {
 	
 	
 	public void addRoom(String buildingName, Room room) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = null;
 		try {
 			Building building = (Building) session.createCriteria(Building.class).add(Restrictions.eq("buildingName", buildingName)).list().get(0);

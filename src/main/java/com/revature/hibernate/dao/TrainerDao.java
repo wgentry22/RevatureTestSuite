@@ -8,9 +8,9 @@ import com.revature.hibernate.model.Trainer;
 public interface TrainerDao {
 
 	void insertTrainer(Trainer trainer);
-	List<Trainer> selectAllTraineres();
-	Trainer selectTrainerByName(String name);
+	List<Trainer> selectAllTrainers();
+	Trainer selectTrainerByName(String trainerFirstName, String trainerLastName);
 	Trainer selectTrainerById(int id);
-	void deleteTrainer(String name);
+	void deleteTrainer(String trainerFirstName, String trainerLastName);
 	void addSkill(String trainerFirstName, String trainerLastName, Skill skill);
 }

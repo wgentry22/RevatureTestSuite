@@ -1,8 +1,8 @@
 package com.revature.hibernate.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -25,9 +25,9 @@ public class Location {
 	@Column(name="LOCATION_STATE", nullable=false, updatable=true, length=20)
 	private String locationState;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.REMOVE, CascadeType.PERSIST})
+	@OneToMany(fetch=FetchType.EAGER, cascade= {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JoinTable(name="LOCATION_BUILDING", joinColumns=@JoinColumn(name="LOCATION_ID"), inverseJoinColumns=@JoinColumn(name="BUILDING_ID"))
-	private Collection<Building> buildings = new ArrayList<Building>();
+	private Set<Building> buildings;
 	
 
 	public Location() {
@@ -58,7 +58,7 @@ public class Location {
 	
 
 	public Location(int locationId, String locationName, String locationCity, String locationState,
-			List<Building> buildings) {
+			Set<Building> buildings) {
 		super();
 		this.locationId = locationId;
 		this.locationName = locationName;
@@ -99,18 +99,18 @@ public class Location {
 		this.locationState = locationState;
 	}
 
-	public Collection<Building> getBuildings() {
+	public Set<Building> getBuildings() {
 		return buildings;
 	}
 
-	public void setBuildings(Collection<Building> buildings) {
+	public void setBuildings(Set<Building> buildings) {
 		this.buildings = buildings;
 	}
 
 	@Override
 	public String toString() {
 		return "Location [locationId=" + locationId + ", locationName=" + locationName + ", locationCity="
-				+ locationCity + ", locationState=" + locationState + ", buildings=" + buildings + "]";
+				+ locationCity + ", locationState=" + locationState +"]";
 	}
 
 	

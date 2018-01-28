@@ -1,6 +1,5 @@
 package com.revature.hibernate.model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -97,7 +96,7 @@ public class Trainer {
 		}
 
 
-		public Collection<Skill> getTrainerSkill() {
+		public Set<Skill> getTrainerSkill() {
 			return trainerSkill;
 		}
 

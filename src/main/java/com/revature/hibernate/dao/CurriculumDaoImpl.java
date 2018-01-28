@@ -28,7 +28,7 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	
 	
 	public void insertCurriculum(Curriculum curriculum) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = null;
 		try {
 			t = session.beginTransaction();
@@ -46,7 +46,7 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	}
 	
 	public Curriculum selectCurriculumByName(String name) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Curriculum curriculum = null;
 		try {
 			curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", name)).list().get(0);
@@ -60,7 +60,7 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	}
 	
 	public Curriculum selectCurriculumById(int id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Curriculum curriculum = null;
 		try {
 			curriculum = (Curriculum) session.load(Curriculum.class, id);
@@ -75,7 +75,7 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	}
 	
 	public List<Curriculum> selectAllCurriculum() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		List<Curriculum> list = null;
 		try {
 			list = session.createQuery("from Curriculum").list();
@@ -86,7 +86,7 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	}
 	
 	public void updateCurriculum(Curriculum curriculum, String name) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = null;
 		try {
 			t = session.beginTransaction();
@@ -104,12 +104,12 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	}
 	
 	public void addSkill(String curriculumName, Skill skill) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = null;
 		try {
-			t = session.beginTransaction();
 			Curriculum curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", curriculumName)).list().get(0);
 			curriculum.getCurriculumSkill().add(skill);
+			t = session.beginTransaction();
 			session.persist(curriculum);
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
@@ -123,7 +123,7 @@ public class CurriculumDaoImpl implements CurriculumDao {
 	}
 	
 	public void deleteCurriculum(String name) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = null;
 		try {
 			Curriculum curriculum = (Curriculum) session.createCriteria(Curriculum.class).add(Restrictions.eq("curriculumName", name)).list().get(0);

@@ -1,8 +1,8 @@
 package com.revature.hibernate.model;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -24,9 +24,9 @@ public class Building {
 	@ManyToOne(fetch=FetchType.EAGER, cascade= CascadeType.ALL)
 	private Location location;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="BUILDING_ROOM", joinColumns=@JoinColumn(name="BUILDING_ID"), inverseJoinColumns=@JoinColumn(name="ROOM_ID"))
-	private Collection<Room> rooms = new ArrayList<Room>();
+	private Set<Room> rooms;
 
 	public Building() {
 		super();
@@ -70,18 +70,18 @@ public class Building {
 		this.location = location;
 	}
 
-	public Collection<Room> getRooms() {
+	public Set<Room> getRooms() {
 		return rooms;
 	}
 
-	public void setRooms(Collection<Room> rooms) {
+	public void setRooms(Set<Room> rooms) {
 		this.rooms = rooms;
 	}
 
 	@Override
 	public String toString() {
 		return "Building [buildingId=" + buildingId + ", buildingName=" + buildingName + ", location=" + location
-				+ ", rooms=" + rooms + "]";
+				+"]";
 	}
 	
 	

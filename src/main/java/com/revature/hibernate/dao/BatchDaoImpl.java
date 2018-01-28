@@ -13,6 +13,17 @@ public class BatchDaoImpl implements BatchDao {
 	
 	private static final Logger logger = Logger.getLogger(BatchDaoImpl.class);
 
+	private static BatchDaoImpl daoImpl;
+	
+	private BatchDaoImpl() {}
+	
+	public static BatchDaoImpl getInstance() {
+		if (daoImpl == null) {
+			daoImpl = new BatchDaoImpl();
+		}
+		return daoImpl;
+	}
+	
 	@Override
 	public void createBatch(Batch batch) {
 		Session session = getSession();
@@ -94,5 +105,7 @@ public class BatchDaoImpl implements BatchDao {
 			session.close();
 		}
 	}
+	
+	
 	
 }

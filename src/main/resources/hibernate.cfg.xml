@@ -20,5 +20,6 @@
 		<mapping class="com.revature.hibernate.model.Focus"></mapping>
 		<mapping class="com.revature.hibernate.model.Skill"></mapping>
 		<mapping class="com.revature.hibernate.model.Trainer"></mapping>
+		<!--  <mapping class="com.revature.hibernate.model.Batch"></mapping>-->
 	</session-factory>
 </hibernate-configuration>

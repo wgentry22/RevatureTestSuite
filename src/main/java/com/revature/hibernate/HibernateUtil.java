@@ -34,6 +34,11 @@ public class HibernateUtil {
 		return new Configuration().configure().buildSessionFactory();
 	}
 	
+	public static  void shutdown() {
+		System.out.println("Closing database connection...");
+		HibernateUtil.getSession().close();
+		System.out.println("Database connection closed");
+	}
 	
 
 }
