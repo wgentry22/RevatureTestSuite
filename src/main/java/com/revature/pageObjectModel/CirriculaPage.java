@@ -147,7 +147,6 @@ public class CirriculaPage {
 		return e;
 	}
 	
-//	/html/body/div[3]/md-dialog/md-dialog-actions/button[1]
 	public static WebElement cancelRemoveCurriculumButton(WebDriver driver) {
 		e = MethodUtil.waitForLoad(driver, "/html/body/div[3]/md-dialog/md-dialog-actions/button[1]", 45);
 		return e;
@@ -157,6 +156,15 @@ public class CirriculaPage {
 		e = MethodUtil.waitForLoad(driver, "/html/body/div[3]/md-dialog/md-dialog-actions/button[2]", 45);
 		return e;
 	}
+	
+	
+	public static WebElement addNewCurriculumButton(WebDriver driver) {
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[2]/div/md-card/md-content/md-card/md-toolbar/div/button[1]", 45);
+		return e;
+	}
+	
+	
+	
 	
 	
 
@@ -211,15 +219,40 @@ public class CirriculaPage {
 		return e;
 	}
 	
-	
-	
-	public static WebElement addSkill(WebDriver driver) {
-		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[2]/div/md-card/md-content/md-card[3]/md-card-content/form/div/md-input-container/input");
+	public static WebElement addNewFocusButton(WebDriver driver) {
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[2]/div/md-card/md-content/md-card[2]/md-toolbar/div/button[1]", 45);
 		return e;
 	}
 	
+	
+	
+	
+	
+	
+	/* Skill related Functionality */
+	
+	
+	public static WebElement toggleSkillPanel(WebDriver driver) {
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[2]/div/md-card/md-content/md-card[3]/md-toolbar/div/button");
+		return e;
+	}
+	
+	
+	public static boolean isSkillPanelOpen(WebDriver driver) {
+		return MethodUtil.waitForLoad(driver, "/html/body/div/div[2]/div/md-card/md-content/md-card[3]/md-card-content", 45).isDisplayed();
+	}
+	
+	
+	public static WebElement addSkillInputField(WebDriver driver) {
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[2]/div/md-card/md-content/md-card[3]/md-card-content/form/div/md-input-container/input", 45);
+		return e;
+	}
+	
+
+//	Add Skill Button xpath	/html/body/div/div[2]/div/md-card/md-content/md-card[3]/md-card-content/form/div/div/div
+	
 	public static WebElement createButtonSkill(WebDriver driver) {
-		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[2]/div/md-card/md-content/md-card[3]/md-card-content/form/div/div/div");
+		e = MethodUtil.waitForLoad(driver, "//form[@name=\"skillForm\"]/div/div/div", 45);
 		return e;
 	}
 }
