@@ -3,12 +3,13 @@
 <suite name="Suite" parallel="false">
 	 <groups>
 	  <run>
-	    <include name="VP"/>
+	    <include name="Trainer"/>
 	  </run>
 	</groups>
   <test name="Test">
     <classes>
-      <class name="com.revature.tester.test.TrainerTestTest"/>
+      <!--<class name="com.revature.tester.test.TrainerTestTest"/>-->
+      <class name="com.revature.tester.test.CurriculaTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

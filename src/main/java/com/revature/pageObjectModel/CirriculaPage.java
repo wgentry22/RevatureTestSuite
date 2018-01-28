@@ -51,40 +51,40 @@ public class CirriculaPage {
 	}
 //	/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[1]
 	public static WebElement overviewTab(WebDriver driver) {
-		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[1]/a");
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[1]/a", 45);
 		return e;
 	}
 	
 	public static WebElement batchesTab(WebDriver driver) {
-		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[2]/a");
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[2]/a", 45);
 		return e;
 	}
 
 	public static WebElement locationsTab(WebDriver driver) {
-		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[3]/a");
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[3]/a", 45);
 		return e;
 	}
 	
 //	/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]/a
 	public static WebElement curriculaTab(WebDriver driver) {
-		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]/a");
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[4]/a", 45);
 		return e;
 		
 	}
 	
 	public static WebElement trainersTab(WebDriver driver) {
-		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[5]/a");
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[5]/a", 45);
 		return e;
 	}
 	
 	public static WebElement reportsTab(WebDriver driver) {
-		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[7]/a");
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[7]/a", 45);
 		return e;
 	}
 	
 //	/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[8]
 	public static WebElement settingsTab(WebDriver driver) {
-		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[8]/a");
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[8]/a", 45);
 		return e;
 	}
 	
@@ -163,7 +163,15 @@ public class CirriculaPage {
 		return e;
 	}
 	
+	public static WebElement trainerToggleCurriculumPanel(WebDriver driver) {
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[2]/div/md-card/md-content/md-card[1]/md-toolbar/div/button");
+		return e;
+	}
 	
+	public static WebElement trainerToggleFocusPanel(WebDriver driver) {
+		e = MethodUtil.waitForLoad(driver, "/html/body/div/div[2]/div/md-card/md-content/md-card[2]/md-toolbar/div/button");
+		return e;
+	}
 	
 	
 	

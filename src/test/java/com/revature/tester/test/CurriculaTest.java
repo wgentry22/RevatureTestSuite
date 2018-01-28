@@ -18,37 +18,77 @@ import com.revature.tester.MethodUtil;
 public class CurriculaTest {
 
 	WebDriver driver = DriverFactory.getDriver("chrome");
-  @BeforeTest
-  public void beforeTest() {
+  @BeforeTest(groups= {"VP"})
+  public void loginVP() {
 	  CirriculaPage.loginVPCredentials(driver);
   }
+  
+  @BeforeTest(groups="Trainer")
+  public void loginTrainer() {
+	  CirriculaPage.loginTrainerCredentials(driver);
+  }
 
-  @AfterTest
+  @AfterTest(groups= {"VP", "Trainer"})
   public void afterTest() {
 	  MethodUtil.executeJSClick(driver, CirriculaPage.logoutTab(driver));
   }
 
-  @BeforeSuite
+  @BeforeSuite(groups= {"VP", "Trainer"})
   public void beforeSuite() {
 	  CirriculaPage.openSalesforceChrome(driver);
   }
 
-  @AfterSuite
+  @AfterSuite(groups= {"VP", "Trainer"})
   public void afterSuite() {
 	  driver.close();
 	  driver.quit();
   }
   
-  @Test(priority=1, enabled=true)
+  @Test(priority=1, enabled=true, groups= {"VP", "Trainer"})
   public void navigateToCurriculumTab() {
-	  CirriculaPage.curriculaTab(driver).click();
+	  MethodUtil.executeJSClick(driver, CirriculaPage.curriculaTab(driver));
   }
   
   
+  @Test(priority=16, enabled=true, groups="Trainer")
+  public void closeCirriculumPanel() {
+	  try {
+		  Thread.sleep(300);
+		  MethodUtil.executeJSClick(driver, CirriculaPage.trainerToggleCurriculumPanel(driver));
+	  } catch (InterruptedException e) {
+		  e.printStackTrace();
+	  }
+  }
+  
+  
+  @Test(priority = 17, enabled=true, groups="Trainer")
+  public void openCurriculumPanel() {
+	  if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
+		  return;
+	  } else {
+		  MethodUtil.executeJSClick(driver, CirriculaPage.trainerToggleCurriculumPanel(driver));
+	  }
+  }
+  
+  
+  @Test(priority=18, enabled=true, groups="Trainer")
+  public void closeFocusPanel() {
+	  MethodUtil.executeJSClick(driver, CirriculaPage.trainerToggleFocusPanel(driver));
+  }
+  
+  
+  @Test(priority=19, enabled = true, groups="Trainer")
+  public void openFocusPanel() {
+	  if (CirriculaPage.isFocusPanelOpen(driver)) {
+		  return;
+	  } else {
+		  MethodUtil.executeJSClick(driver, CirriculaPage.trainerToggleFocusPanel(driver));
+	  }
+  }
   
   /* Works for both cancel and confirm removing a curriculum */
   
-  @Test(priority=3, enabled=true)
+  @Test(priority=3, enabled=true, groups="VP")
   public void removeNthCurriculaButton() {
 	  if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 		  try {
@@ -77,7 +117,7 @@ public class CurriculaTest {
   }
   
   
-  @Test(priority=4, enabled=true)
+  @Test(priority=4, enabled=true, groups="VP")
   public void editCurriculaButtonAndUpdateName() {
 	  if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 		  try {
@@ -113,7 +153,7 @@ public class CurriculaTest {
   }
   
   
-  @Test(priority=7, enabled=true)
+  @Test(priority=7, enabled=true, groups="VP")
   public void editFocusButtonAndEditName() {
 	  if (CirriculaPage.isFocusPanelOpen(driver)) {
 		  try {
@@ -149,7 +189,7 @@ public class CurriculaTest {
   }
   
   
-  @Test(priority=8, enabled=true)
+  @Test(priority=8, enabled=true, groups="VP")
   public void removeFocusButton() {
 	  if (CirriculaPage.isFocusPanelOpen(driver)) {
 		  try {
@@ -178,7 +218,7 @@ public class CurriculaTest {
   
   
   
-  @Test(priority=11, enabled=true)
+  @Test(priority=11, enabled=true, groups="VP")
   public void addSkill() {
 	  if (CirriculaPage.isSkillPanelOpen(driver)) {
 		  try {
@@ -206,7 +246,7 @@ public class CurriculaTest {
   }
   
   
-  @Test(priority=12, enabled=true) 
+  @Test(priority=12, enabled=true, groups="VP") 
   public void editCurriculumPopupAddSkills() {
 	  if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 		  try {
@@ -278,7 +318,7 @@ public class CurriculaTest {
   }
   
   
-  @Test(priority=13, enabled=true)
+  @Test(priority=13, enabled=true, groups="VP")
   public void editFocusPopupAddSkills() {
 	  if (CirriculaPage.isFocusPanelOpen(driver)) {
 		  try {
@@ -351,7 +391,7 @@ public class CurriculaTest {
 	  }
   }
   
-  @Test(priority=14, enabled=true)
+  @Test(priority=14, enabled=true, groups="VP")
   public void addNewCurriculum() {
 	  if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 		  try {
@@ -419,7 +459,7 @@ public class CurriculaTest {
   }
   
   
-  @Test(priority=15, enabled=true)
+  @Test(priority=15, enabled=true, groups="VP")
   public void addNewFocus() {
 	  if (CirriculaPage.isFocusPanelOpen(driver)) {
 		  try {
