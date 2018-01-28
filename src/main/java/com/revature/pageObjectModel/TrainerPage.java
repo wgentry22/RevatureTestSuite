@@ -20,12 +20,14 @@ public class TrainerPage {
 	
 	public static WebElement selectViewPTOCalendar(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-toolbar[1]/div/button[2]"));
-		return waitForLoad(wd, "//*[@id=\"view\"]/md-card/md-toolbar[1]/div/button[2]");
+		return waitForLoadByAnyType(wd, By.xpath("//*[@id=\"view\"]/md-card/md-toolbar[1]/div/button[2]"));
+		
 	}
 	
 	public static WebElement selectDownloadResume(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-content[1]/md-list/md-list-item[1]/div/div[1]/button[1]"));
 		return waitForLoad(wd, "//*[@id=\"view\"]/md-card/md-content[1]/md-list/md-list-item[1]/div/div[1]/button[1]");
+		
 	}
 
 	public static WebElement selectDeactivateTrainer(WebDriver wd) {
@@ -86,12 +88,14 @@ public class TrainerPage {
 	
 	public static WebElement selectAddPTORequest(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[1]"));
-		return waitForLoad(wd, "//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[1]");
+		//return waitForLoad(wd, "//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[1]");
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*= 'tCtrl.showPTODialog()']"));
 	}
 	
 	public static WebElement selectCancelCalendar(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[2]"));
-		return waitForLoad(wd, "//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[2]");
+		//return waitForLoad(wd, "//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[2]");
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*= 'tCtrl.hideCalendar()']"));
 	}
 	
 	public static WebElement insertPTOStartDate(WebDriver wd) {
@@ -111,7 +115,8 @@ public class TrainerPage {
 	
 	public static WebElement selectCancelPTORequest(WebDriver wd) {
 		//return wd.findElement(By.xpath("/html/body/div[3]/md-dialog/form/md-dialog-actions/button[2]"));
-		return waitForLoad(wd, "/html/body/div[3]/md-dialog/form/md-dialog-actions/button[2]");
+		//return waitForLoad(wd, "/html/body/div[3]/md-dialog/form/md-dialog-actions/button[2]");
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*='ptoCtrl.cancel()']"));
 	}
 	
 	public static WebElement selectStartDateDropdown(WebDriver wd) {
@@ -145,7 +150,7 @@ public class TrainerPage {
 	}
 
 	public static WebElement selectLogout(WebDriver wd) {
-		return waitForLoad(wd, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[9]/button");
+		return waitForLoad(wd, "(//button)[0]");
 	}
 	
 }

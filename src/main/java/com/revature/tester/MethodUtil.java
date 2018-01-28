@@ -36,9 +36,39 @@ public class MethodUtil {
 		}
 		return element;
 	}
-
+	
 	public static WebElement waitForLoad(WebDriver driver, String xpath) {
 		return waitForLoad(driver, xpath, 10);
+	}
+	
+	
+	public static WebElement waitForLoadByAnyType(WebDriver driver, By byType, int nTimes200Mill) {
+		int times = 0;
+		WebElement element = null;
+		while(element == null) {
+			try {
+				element = driver.findElement(byType);
+			} catch(NoSuchElementException e) {
+				if(times < nTimes200Mill) {
+
+					try {
+						times++;
+						Thread.sleep(200);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+				}
+				else {
+					e.printStackTrace();
+					throw new NoSuchElementException("Element did not load in time", e);
+				}
+			}
+		}
+		return element;
+	}
+
+	public static WebElement waitForLoadByAnyType(WebDriver driver, By byType) {
+		return waitForLoadByAnyType(driver, byType, 10);
 	}
 	
 	public static void loadPropertiesFile(Properties props) {

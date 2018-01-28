@@ -3,8 +3,7 @@
 <suite name="Suite" parallel="false">
 	 <groups>
 	  <run>
-	    <include name="first"/>
-	    <include name="VPAccept"/>
+	    <include name="VP"/>
 	  </run>
 	</groups>
   <test name="Test">

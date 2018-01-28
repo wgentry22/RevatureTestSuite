@@ -1,7 +1,5 @@
 package com.revature.tester.test;
 
-import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
@@ -20,72 +18,103 @@ import com.revature.pageObjectModel.TrainerPage;
 
 public class TrainerTestTest {
 	WebDriver wd = DriverFactory.getDriver("chrome");
-  @Test(groups= {"VPAccept","VPDeny","Trainer","first"})
+  @Test(groups= {"VP", "trainer"})
   public void clickTrainersTab() { 
 	  TrainerPage.selectTrainersTab(wd);
   }
   
-  @Test(groups= {"VPAccept","VPDeny","first"}, priority=1)
-  public void clickAddTrainer() {
+  @Test(groups= {"VP"}, priority=1, enabled=false)
+  public void addTrainerSave() {
 	  TrainerPage.selectAddTrainer(wd).click();
-	  //writeTrainerFullName();
+	  writeTrainerFullName();
+	  clickAcceptTrainerInput();
   }
-  @Test(groups= {"VPAccept","VPDeny"}, dependsOnMethods="clickAddTrainer", priority=1)
+ //@Test(groups= {"VP"}, priority=2)
+  public void addTrainerCancel() {
+	  TrainerPage.selectAddTrainer(wd).click();
+	  clickCancelTrainerInput();
+	  //TrainerPage.selectCancelAddTrainer(wd).click();
+  }
+  
+  @Test(groups= {"VP"}, priority=9)
+  public void checkPTOCalendar() {
+	  beforeMethod();
+	  clickPTOCalendar();
+	  clickNewPTORequest();
+	  clickCancelPTORequest();
+	  clickCancelPTOCalendar();
+  }
+  
+  public void clickCancelPTOCalendar() {
+	  TrainerPage.selectCancelCalendar(wd).click();
+  }
+  
+  //@Test(groups= {"VPAccept","VPDeny"}, dependsOnMethods="clickAddTrainer", priority=1)
   public void writeTrainerFullName() {
 	  TrainerPage.insertTrainerFirstname(wd).sendKeys("Testing");
 	  TrainerPage.insertTrainerLastname(wd).sendKeys("Testing");
-	  clickAcceptTrainerInput();
+	 // clickAcceptTrainerInput();
   }
   
-  //@Test(groups= {"VPAccept"}, dependsOnMethods="writeTrainerFullName", priority=3)
+  //@Test(groups= {"VPAccept"}, dependsOnMethods="writeTrainerFullName", priority=1)
   public void clickAcceptTrainerInput() {
 	  TrainerPage.selectSaveNewTrainer(wd).click();
   }
   
-  @Test(groups= {"VPAccept","VPDeny"}, dependsOnMethods="clickAddTrainer", priority=4)
+  //@Test(groups= {"VPDeny"}, dependsOnMethods="clickAddTrainer", priority=1)
   public void clickCancelTrainerInput() {
 	  TrainerPage.selectCancelAddTrainer(wd).click();
   }
   
-  @Test(groups= {"VPAccept","VPDeny","first"}, priority=5)
+  //@Test(groups= {"VPAccept"}, priority=2)
+  public void addNewPTORequest() {
+	  clickPTOCalendar();
+	  clickNewPTORequest();
+  }
+  public void cancelAddNewPTORequest() {
+	  clickPTOCalendar();
+	  clickNewPTORequest();
+	  clickCancelPTORequest();
+  }
   public void clickPTOCalendar() {
 	  TrainerPage.selectViewPTOCalendar(wd).click();
   }
   
-  @Test(groups= {"VPAccept"}, dependsOnMethods="clickPTOCalendar", priority=6)
+  //@Test(groups= {"VPAccept"}, dependsOnMethods="clickPTOCalendar", priority=6)
   public void clickNewPTORequest() {
 		  TrainerPage.selectAddPTORequest(wd).click();
   }
   
-  @Test(groups= {"VPDeny"}, dependsOnMethods="clickPTOCalendar", priority=7)
+  //@Test(groups= {"VPDeny"}, dependsOnMethods="clickPTOCalendar", priority=7)
   public void clickCancelPTORequest() {
-	  TrainerPage.selectCancelPTORequest(wd).click();
+	  TrainerPage.selectCancelPTORequest(wd).submit();
   }
   
-  @Test(groups= {"VPAccept","VPDeny","first"}, priority=8)
+  @Test(groups= {"VP"}, priority=4)
   public void clickProfile() {
-	  TrainerPage.selectCancelAddTrainer(wd).click();
+	  TrainerPage.selectProfile(wd).click();
+	  wd.navigate().back();
   }
   
-  @Test(groups= {"VPDeny"}, priority=9)
+  @Test(groups= {"VP"}, priority=5)
   public void clickDeactivateTrainer() {
 	  TrainerPage.selectDeactivateTrainer(wd);
   }
   
-  @Test(groups= {"VPAccept"}, priority=10)
+  @Test(groups= {"VP"}, priority=6)
   public void clickReactivateTrainer() {
 	 TrainerPage.selectReactivateTrainer(wd).click();
   }
   
-  @Test(groups= {"VPAccept","VPDeny",}, priority=11)
+  @Test(groups= {"VP"}, priority=7)
   public void clickDownloadResume() {
 	  TrainerPage.selectDownloadResume(wd).click();
   }
   
-  @BeforeMethod//(groups="first")//(groups= {"VPAccept","VPDeny","trainer"})
+  @BeforeMethod(groups= {"VP","trainer"})
   public void beforeMethod() {
 	  try {
-		Thread.sleep(230);
+		Thread.sleep(500);
 	} catch (InterruptedException e) {
 		e.printStackTrace();
 	}
@@ -96,8 +125,8 @@ public class TrainerTestTest {
 	  TrainerPage.selectTrainersTab(wd);
   }
 
-  @BeforeClass(groups= {"VPAccept","VPDeny","trainer"})
-  public void signInAsVP() {
+  @BeforeClass(groups= {"VP","trainer"})
+  public void signInAsVPToTrainers() {
 	  LoginPage.goToAssignForce(wd);
 	  LoginPage.getUsernameInput(wd).sendKeys("test.vpoftech@revature.com.int1");
 	  LoginPage.getPasswordInput(wd).sendKeys("yuvi1712");
@@ -105,9 +134,11 @@ public class TrainerTestTest {
 	  TrainerPage.selectTrainersTab(wd).click();
   }
 
-  @AfterClass(groups= {"VPAccept","VPDeny","trainer"})
+  @AfterClass(groups= {"VP","trainer"})
   public void afterClass() {
 	  TrainerPage.selectLogout(wd).click();
+	  wd.close();
+	  wd.quit();
   }
 
   @BeforeTest
