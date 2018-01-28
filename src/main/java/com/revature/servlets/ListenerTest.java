@@ -1,7 +1,12 @@
 package com.revature.servlets;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.testng.IResultMap;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
+import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
  
 public class ListenerTest implements ITestListener {
@@ -69,11 +74,17 @@ public class ListenerTest implements ITestListener {
  
     @Override
     public void onStart(ITestContext context) {
-
+    	System.out.println("starting...");
     }
  
     @Override
     public void onFinish(ITestContext context) {
- 
+    	IResultMap map = context.getFailedConfigurations();
+    	Collection<ITestNGMethod> l = map.getAllMethods();
+    	Iterator<ITestNGMethod> i = l.iterator();
+    	while(i.hasNext()) {
+    		ITestNGMethod itngm = i.next();
+    		System.out.println("Configuration failed: "+itngm.getMethodName());
+    	}
     }
 }

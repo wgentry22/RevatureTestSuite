@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="alert" [class.alert-danger]="!allTestsPassed" [class.alert-success]="allTestsPassed">
+      {{testStatus}}
+    </div>
+    <button class="btn btn-info" [disabled]="btnIsDisabled" (click)="runAllTests()">Run All Tests</button>
+    <div *ngIf="errMsg" class="alert alert-danger">
+      {{errMsg}}
+    </div>
+    <div *ngIf="testData">
+      <h3>Test Results</h3>
+      <ul>
+        <li>
+          Total Tests Run: {{testData.totalNumTests}}
+        </li>
+        <li>
+          Successful Tests: {{testData.numSuccessfulTests}}
+        </li>
+        <li>
+          Failed Tests: {{testData.numFailedTests}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

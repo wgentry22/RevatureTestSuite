@@ -36,8 +36,8 @@ public class TesterServlet extends HttpServlet {
 		test.setName("LoginTest");
 		// create <classes>
 		List<XmlClass> classes = new ArrayList<XmlClass>();
-		// create <class name="com.revature.tester.LoginTester">
-		classes.add(new XmlClass("com.revature.tester.LoginTester"));
+		// create <class name="com.revature.tester.OverviewTester">
+		classes.add(new XmlClass("com.revature.tester.BatchTester"));
 		test.setXmlClasses(classes);
 		return suite;
 	}
@@ -53,6 +53,7 @@ public class TesterServlet extends HttpServlet {
 	    // create and add test listener which will generate response object
 	    ITestNGListener listener = new ListenerTest();
 	    testng.addListener(listener);
+	    testng.setUseDefaultListeners(false);
 	    // programmatically run testNG!!
 	    testng.run();
 	    // return the response object

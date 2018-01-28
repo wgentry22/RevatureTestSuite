@@ -13,28 +13,28 @@ import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.OverviewPage;
 
 public class OverviewTester {
-	static WebDriver wd = DriverFactory.getDriver("chrome");
-	static Properties props = new Properties();
+	WebDriver wd = DriverFactory.getDriver("chrome");
+	Properties props = new Properties();
 	
 	@BeforeClass
-	public static void doLogin() {
+	public void doLogin() {
 		MethodUtil.loadPropertiesFile(props);
 		wd.get(props.getProperty("EntryURL"));
 		LoginPage.loginAs(wd, props.getProperty("TrainerUsername"), props.getProperty("TrainerPassword"));
 	}
 	
 	@AfterClass
-	public static void doLogout() {
+	public void doLogout() {
 		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "(//button)[1]"));
 	}
 	
 	@AfterSuite
-	public static void closeDriver() {
-		MethodUtil.waitAndQuitDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
+	public void closeDriver() {
+		MethodUtil.waitAndCloseDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
 	}
 	
 	@Test(groups= {"VP","Trainer"},priority=1)
-	public static void testCSVDownload() {
+	public void testCSVDownload() {
 		// navigate to correct page
 		wd.get("https://dev.assignforce.revaturelabs.com/home");
 		// download csv file
@@ -42,7 +42,7 @@ public class OverviewTester {
 	}
 	
 	@Test(groups= {"VP","Trainer"},priority=2)
-	public static void testFilter() {
+	public void testFilter() {
 		for (int i=1;i<=3;i++) {
 			// click filter button
 			MethodUtil.executeJSClick(wd, OverviewPage.getFilterBtn(wd));
@@ -52,7 +52,7 @@ public class OverviewTester {
 	}
 	
 	@Test(groups= {"VP","Trainer"},priority=3,enabled=false)
-	public static void testTableSort() {
+	public void testTableSort() {
 		for (int i=1;i<=8;i++) {// for each column...
 			// Sort ascending
 			MethodUtil.executeJSClick(wd, OverviewPage.getColumnSortBtn(wd, i));

@@ -82,14 +82,14 @@ public class MethodUtil {
 		}
 	}
 	
-	public static void waitAndQuitDriver(WebDriver wd, long millisecondsToWait) {
+	public static void waitAndCloseDriver(WebDriver wd, long millisecondsToWait) {
 		try {
 			Thread.sleep(millisecondsToWait);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		finally {
-			wd.quit();
+			wd.close();
 		}
 	}
 	

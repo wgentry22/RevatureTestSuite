@@ -13,11 +13,11 @@ import com.revature.pageObjectModel.BatchPage;
 import com.revature.pageObjectModel.LoginPage;
 
 public class BatchTester {
-	static WebDriver wd = DriverFactory.getDriver("chrome");
-	static Properties props = new Properties();
+	WebDriver wd = DriverFactory.getDriver("chrome");
+	Properties props = new Properties();
 	
 	@BeforeClass
-	public static void doLogin() {
+	public void doLogin() {
 		MethodUtil.loadPropertiesFile(props);
 		wd.get(props.getProperty("EntryURL"));
 		LoginPage.loginAs(wd, props.getProperty("VPUsername"),props.getProperty("VPPassword"));
@@ -26,22 +26,22 @@ public class BatchTester {
 	}
 	
 	@AfterClass
-	public static void doLogout() {
+	public void doLogout() {
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} // wait 5 seconds
 		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "(//button)[1]"));
-		MethodUtil.waitAndQuitDriver(wd, Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
+		MethodUtil.waitAndCloseDriver(wd, Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
 	}
 	
 	@AfterSuite
-	public static void closeDriver() {
-		MethodUtil.waitAndQuitDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
+	public void closeDriver() {
+		MethodUtil.waitAndCloseDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
 	}
 	
-	public static void fillInputs() {
+	public void fillInputs() {
 		BatchPage.getBatchCurriculumSelect(wd).sendKeys("Java");
 		BatchPage.getBatchFocusSelect(wd).sendKeys("No Focus");
 		BatchPage.getBatchSkillsSelect(wd).sendKeys("JSP");
@@ -58,7 +58,7 @@ public class BatchTester {
 	}
 	
 	@Test(groups= {"VP"}, priority=1)
-	public static void testVPCreateBatch() {
+	public void testVPCreateBatch() {
 		// input new batch info into fields
 		fillInputs();
 		// submit button/create new batch
@@ -66,7 +66,7 @@ public class BatchTester {
 	}
 	
 	@Test(groups= {"VP"}, priority=2)
-	public static void testVPCancelBatchCreation() {
+	public void testVPCancelBatchCreation() {
 		// input new batch info into fields
 		fillInputs();
 		// hit button to cancel new batch creation
@@ -74,7 +74,7 @@ public class BatchTester {
 	}
 	
 	@Test(groups= {"VP"}, priority=3)
-	public static void testRefresh() {
+	public void testRefresh() {
 		wd.get(props.getProperty("BatchesURL"));
 		testVPCreateBatch();
 	}
