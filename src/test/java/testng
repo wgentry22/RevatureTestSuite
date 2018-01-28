@@ -4,12 +4,17 @@
 	 <groups>
 	 
 	  <run>
+<<<<<<< HEAD
 	  	<include name="Trainer"/>
+=======
+	    <include name="Trainer"/>
+>>>>>>> 63c993b1176202a179eb1f815eaca199a9e1e4ec
 	  </run>
 	</groups>
   <test name="Test">
     <classes>
-      <class name="com.revature.tester.test.TrainerTestTest"/>
+      <!--<class name="com.revature.tester.test.TrainerTestTest"/>-->
+      <class name="com.revature.tester.test.CurriculaTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
