@@ -62,6 +62,7 @@ public class ListenerTest implements ITestListener {
  
     @Override
     public void onTestSkipped(ITestResult result) {
+    	robj.totalNumTests++;
     	robj.numSkippedTests++;
     	robj.skippedTests.add(getTestObject(result));
     	robj.allTests.add(getTestObject(result));

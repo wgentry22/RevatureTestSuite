@@ -14,6 +14,7 @@ export class TestService {
     totalNumTests: 0,
     numSuccessfulTests: 0,
     numFailedTests: 0,
+    numSkippedTests: 0,
     allTests: [],
     successfulTests: [],
     failedTests: [],

@@ -11,13 +11,16 @@
       <h3>Test Results</h3>
       <ul>
         <li>
-          Total Tests Run: {{testData.totalNumTests}}
+          Total Tests Run: {{testData.totalNumTests - testData.numSkippedTests}}
         </li>
         <li>
           Successful Tests: {{testData.numSuccessfulTests}}
         </li>
         <li>
           Failed Tests: {{testData.numFailedTests}}
+        </li>
+        <li>
+          Skipped Tests: {{testData.numSkippedTests}}
         </li>
       </ul>
     </div>

@@ -13,7 +13,7 @@
         </ul>
         <h3>All Tests</h3>
         <ul class="nav nav-pills nav-stacked">
-          <li *ngFor="let test of allTests">
+          <li *ngFor="let test of allTests" [ngClass]="{success: 'bg-success',skipped: 'bg-warning',failure: 'bg-danger'}[test.status]">
             <a routerLink="/tests/{{test.id}}">{{test.name}}</a>
           </li>
         </ul>
