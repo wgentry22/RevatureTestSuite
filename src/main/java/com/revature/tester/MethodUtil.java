@@ -74,7 +74,8 @@ public class MethodUtil {
 	public static void loadPropertiesFile(Properties props) {
 		try {
 			//FileInputStream in = new FileInputStream("src/main/resources/locators.properties");
-			FileInputStream in = new FileInputStream(System.getProperty("user.dir")+"\\src\\main\\resources\\locators.properties");
+			//FileInputStream in = new FileInputStream(System.getProperty("user.dir")+"\\src\\main\\resources\\locators.properties");
+			FileInputStream in = new FileInputStream("C:/git_repos/RevatureTestSuite/src/main/resources/locators.properties");
 			props.load(in);
 			in.close();
 		} catch (IOException e) {

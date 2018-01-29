@@ -1,15 +1,10 @@
 <h3>{{group.name}}</h3>
 
 <div>
-  <button class="btn btn-info">Run this group of tests</button>
+  <button class="btn btn-info" (click)="runGroup()">Run this group of tests</button>
   <ul>
     <li>
-      Tests:
-      <ul>
-        <li *ngFor="let test of group.tests">
-          <a routerLink="/tests/{{test.id}}">{{test.name}}</a>
-        </li>
-      </ul>
+      Description: {{group.description}}
     </li>
   </ul>
 </div>

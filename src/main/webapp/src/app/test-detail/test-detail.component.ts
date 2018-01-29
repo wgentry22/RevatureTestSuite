@@ -35,6 +35,6 @@ export class TestDetailComponent implements OnInit {
 
   showTest(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.test = this.allTests[id-1];
+    this.test = this.allTests[id];
   }
 }

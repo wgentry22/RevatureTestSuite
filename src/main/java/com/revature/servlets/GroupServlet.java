@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
+import org.testng.xml.XmlGroups;
+import org.testng.xml.XmlRun;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
 
@@ -20,23 +22,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Servlet implementation class TesterServlet
  */
-public class TesterServlet extends HttpServlet {
+public class GroupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public TesterServlet() {
+	public GroupServlet() {
         super();
     }
 	
-	public static XmlSuite createSuite() {
+	public static XmlSuite createSuite(List<String> groupsParam) {
 		// create <suite name="AllTests">
 		XmlSuite suite = new XmlSuite();
-		suite.setName("AllTests");
-		// create <test name="LoginTest">
-		XmlTest test = new XmlTest(suite);
-		test.setName("LoginTest");
-		// create <classes>
 		List<XmlClass> classes = new ArrayList<XmlClass>();
-		// create classes <class name="com.revature.tester.Tester">
+		XmlTest test = new XmlTest(suite);
+		XmlRun run = new XmlRun();
+		XmlGroups xmlgroups = new XmlGroups();
+		
+		// add all the classes in
 		classes.add(new XmlClass("com.revature.tester.OverviewTester"));
 		classes.add(new XmlClass("com.revature.tester.BatchTester"));
 		classes.add(new XmlClass("com.revature.tester.CurriculumTester"));
@@ -45,15 +46,26 @@ public class TesterServlet extends HttpServlet {
 		classes.add(new XmlClass("com.revature.tester.ReportTester"));
 		classes.add(new XmlClass("com.revature.tester.SettingTester"));
 		test.setXmlClasses(classes);
+		// set suite name
+		suite.setName("GroupSuite");
+		// create <test name="">
+		test.setName("GroupTest");
+		// create <groups> and add all groups
+		suite.setIncludedGroups(groupsParam);
+		for (int i=0;i<groupsParam.size();i++) {
+			run.onInclude(groupsParam.get(i));
+		}
+		xmlgroups.setRun(run);
+		suite.setGroups(xmlgroups);
 		return suite;
 	}
 	
-	public static ResponseObject runAllTests() {
+	public static ResponseObject runGroups(List<String> groupsParam) {
 		// testNG instance
 	    TestNG testng = new TestNG();
-	    // create list of suites to run
+	    // create list of suites to run with the groups specified
 	    List<XmlSuite> suites = new ArrayList<XmlSuite>();
-	    suites.add(createSuite());
+	    suites.add(createSuite(groupsParam));
 	    // add suites to testNG
 	    testng.setXmlSuites(suites);
 	    // create and add test listener which will generate response object
@@ -87,7 +99,10 @@ public class TesterServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// run the tests and get the object that will be returned as JSON
-		ResponseObject robj = runAllTests();
+		String group1 = request.getParameter("name");
+		List<String> groupsParam = new ArrayList<String>();
+		groupsParam.add(group1);
+		ResponseObject robj = runGroups(groupsParam);
 		//ResponseObject robj = getDummyData();
         // create Jackson mapper object
 		ObjectMapper mapper = new ObjectMapper();

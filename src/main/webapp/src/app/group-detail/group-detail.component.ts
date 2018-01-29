@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { TestService } from '../test.service';
 
 import { testObject } from '../testObject';
 import { groupObject } from '../groupObject';
@@ -12,13 +13,28 @@ import { mockArray } from '../mockArray';
   styleUrls: ['./group-detail.component.css']
 })
 export class GroupDetailComponent implements OnInit {
-  private tests: Array<testObject> = mockArray;
+  private tests: Array<testObject>;
   private group: groupObject = new groupObject();
+  private groups: string[] = ["VP","Trainer"];
+  private btnIsDisabled: boolean = false;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private ts : TestService
   ) { }
+
+  runGroup() {
+    console.log("disabling button...");
+    this.btnIsDisabled = true;
+    console.log("running tests and fetching all test data:");
+    this.ts.runGroup(this.group.name).subscribe(data => {
+      console.log("enabling button...");
+      this.btnIsDisabled = false;
+      this.router.navigateByUrl('/overview');
+    });
+  }
 
   ngOnInit(): void {
   }
@@ -30,19 +46,12 @@ export class GroupDetailComponent implements OnInit {
   showGroup(): void {
     const name = this.route.snapshot.paramMap.get('groupname');
     this.group.name = name;
-    this.group.tests = this.filterTestsByGroup(this.tests,name);
-  }
-
-  filterTestsByGroup(tests: Array<testObject>,groupName: string): Array<testObject> {
-    let filteredTests = new Array<testObject>();
-    let index=0;
-    for (let i=0;i<tests.length;i++) {
-      if (tests[i].groups.includes(groupName)) {
-        filteredTests[index]=tests[i];
-        index++;
-      }
+    if (name == 'VP') {
+      this.group.description = "This group includes all the tests needed for the VP user"
     }
-    return filteredTests;
+    else if (name == 'Trainer') {
+      this.group.description = "This group includes all the tests needed for the Trainer user"
+    }
   }
 
 }

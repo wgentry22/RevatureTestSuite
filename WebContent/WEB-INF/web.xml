@@ -10,9 +10,19 @@
 		<description></description>
 		<servlet-class>com.revature.servlets.TesterServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GroupServlet</servlet-name>
+		<display-name>GroupServlet</display-name>
+		<description></description>
+		<servlet-class>com.revature.servlets.GroupServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>TesterServlet</servlet-name>
 		<url-pattern>/GetAllTests</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GroupServlet</servlet-name>
+		<url-pattern>/RunGroup/*</url-pattern>
 	</servlet-mapping>
 	<filter>
 		<filter-name>CorsFilter</filter-name>

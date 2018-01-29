@@ -29,7 +29,7 @@ export class TestsOverviewComponent implements OnInit {
 
   setStateFromData() {
     var d = this.testData;
-    if (d.totalNumTests==0) {
+    if (d.totalNumTests==0 || d.totalNumTests == undefined) {
       this.allTestsPassed = false;
       this.testStatus = 'No tests have been run';
     }
