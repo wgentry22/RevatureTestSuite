@@ -1,18 +1,26 @@
 <h3>{{test.name}}</h3>
 
 <div>
-  <button class="btn btn-info">Run this test</button>
   <ul>
     <li>
       ID: #{{test.id}}
     </li>
     <li>
+      Status: {{test.status}}
+    </li>
+    <li>
+      In class: {{test.belongsToClass}}
+    </li>
+    <li>
+      Exception: {{test.exceptionThrown}}
+    </li>
+    <!-- <li>
       Groups:
       <ul>
         <li *ngFor="let group of test.groups">
           <a routerLink="/groups/{{group}}">{{group}}</a>
         </li>
       </ul>
-    </li>
+    </li> -->
   </ul>
 </div>

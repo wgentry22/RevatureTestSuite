@@ -6,6 +6,16 @@ public class TestObject {
 	private String status;
 	private String belongsToClass;	
 	private Throwable exceptionThrown;
+	
+	public TestObject() {}
+	
+	public TestObject(int id, String name, String status, String btclass, Throwable exceptionThrown) {
+		this.id = id;
+		this.name = name;
+		this.status = status;
+		this.belongsToClass = btclass;
+		this.exceptionThrown = exceptionThrown;
+	}
 	  
 	public int getId() {
 		return id;

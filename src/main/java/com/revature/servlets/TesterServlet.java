@@ -60,9 +60,29 @@ public class TesterServlet extends HttpServlet {
 	    return ((ListenerTest) listener).getResponseObject();
 	}
 	
+	public ResponseObject getDummyData() {
+		ResponseObject robj = new ResponseObject();
+		robj.totalNumTests = 2;
+		robj.numFailedTests = 1;
+		robj.numSuccessfulTests = 1;
+		List<TestObject> all = new ArrayList<TestObject>();
+		List<TestObject> failures = new ArrayList<TestObject>();
+		List<TestObject> successes = new ArrayList<TestObject>();
+		TestObject fail = new TestObject(1,"first test","success","Class",null);
+		TestObject pass = new TestObject(2,"second test","failure","Class",null);
+		all.add(fail); all.add(pass);
+		failures.add(fail);
+		successes.add(pass);
+		robj.allTests = all;
+		robj.failedTests = failures;
+		robj.successfulTests = successes;
+		return robj;
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// run the tests and get the object that will be returned as JSON
 		ResponseObject robj = runAllTests();
+		//ResponseObject robj = getDummyData();
         // create Jackson mapper object
 		ObjectMapper mapper = new ObjectMapper();
 		// send json data back

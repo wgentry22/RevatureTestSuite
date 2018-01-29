@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-//import {JsonpModule, Jsonp, Response} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TestsOverviewComponent } from './tests-overview/tests-overview.component';
@@ -10,6 +9,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { TestDetailComponent } from './test-detail/test-detail.component';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
 import { MetricsViewComponent } from './metrics-view/metrics-view.component';
+import { TestService } from './test.service';
 
 
 @NgModule({
@@ -24,10 +24,9 @@ import { MetricsViewComponent } from './metrics-view/metrics-view.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule,
-    HttpClientJsonpModule
+    AppRoutingModule
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule,TestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,10 +1,11 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { TestService } from '../test.service';
 
 import { testObject } from '../testObject';
 import { mockArray } from '../mockArray';
-// import { testService } from 'somewhere';
+import { jsonObject } from '../jsonObject';
 
 @Component({
   selector: 'app-test-detail',
@@ -12,23 +13,28 @@ import { mockArray } from '../mockArray';
   styleUrls: ['./test-detail.component.css']
 })
 export class TestDetailComponent implements OnInit {
+  private allTests: any;
   private test: testObject;
 
   constructor(
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private ts: TestService
   ) { }
 
   ngOnInit(): void {
+    this.ts.getTestData().subscribe(data => {
+      this.allTests = data.allTests;
+    });
   }
 
   ngDoCheck(): void {
-    console.log("do check...");
+    console.log("test-detail do check...");
     this.showTest();
   }
 
   showTest(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.test = mockArray[id-1];
+    this.test = this.allTests[id-1];
   }
 }
