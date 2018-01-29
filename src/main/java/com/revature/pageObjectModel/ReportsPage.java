@@ -6,6 +6,10 @@ import org.openqa.selenium.WebElement;
 
 public class ReportsPage {
 
+	public static WebElement logout(WebDriver wd) {
+		return wd.findElement(By.xpath("/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[9]/button"));
+	}
+	
 	public static void navigateToReportsPage(WebDriver wd) {
 		try { Thread.sleep(4000); } catch (InterruptedException e) { e.printStackTrace(); }
 		wd.findElement(By.xpath("/html/body/div[1]/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[7]/a")).click();
@@ -36,6 +40,11 @@ public class ReportsPage {
 	public static WebElement gradArrowButton(WebDriver wd) {
 		return wd.findElement(By.id("gradArrow"));
 	}
+
+	// not found
+	public static WebElement gradSettingsButton(WebDriver wd) {
+		return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-card[2]/get-train-table-toolbar/md-toolbar/md-menu/button"));
+	}
 	
 	// Incoming Trainee Summary
 	public static WebElement incomingTraineeToolbar(WebDriver wd) {
@@ -48,6 +57,11 @@ public class ReportsPage {
 	
 	public static WebElement incArrowButton(WebDriver wd) {
 		return wd.findElement(By.id("incArrow"));
+	}
+	
+	// not found
+	public static WebElement traineeSettingsButton(WebDriver wd) {
+		return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-card[3]/get-train-table-toolbar/md-toolbar/md-menu/button"));
 	}
 	
 }
