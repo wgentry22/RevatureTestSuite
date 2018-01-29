@@ -87,8 +87,9 @@ public class TesterServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// run the tests and get the object that will be returned as JSON
-		ResponseObject robj = runAllTests();
-		//ResponseObject robj = getDummyData();
+		//ResponseObject robj = runAllTests();
+		ResponseObject robj = getDummyData();
+		new TestPath().showResource();
         // create Jackson mapper object
 		ObjectMapper mapper = new ObjectMapper();
 		// send json data back

@@ -1,7 +1,8 @@
 package com.revature.tester;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
@@ -73,11 +74,10 @@ public class MethodUtil {
 	
 	public static void loadPropertiesFile(Properties props) {
 		try {
-			//FileInputStream in = new FileInputStream("src/main/resources/locators.properties");
-			//FileInputStream in = new FileInputStream(System.getProperty("user.dir")+"\\src\\main\\resources\\locators.properties");
-			FileInputStream in = new FileInputStream("C:/git_repos/RevatureTestSuite/src/main/resources/locators.properties");
-			props.load(in);
-			in.close();
+			URL resource = MethodUtil.class.getClassLoader().getResource("locators.properties");
+			InputStream is = resource.openStream();
+			props.load(is);
+			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

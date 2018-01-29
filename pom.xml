@@ -87,7 +87,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>RevatureTestSuite</finalName>
+		<finalName>AssignForce</finalName>
 	
 	</build>
 </project>
