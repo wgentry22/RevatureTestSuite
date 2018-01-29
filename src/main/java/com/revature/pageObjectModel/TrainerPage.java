@@ -1,17 +1,20 @@
 package com.revature.pageObjectModel;
 
+import static com.revature.tester.MethodUtil.waitForLoad;
+import static com.revature.tester.MethodUtil.waitForLoadByAnyType;
+
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import static com.revature.tester.MethodUtil.*;
 
 public class TrainerPage {
 	
 	
 	public static WebElement selectTrainersTab(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-toolbar[1]/div/button[1]"));
-		return waitForLoad(wd, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[5]");
+		return waitForLoad(wd, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[5]",30);
 	}
 	public static WebElement selectAddTrainer(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-toolbar[1]/div/button[1]"));
@@ -40,6 +43,12 @@ public class TrainerPage {
 		return waitForLoad(wd, "//*[@id=\"view\"]/md-card/md-content[2]/md-list/md-list-item/button");
 	}
 	
+	public static List<WebElement> selectReactivateAllTrainers(WebDriver wd) {
+		//List<WebElement> e = wd.findElements(By.xpath("//*[@id=\"view\"]/md-card/md-content[2]"));
+		return wd.findElements(By.xpath("//*[@id=\"view\"]/md-card/md-content[2]"));
+		//Gets the parent tag for deactivated md-content list
+	}
+	
 	public static WebElement selectSaveNewTrainer(WebDriver wd) {
 		//return wd.findElement(By.xpath("/html/body/div[3]/md-dialog/form/md-dialog-actions/button[1]"));
 		return waitForLoad(wd, "/html/body/div[3]/md-dialog/form/md-dialog-actions/button[1]");
@@ -63,12 +72,12 @@ public class TrainerPage {
 	
 	public static WebElement selectMoveBackInCalendar(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"navBack1\"]"));
-		return waitForLoad(wd, "//*[@id=\"navBack1\"]");
+		return waitForLoad(wd, "//*[@id=\"navBack1\"]", 20);
 	}
 	
 	public static WebElement selectMoveForwardInCalendar(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"navForward1\"]"));
-		return waitForLoad(wd, "//*[@id=\"navForward1\"]");
+		return waitForLoad(wd, "//*[@id=\"navForward1\"]", 20);
 	}
 	
 	public static WebElement selectCalendarWeekView(WebDriver wd) {
@@ -81,6 +90,11 @@ public class TrainerPage {
 		return waitForLoad(wd, "//*[@id=\"calendarTabs1\"]/table/tbody/tr/td[2]/div[3]");
 	}
 	
+	public static WebElement selectCalendarAgendaView(WebDriver wd) {
+		//return wd.findElement(By.xpath("//*[@id=\"calendarTabs1\"]/table/tbody/tr/td[3]/div[3]"));
+		return waitForLoad(wd, "//*[@id=\"calendarTabs1\"]/table/tbody/tr/td[3]/div[3]");
+	}
+	
 	public static WebElement selectAddToCalandar(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"footer1\"]/tbody/tr/td[2]/div"));
 		return waitForLoad(wd, "//*[@id=\"footer1\"]/tbody/tr/td[2]/div");
@@ -89,13 +103,13 @@ public class TrainerPage {
 	public static WebElement selectAddPTORequest(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[1]"));
 		//return waitForLoad(wd, "//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[1]");
-		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*= 'tCtrl.showPTODialog()']"));
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*='tCtrl.showPTODialog()']"));
 	}
 	
 	public static WebElement selectCancelCalendar(WebDriver wd) {
 		//return wd.findElement(By.xpath("//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[2]"));
 		//return waitForLoad(wd, "//*[@id=\"dialogContent_241\"]/md-dialog-actions/button[2]");
-		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*= 'tCtrl.hideCalendar()']"));
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*='tCtrl.hideCalendar()']"));
 	}
 	
 	public static WebElement insertPTOStartDate(WebDriver wd) {
@@ -150,7 +164,8 @@ public class TrainerPage {
 	}
 
 	public static WebElement selectLogout(WebDriver wd) {
-		return waitForLoad(wd, "(//button)[0]");
+		//return waitForLoad(wd, "(//button)[1]");
+		return waitForLoadByAnyType(wd, By.xpath("(//button)[1]"));
 	}
 	
 }
