@@ -1,6 +1,8 @@
 package com.revature.tester;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterGroups;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 
@@ -18,30 +20,45 @@ public class ReportTester {
 		wd.get("https://dev.assignforce.revaturelabs.com");
 		LoginPage.loginAs(wd, "test.vpoftech@revature.com.int1", "yuvi1712");
 
-		ReportsPage.navigateToReportsPage(wd);
+//		ReportsPage.navigateToReportsPage(wd);
+		MethodUtil.waitForLoad(wd, "/html/body/div[1]/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[7]/a").click();
+	}
+	
+	@AfterGroups(enabled = true, groups = "VP")
+	public static void logout() {
+		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+		ReportsPage.logout(wd).click();
+		try { Thread.sleep(1500); } catch (InterruptedException e) { e.printStackTrace(); }
+		wd.quit();
 	}
 	
 	@Test(enabled = true, groups = "VP")
 	public static void testBatchProjection() {
-		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
+		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
 		ReportsPage.batchProjectionToolbar(wd).click();
+		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.addNewCardButton(wd).click();
+		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.batchArrowButton(wd).click();
 	}
 	
 	@Test(enabled = true, groups = "VP")
 	public static void testGraduateSummary() {
-		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
+		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
 		ReportsPage.gradArrowButton(wd).click();
+		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.exportToCSV1(wd).click();
+		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.gradToolbar(wd).click();
 	}
 	
 	@Test(enabled = true, groups = "VP")
 	public static void testIncomingTraineeSummary() {
-		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
+		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
 		ReportsPage.incomingTraineeToolbar(wd).click();
+		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.exportToCSV2(wd).click();
+		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.incArrowButton(wd).click();
 	}
 	
