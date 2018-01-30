@@ -1,6 +1,5 @@
 package com.revature.tester;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterGroups;
 import org.testng.annotations.BeforeGroups;
