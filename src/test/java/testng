@@ -2,7 +2,6 @@
 
 <suite name="Suite" parallel="false">
 	 <groups>
-	 
 	  <run>
 	  	<include name="Hib"/>
 	  </run>

@@ -1,6 +1,12 @@
+function testModelInput(model, input) {
+  var el = element(by.model(model));
+  el.sendKeys(input);
+  expect(el.getAttribute('value')).toContain(input);
+}
+
 var EC = protractor.ExpectedConditions;
 // spec.js
-describe('Login functionality', function() {
+describe('Login page', function() {
   // using browser.driver because login page is not Angular application
   it('should login correctly', function() {
     browser.driver.get('http://dev.assignforce.revaturelabs.com/');
@@ -28,9 +34,7 @@ describe('Batches page', function(){
     browser.wait(EC.urlContains('/batches'), 5000);
   });
   it('should input curriculum', function(){
-    var curriculum = element(by.model('bCtrl.batch.curriculum'));
-    curriculum.sendKeys('.NET');
-    expect(curriculum.getAttribute('value')).toBe('.NET');
+    testModelInput('bCtrl.batch.curriculum', '.NET');
   });
   it('should input focus', function(){
     var curriculum = element(by.model('bCtrl.batch.focus'));
@@ -39,14 +43,10 @@ describe('Batches page', function(){
     expect(curriculum.getAttribute('value')).toBe('No Focus');
   });
   it('should input start date', function(){
-    var date = element(by.model('bCtrl.batch.startDate'));
-    date.sendKeys('12/11/2017');
-    expect(curriculum.getAttribute('value')).toBe('12/11/2017');
+    testModelInput('bCtrl.batch.startDate', '12/11/2017');
   });
   it('should input end date', function(){
-    var date = element(by.model('bCtrl.batch.endDate'));
-    date.sendKeys('03/09/2018');
-    expect(curriculum.getAttribute('value')).toBe('03/09/2018');
+    testModelInput('bCtrl.batch.endDate', '03/09/2018');
   });
   it('should have accurate week span', function(){
     var span = element(by.model('bCtrl.batch.weekSpan'));
@@ -57,33 +57,21 @@ describe('Batches page', function(){
     expect(name.getAttribute('value')).toContain('1712 Dec11 .NET');
   });
   it('should take batch name input', function(){
-    var name = element(by.model('bCtrl.batch.name'));
-    name.sendKeys('test name');
-    expect(name.getAttribute('value')).toBe('test name');
+    testModelInput('bCtrl.batch.name', 'test name');
   });
   it('should take batch trainer input', function(){
-    var name = element(by.model('bCtrl.batch.trainer'));
-    name.sendKeys('Tom Brady');
-    expect(name.getAttribute('value')).toContain('Tom Brady');
+    testModelInput('bCtrl.batch.trainer', 'Tom Brady');
   });
   it('should take batch co-trainer input', function(){
-    var name = element(by.model('bCtrl.batch.cotrainer'));
-    name.sendKeys('Matt Barkley');
-    expect(name.getAttribute('value')).toContain('Tom Brady');
+    testModelInput('bCtrl.batch.cotrainer', 'Matt Barkley');
   });
   it('should take batch location input', function(){
-    var location = element(by.model('bCtrl.batch.location'));
-    location.sendKeys('Revature HQ - Reston, VA');
-    expect(location.getAttribute('value')).toBe('Revature HQ - Reston, VA');
+    testModelInput('bCtrl.batch.location', 'Revature HQ - Reston, VA');
   });
   it('should take batch building input', function(){
-    var building = element(by.model('bCtrl.batch.building'));
-    building.sendKeys('Training');
-    expect(building.getAttribute('value')).toContain('Training');
+    testModelInput('bCtrl.batch.building', 'Training');
   });
   it('should take batch room input', function(){
-    var room = element(by.model('bCtrl.batch.room'));
-    room.sendKeys('110');
-    expect(room.getAttribute('value')).toContain('110');
+    testModelInput('bCtrl.batch.room', '110');
   });
 });

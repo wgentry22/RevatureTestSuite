@@ -1,7 +1,10 @@
 package com.revature.tester.test;
 
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -19,35 +22,46 @@ import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.TrainerPage;
 import com.revature.tester.MethodUtil;
 
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.When;
+
 public class TrainerTest {
 	Trainer t = AssignForce.getAllTrainers().get(0);
 	public WebDriver wd = DriverFactory.getDriver("chrome");
   
+  @When("^I click cancel on the Calendar$")
   public void clickCancelPTOCalendar() {
 	  MethodUtil.executeJSClick(wd,TrainerPage.selectCancelCalendar(wd));
   }
   
+  @When("^I insert <firstname> and<lastname> onto the firstname and lastname inputs$")
   public void writeTrainerFullName(String firstname, String lastname) {
 	  TrainerPage.insertTrainerFirstname(wd).sendKeys(firstname);
+	  beforeMethod();
 	  TrainerPage.insertTrainerLastname(wd).sendKeys(lastname);
   }
   
+  @When("^I select save$")
   public void clickAcceptTrainerInput() {
 	  TrainerPage.selectSaveNewTrainer(wd).click();
   }
   
+  @When("^I select cancel$")
   public void clickCancelTrainerInput() {
 	  TrainerPage.selectCancelAddTrainer(wd).click();
   }
   
+  @Given("^I click on the View PTO Calendar button$")
   public void clickPTOCalendar() {
 	  TrainerPage.selectViewPTOCalendar(wd).click();
   }
   
+  @Given("^I click new PTO Request$")
   public void clickNewPTORequest() {
 	  MethodUtil.executeJSClick(wd, TrainerPage.selectAddPTORequest(wd));
   }
   
+  @When("^I click cancel PTO Request$")
   public void clickCancelPTORequest() {
 	  TrainerPage.selectCancelPTORequest(wd).click();
   }
@@ -81,10 +95,12 @@ public class TrainerTest {
 	  TrainerPage.selectTodayOnCalendar(wd);
   }
   
+  @Given("^I click add trainer$")
   public void clickAddTrainer() {
 	  TrainerPage.selectAddTrainer(wd).click();
   }
   
+  @Given("^I click on the trainers tab$")
   @Test(groups= {"VP", "Trainer"})
   public void clickTrainersTab() { 
 	  TrainerPage.selectTrainersTab(wd);
@@ -96,9 +112,11 @@ public class TrainerTest {
 	  writeTrainerFullName(t.getTrainerFirstName(), t.getTrainerLastName());		//Modified By William
 	  clickAcceptTrainerInput();													//Hibernate integration
   }
-  @Test(groups= {"VP"}, priority=2, enabled=true)
+  @Test(groups= {"VP"}, priority=2, enabled=false)
   public void addTrainerCancel() {
-	  TrainerPage.selectAddTrainer(wd).click();
+	  clickAddTrainer();
+	  writeTrainerFullName("Testing1r", "Testing2p");
+	  beforeMethod();
 	  clickCancelTrainerInput();
   }
   
@@ -123,17 +141,31 @@ public class TrainerTest {
   }
   
   @Test(groups= {"VP"}, priority=5, enabled=true)
+  public void clickDeactivateTrainerByName() {
+	  MethodUtil.executeJSClick(wd, TrainerPage.selectTrainerDeactivateButton(wd, "Damon", "Salvatore"));
+  }
+  
+  @Test(groups= {"VP"}, priority=6, enabled=true)
+  public void clickReactivateTrainerByName() {
+	  TrainerPage.selectTrainerReactivateButton(wd, "Damon", "Salvatore").click();
+  }
+  
+  @Test(groups= {"VP"}, priority=5, enabled=false)
   public void clickDeactivateTrainer() {
+	  List<WebElement> deactivatedtrainers = TrainerPage.selectDeactivatedTrainersList(wd);
+	  for (WebElement de : deactivatedtrainers)
+		  System.out.println(de.getText());
 	  for(int i = 0; i < 5; i++)
 	  TrainerPage.selectDeactivateTrainer(wd).click();
   }
   
-  @Test(groups= {"VP"}, priority=6, enabled=true)
+  @Test(groups= {"VP"}, priority=6, enabled=false)
   public void clickReactivateTrainer() {
 	 for(int i = 0; i < 5; i++)
 	 TrainerPage.selectReactivateTrainer(wd).click();
   }
   
+  @When("^I click on the Download Resume button$")
   @Test(groups= {"VP", "Trainer"}, priority=7)
   public void clickDownloadResume() {
 	  //TrainerPage.selectDownloadResume(wd).click();
@@ -149,11 +181,13 @@ public class TrainerTest {
 	}
   }
 
+  @Given("^I am on the trainers page$")
   @AfterMethod
   public void afterMethod() {
 	  TrainerPage.selectTrainersTab(wd);
   }
 
+  @Given("^I login as VP$")
   @BeforeClass(groups= {"VP"})
   public void signInAsVP() {
 	  LoginPage.getUsernameInput(wd).sendKeys("test.vpoftech@revature.com.int1");
@@ -174,6 +208,7 @@ public class TrainerTest {
   public void afterClass() {
 	  MethodUtil.executeJSClick(wd, LoginPage.getLogout(wd));
 	  MethodUtil.waitAndCloseDriver(wd, 1000);
+	  wd.quit();
   }
 
   @BeforeTest(groups= {"VP","Trainer"})

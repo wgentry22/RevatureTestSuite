@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import com.revature.tester.MethodUtil;
 
 
+
 public class ProfilePage {
 	
 	public static WebElement selectProfileTab(WebDriver wd) {
