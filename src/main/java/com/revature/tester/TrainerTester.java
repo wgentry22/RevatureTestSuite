@@ -1,29 +1,87 @@
 package com.revature.tester;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
+import com.revature.pageObjectModel.LoginPage;
+import com.revature.tester.test.TrainerTest;
 
-import static com.revature.driver.DriverFactory.*;
-import static com.revature.pageObjectModel.TrainersPage.*;
+import cucumber.api.CucumberOptions;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import cucumber.api.testng.AbstractTestNGCucumberTests;
 
-public class TrainerTester {
+@CucumberOptions(features = "src/test/resources/trainer.feature")
+public class TrainerTester extends AbstractTestNGCucumberTests {
 
-	static WebDriver wd = getDriver("firefox");
-	
-	public static void main(String[] args) {
-		wd.get("https://dev.assignforce.revaturelabs.com");
-		login();
+	//WebDriver wd = DriverFactory.getDriver("chrome");
+	TrainerTest trainerTest = new TrainerTest();
+
+	// This is cucumber code from test. Should be here and not
+	@Given("^I want to go to the \"([^\"]*)\"$")
+	public void i_want_to_go_to_the(String arg1) {
+		trainerTest.beforeTest();
 	}
-	
-	static void login() {
-		wd.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys("test.vpoftech@revature.com.int1");
-		wd.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("p@$$w0rd1");
-		wd.findElement(By.xpath("//*[@id=\"Login\"]")).submit();
-		wd.findElement(By.xpath("/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[5]/a")).click();
-		selectAddTrainer(wd);
-		selectCancelAddTrainer(wd);
-		selectViewPTOCalendar(wd);
-		
+
+	@Given("^I login as \"([^\"]*)\" with a valid \"([^\"]*)\"$")
+	public void i_login_as_with_a_valid(String arg1, String arg2) {
+
+		trainerTest.signInAsVP();
 	}
+
+	@When("^I login, I click on the trainers tab$")
+	public void i_login_I_click_on_the_trainers_tab() {
+		trainerTest.clickTrainersTab();
+	}
+
+	@Then("^I click on the add trainer button$")
+	public void i_click_on_the_add_trainer_button() {
+		// TrainerPage.selectAddTrainer(trainerTest.wd).click();
+		trainerTest.clickAddTrainer();
+	}
+
+	@Then("^I input \"([^\"]*)\" and \"([^\"]*)\" of the trainer$")
+	public void i_input_and_of_the_trainer(String arg1, String arg2) {
+		trainerTest.writeTrainerFullName(arg1, arg2);
+	}
+
+	@Then("^I click save$")
+	public void i_click_save() {
+		trainerTest.clickAcceptTrainerInput();
+	}
+
+	@Given("^I am on the trainers page$")
+	public void i_am_on_the_trainers_page() throws Throwable {
+		trainerTest.clickAddTrainer();
+	}
+
+	@When("^I click on the View PTO Calendar button$")
+	public void i_click_on_the_View_PTO_Calendar_button() throws Throwable {
+		trainerTest.clickPTOCalendar();
+	}
+
+	@Then("^I click new PTO Request$")
+	public void i_click_new_PTO_Request() throws Throwable {
+		trainerTest.clickNewPTORequest();
+	}
+
+	@Then("^I click cancel PTO Request$")
+	public void i_click_cancel() throws Throwable {
+		trainerTest.clickCancelPTORequest();
+	}
+
+	@Then("^I click cancel on the Calendar$")
+	public void i_click_cancel_on_the_Calendar() throws Throwable {
+		trainerTest.clickCancelPTOCalendar();
+	}
+
+	@When("^I click on the Download Resume button$")
+	public void i_click_on_the_Download_Resume_button() throws Throwable {
+		trainerTest.clickDownloadResume();
+	}
+
+	@Then("^I should get the downloaded resume$")
+	public void i_should_get_the_downloaded_resume() throws Throwable {
+		//DO NOTHINGS
+	}
+
 }
