@@ -93,6 +93,38 @@ public class Batch {
 	}
 
 	
+	public String getTrainerName() {
+		return this.getTrainer().getTrainerFirstName() + " " + this.getTrainer().getTrainerLastName();
+	}
+	
+	public String getFocusName() {
+		return this.getFocus().getFocusName();
+	}
+	
+	public String getCurriculumName() {
+		return this.getCurriculum().getCurriculumName();
+	}
+	
+	public String getLocationName() {
+		return this.getRoom().getBuilding().getLocation().getLocationName();
+	}
+	
+	public String getLocationCity() {
+		return this.getRoom().getBuilding().getLocation().getLocationCity();
+	}
+	
+	public String getLocationState() {
+		return this.getRoom().getBuilding().getLocation().getLocationState();
+	}
+	
+	public String getBuildingName() {
+		return this.getRoom().getBuilding().getBuildingName();
+	}
+	
+	public String getRoomName() {
+		return this.getRoom().getRoomNumber();
+	}
+	
 
 	@Override
 	public int hashCode() {
