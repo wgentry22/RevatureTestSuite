@@ -8,5 +8,5 @@ public interface BatchDao {
 	void editBatch(Batch b);
 	void cloneBatch(Batch b);
 	void deleteBatch(Batch b);
-	
+	Batch selectBatchByName(String name);
 }

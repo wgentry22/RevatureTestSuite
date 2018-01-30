@@ -1,6 +1,7 @@
 package com.revature.hibernate.model;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,10 +30,10 @@ public class Focus {
 	private String focusName;
 	
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="focus_skill", joinColumns=@JoinColumn(name="focus_id"),
 	inverseJoinColumns=@JoinColumn(name="skill_id"))
-	private Collection<Skill> focusSkill;
+	private Set<Skill> focusSkill;
 
 
 	
@@ -47,7 +48,7 @@ public class Focus {
 	
 	
 	//All args constructor
-	public Focus(int focusId, String focusName, Collection<Skill> focusSkill) {
+	public Focus(int focusId, String focusName, Set<Skill> focusSkill) {
 	super();
 	this.focusId = focusId;
 	this.focusName = focusName;
@@ -71,11 +72,11 @@ public class Focus {
 			this.focusName = focusName;
 		}
 
-		public Collection<Skill> getFocusSkill() {
+		public Set<Skill> getFocusSkill() {
 			return focusSkill;
 		}
 
-		public void setFocusSkill(Collection<Skill> focusSkill) {
+		public void setFocusSkill(Set<Skill> focusSkill) {
 			this.focusSkill = focusSkill;
 		}
 		

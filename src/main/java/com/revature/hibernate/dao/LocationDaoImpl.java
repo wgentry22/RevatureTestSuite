@@ -87,6 +87,28 @@ public class LocationDaoImpl implements LocationDao {
 	}
 	
 	
+	public List<Building> selectAllBuildings() {
+		Session session = HibernateUtil.getSession();
+		List<Building> buildings = null;
+		try {
+			buildings = session.createQuery("from Building").list();
+		} finally {
+			session.close();
+		}
+		return buildings;
+	}
+	
+	
+	public List<Room> selectAllRooms() {
+		Session session = HibernateUtil.getSession();
+		List<Room> rooms = null;
+		try {
+			rooms = session.createQuery("from Room").list();
+		} finally {
+			session.close();
+		}
+		return rooms;
+	}
 	
 	
 	public void updateLocation(int id, String locationName, String locationCity, String locationState) {
@@ -192,5 +214,19 @@ public class LocationDaoImpl implements LocationDao {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public Room selectRoomByName(String name) {
+		Session session = HibernateUtil.getSession();
+		Transaction t = null;
+		Room room = null;
+		try {
+			room = (Room) session.createCriteria(Room.class).add(Restrictions.eq("roomNumber", name)).list().get(0);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return room;
 	}
 }

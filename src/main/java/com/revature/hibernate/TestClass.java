@@ -1,10 +1,5 @@
 package com.revature.hibernate;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.revature.hibernate.dao.*;
 import com.revature.hibernate.model.*;
 
@@ -43,16 +38,36 @@ public class TestClass {
 //		LocationDaoImpl.getInstance().addRoom(b3.getBuildingName(), r6);
 		
 		
-		List<Location> allLocations = LocationDaoImpl.getInstance().selectAllLocations();
-		for (Location l : allLocations) {
-			System.out.println("Location: " + l.getLocationName());
-			for (Building b : l.getBuildings()) {
-				System.out.println("Building: " + b.getBuildingName());
-				for (Room r : b.getRooms()) {
-					System.out.println("Room: " + r.getRoomNumber());
-				}
-			}
-		}
+		
+		
+		//Selects all Locations from database
+//		List<Location> allLocations = LocationDaoImpl.getInstance().selectAllLocations();
+//		for (Location l : allLocations) {
+//			System.out.println("Location: " + l.getLocationName());
+//			for (Building b : l.getBuildings()) {
+//				System.out.println("Building: " + b.getBuildingName());
+//				for (Room r : b.getRooms()) {
+//					System.out.println("Room: " + r.getRoomNumber());
+//				}
+//			}
+//		}
+
+		
+		
+		//testing Building bidirectional relationships
+//		List<Building> allBuildings = LocationDaoImpl.getInstance().selectAllBuildings();
+//		for (Building b : allBuildings) {
+//			System.out.println(b.getBuildingName()+ ": " + b.getLocation().getLocationName());
+//		}
+		
+		
+		//testing Room relationship
+//		List<Room> allRooms = LocationDaoImpl.getInstance().selectAllRooms();
+//		for (Room r : allRooms) {
+//			System.out.println("Room: " + r.getRoomNumber() + ", Building: " + r.getBuilding().getBuildingName());
+//		}
+		
+		
 		
 //		Curriculum c = new Curriculum("JTA Automation");
 //		CurriculumDaoImpl.getInstance().insertCurriculum(c);
@@ -70,15 +85,191 @@ public class TestClass {
 //		CurriculumDaoImpl.getInstance().addSkill(c.getCurriculumName(), s3);
 //		CurriculumDaoImpl.getInstance().addSkill(c.getCurriculumName(), s4);
 		
-		List<Curriculum> curriculumList = CurriculumDaoImpl.getInstance().selectAllCurriculum();
-		for (Curriculum c : curriculumList) {
-			System.out.println("Curriculum: " + c.getCurriculumName());
-			for (Skill s : c.getCurriculumSkill()) {
-				System.out.println("Skill: " + s.getSkillName());
-			}
+		
+		
+		//Selects all Curricula from database
+//		List<Curriculum> curriculumList = CurriculumDaoImpl.getInstance().selectAllCurriculum();
+//		for (Curriculum c : curriculumList) {
+//			System.out.println("Curriculum: " + c.getCurriculumName());
+//			for (Skill s : c.getCurriculumSkill()) {
+//				System.out.println("Skill: " + s.getSkillName());
+//			}
+//		}
+		
+		
+		
+		
+//		Skill s1 = SkillDaoImpl.getInstance().selectSkill("Core Java");
+//		Skill s2 = SkillDaoImpl.getInstance().selectSkill("SQL");
+//		Skill s4 = new Skill("Hibernate");
+//		SkillDaoImpl.getInstance().insertSkill(s4);
+//		Skill s5 = new Skill("Angular");
+//		SkillDaoImpl.getInstance().insertSkill(s5);
+//		Skill s6 = new Skill("Bootstrap");
+//		SkillDaoImpl.getInstance().insertSkill(s6);
+//		Skill s7 = new Skill("TestNG");
+//		SkillDaoImpl.getInstance().insertSkill(s7);
+//		Skill s8 = new Skill("jUnit");
+//		SkillDaoImpl.getInstance().insertSkill(s8);
+//		Skill s9 = new Skill("Protractor");
+//		SkillDaoImpl.getInstance().insertSkill(s9);
+		
+		
+		
+		//ToDo: Add skills to trainers: Complete
+		
+		
+		
+		
+		
+//		Trainer t1 = new Trainer("Alex", "Smith");
+//		TrainerDaoImpl.getInstance().insertTrainer(t1);
+//		
+//		Trainer t2 = new Trainer("Max", "Adams");
+//		TrainerDaoImpl.getInstance().insertTrainer(t2);
+//		
+//		Trainer t3 = new Trainer("John", "Stevens");
+//		TrainerDaoImpl.getInstance().insertTrainer(t3);
+		
+//		SkillDaoImpl.getInstance().insertSkill(new Skill("C++"));
+//		SkillDaoImpl.getInstance().insertSkill(new Skill("Ruby On Rails"));
+//		SkillDaoImpl.getInstance().insertSkill(new Skill("CSS"));
+//		SkillDaoImpl.getInstance().insertSkill(new Skill("Android Wear"));
+		
+//		List<Skill> allSkills = SkillDaoImpl.getInstance().selectAllSkills();
+//		System.out.println("Total Current Skills: " + allSkills.size());
+//		
+//		
+//		Skill s1 = allSkills.get(0);	//Google Maps API
+//		Skill s2 = allSkills.get(1);	//Advanced UI
+//		Skill s3 = allSkills.get(2);	//Core Java
+//		Skill s4 = allSkills.get(3);	//Services
+//		Skill s5 = allSkills.get(4);	//SQL
+//		Skill s6 = allSkills.get(5);	//JavaScript
+//		Skill s7 = allSkills.get(6);	//Core Java
+//		Skill s8 = allSkills.get(7);	//Servlets
+//		Skill s9 = allSkills.get(8);	//Hibernate
+//		Skill s10 = allSkills.get(9);	//Angular
+//		Skill s11 = allSkills.get(10);	//Bootstrap
+//		Skill s12 = allSkills.get(11);	//TestNG
+//		Skill s13 = allSkills.get(12);	//jUnit
+//		Skill s14 = allSkills.get(13);	//Protractor
+//		Skill s15 = allSkills.get(14);	//Ruby on Rails
+//		Skill s16 = allSkills.get(15);	//CSS
+//		Skill s17 = allSkills.get(16);	//C++
+//		Skill s18 = allSkills.get(17);	//Android Wear
+		
+		//Adds Skills
+//		//For Trainer t1 = new Trainer("Alex", "Smith");
+//		TrainerDaoImpl.getInstance().addSkill(t1.getTrainerFirstName(), t1.getTrainerLastName(), s3);
+//		TrainerDaoImpl.getInstance().addSkill(t1.getTrainerFirstName(), t1.getTrainerLastName(), s5);
+//		TrainerDaoImpl.getInstance().addSkill(t1.getTrainerFirstName(), t1.getTrainerLastName(), s6);
+//		TrainerDaoImpl.getInstance().addSkill(t1.getTrainerFirstName(), t1.getTrainerLastName(), s7);
+//		TrainerDaoImpl.getInstance().addSkill(t1.getTrainerFirstName(), t1.getTrainerLastName(), s8);
+//		TrainerDaoImpl.getInstance().addSkill(t1.getTrainerFirstName(), t1.getTrainerLastName(), s10);
+//		
+//		//Adds Skills	
+// 		//For Trainer t2 = new Trainer("Max", "Adams");
+//		TrainerDaoImpl.getInstance().addSkill(t2.getTrainerFirstName(), t2.getTrainerLastName(), s3);
+//		TrainerDaoImpl.getInstance().addSkill(t2.getTrainerFirstName(), t2.getTrainerLastName(), s5);
+//		TrainerDaoImpl.getInstance().addSkill(t2.getTrainerFirstName(), t2.getTrainerLastName(), s6);
+//		TrainerDaoImpl.getInstance().addSkill(t2.getTrainerFirstName(), t2.getTrainerLastName(), s7);
+//		TrainerDaoImpl.getInstance().addSkill(t2.getTrainerFirstName(), t2.getTrainerLastName(), s8);
+//		TrainerDaoImpl.getInstance().addSkill(t2.getTrainerFirstName(), t2.getTrainerLastName(), s10);
+//		TrainerDaoImpl.getInstance().addSkill(t2.getTrainerFirstName(), t2.getTrainerLastName(), s11);
+//		TrainerDaoImpl.getInstance().addSkill(t2.getTrainerFirstName(), t2.getTrainerLastName(), s12);
+//		TrainerDaoImpl.getInstance().addSkill(t2.getTrainerFirstName(), t2.getTrainerLastName(), s14);
+//		
+//			//Adds skills 
+//			//For Trainer t2 = new Trainer("John", "Stevens");
+//		TrainerDaoImpl.getInstance().addSkill(t3.getTrainerFirstName(), t3.getTrainerLastName(), s1);
+//		TrainerDaoImpl.getInstance().addSkill(t3.getTrainerFirstName(), t3.getTrainerLastName(), s2);
+//		TrainerDaoImpl.getInstance().addSkill(t3.getTrainerFirstName(), t3.getTrainerLastName(), s3);
+//		TrainerDaoImpl.getInstance().addSkill(t3.getTrainerFirstName(), t3.getTrainerLastName(), s4);
+//		TrainerDaoImpl.getInstance().addSkill(t3.getTrainerFirstName(), t3.getTrainerLastName(), s6);
+//		TrainerDaoImpl.getInstance().addSkill(t3.getTrainerFirstName(), t3.getTrainerLastName(), s9);
+//		TrainerDaoImpl.getInstance().addSkill(t3.getTrainerFirstName(), t3.getTrainerLastName(), s14);
+		
+		
+		//Selects all Trainers and displays each of their skills
+//		List<Trainer> allTrainers = TrainerDaoImpl.getInstance().selectAllTrainers();
+//		for (Trainer t : allTrainers) {
+//			System.out.println("Trainer: " + t.getTrainerFirstName() + " " + t.getTrainerLastName());
+//			for (Skill s : t.getTrainerSkill()) {
+//				System.out.println(s.getSkillName());
+//			}
+//		}
+		
+		
+		
+		//ToDo: Add skills to Focuses
+//		Focus f1 = new Focus("Android Programming");
+//		FocusDaoImpl.getInstance().insertFocus(f1);
+//		Focus f2 = new Focus("Embedded Systems");
+//		FocusDaoImpl.getInstance().insertFocus(f2);
+//		Focus f3 = new Focus("Web Development");
+//		FocusDaoImpl.getInstance().insertFocus(f3);
+//		
+//		FocusDaoImpl.getInstance().addSkill(f1.getFocusName(), s1);
+//		FocusDaoImpl.getInstance().addSkill(f1.getFocusName(), s2);
+//		FocusDaoImpl.getInstance().addSkill(f1.getFocusName(), s8);
+//		
+//		FocusDaoImpl.getInstance().addSkill(f2.getFocusName(), s14);
+//		
+//		FocusDaoImpl.getInstance().addSkill(f3.getFocusName(), s16);
+//		FocusDaoImpl.getInstance().addSkill(f3.getFocusName(), s17);
+		
+		
+		
+
+//		List<Focus> allFocuses = FocusDaoImpl.getInstance().selectAllFocuses();
+//		for (Focus f : allFocuses) {
+//			if (f.getFocusSkill().size() > 0) {
+//				System.out.println("Focus: " + f.getFocusId() + " - " + f.getFocusName());
+//				for (Skill s : f.getFocusSkill()) {
+//					System.out.println(s.getSkillName());
+//				}
+//			}
+//		}
+		
+		
+		//ToDo: Batch relationships
+		Batch b1 = BatchDaoImpl.getInstance().selectBatchByName("2901JTA");
+//		Room r1 = LocationDaoImpl.getInstance().selectRoomByName("203B");
+//		Trainer t1 = TrainerDaoImpl.getInstance().selectTrainerByName("John", "Stevens");
+//		Curriculum c1 = CurriculumDaoImpl.getInstance().selectCurriculumByName("JTA Automation");
+//		Focus f1 = FocusDaoImpl.getInstance().selectFocusByName("Web Development");
+		
+//		BatchDaoImpl.getInstance().addRoomToBatch(b1.getBatchName(), r1);
+//		BatchDaoImpl.getInstance().addTrainerToBatch(b1.getBatchName(), t1);
+//		BatchDaoImpl.getInstance().addCurriculumToBatch(b1.getBatchName(), c1);
+//		BatchDaoImpl.getInstance().addFocusToBatch(b1.getBatchName(), f1);
+		
+		
+		System.out.println(b1.getBatchName());
+		System.out.println("Room: "+b1.getRoom().getRoomNumber());
+		System.out.println("Building: "+ b1.getRoom().getBuilding().getBuildingName());
+		System.out.println("Location: " + b1.getRoom().getBuilding().getLocation().getLocationName());
+		System.out.println("Trainer: " + b1.getTrainer().getTrainerFirstName() + " " + b1.getTrainer().getTrainerLastName());
+		for (Skill s : b1.getTrainer().getTrainerSkill()) {
+			System.out.println("Trainer Skill: " + s.getSkillName());
+		}
+		System.out.println("Curriculum: " + b1.getCurriculum().getCurriculumName());
+		for (Skill s : b1.getCurriculum().getCurriculumSkill()) {
+			System.out.println("Curriculum Skill: " + s.getSkillName());
+		}
+		System.out.println("Focus: " + b1.getFocus().getFocusName());
+		for (Skill s : b1.getFocus().getFocusSkill()) {
+			System.out.println("Focus Skill: " + s.getSkillName());
 		}
 		
-	
+		
+		HibernateUtil.shutdown();
+		
+		//ToDo: Insert enough data and be able to pull each one accordingly
+		
+		
+		
 		
 		
 	}

@@ -14,7 +14,11 @@ public interface LocationDao {
 	int getLocationIdByName(String name);
 	void updateLocation(int id, String locationName, String locationCity, String locationState);
 	List<Location> selectAllLocations();
+	List<Building> selectAllBuildings();
+	List<Room> selectAllRooms();
 	void deleteLocation(String name);
 	void addBuilding(String locationName, Building building);
 	void addRoom(String buildingName, Room room);
+	Room selectRoomByName(String room);
+	
 }

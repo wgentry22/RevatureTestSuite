@@ -12,6 +12,7 @@ public interface FocusDao {
 	Focus selectFocusByName(String name);
 	Focus selectFocusById(int id);
 	void deleteFocus(String name);
+	void deleteFocus(int id);
 	void addSkill(String focusName, Skill skill);
 	
 }

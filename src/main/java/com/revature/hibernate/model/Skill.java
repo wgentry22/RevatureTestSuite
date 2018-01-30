@@ -18,7 +18,7 @@ public class Skill {
 	@Column(name="skill_id", nullable=false, updatable=false)
 	private int skillId;
 	
-	@Column(name="skill_name", nullable=false, updatable=false, unique=true)
+	@Column(name="skill_name", nullable=false, updatable=false, unique=false)
 	private String skillName;
 	
 //	@ManyToMany(mappedBy="focusSkill")

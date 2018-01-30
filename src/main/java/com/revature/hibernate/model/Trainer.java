@@ -36,11 +36,11 @@ public class Trainer {
 		private String trainerLastName;
 		
 		
-		@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+		@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 		@JoinTable(name="trainer_skill", joinColumns= {@JoinColumn(name="trainer_id")},
 		inverseJoinColumns= {@JoinColumn(name="skill_id")})
 		@ElementCollection(targetClass=Skill.class)
-		private Set<Skill> trainerSkill = new HashSet<Skill>();
+		private Set<Skill> trainerSkill;
 
 
 		public Trainer() {

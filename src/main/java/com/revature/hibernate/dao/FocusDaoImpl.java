@@ -63,7 +63,7 @@ public class FocusDaoImpl implements FocusDao {
 
 	@Override
 	public Focus selectFocusByName(String name) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Focus focus = null;
 		try {
 			focus = (Focus) session.createCriteria(Focus.class).add(Restrictions.eq("focusName", name)).list().get(0);
@@ -93,10 +93,30 @@ public class FocusDaoImpl implements FocusDao {
 
 	@Override
 	public void deleteFocus(String name) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSession();
 		Transaction t = null;
 		try {
 			Focus focus = (Focus) session.createCriteria(Focus.class).add(Restrictions.eq("focusName", name)).list().get(0);
+			t = session.beginTransaction();
+			session.delete(focus);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			logger.warn(e);
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	
+	public void deleteFocus(int id) {
+		Session session = HibernateUtil.getSession();
+		Transaction t = null;
+		try {
+			Focus focus = (Focus) session.createCriteria(Focus.class).add(Restrictions.eq("focusId", id)).list().get(0);
 			t = session.beginTransaction();
 			session.delete(focus);
 			session.getTransaction().commit();

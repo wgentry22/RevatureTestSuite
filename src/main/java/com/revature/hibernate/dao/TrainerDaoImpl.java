@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
+import com.revature.hibernate.HibernateUtil;
 import com.revature.hibernate.model.Skill;
 import com.revature.hibernate.model.Trainer;
 import static com.revature.hibernate.HibernateUtil.*;
@@ -55,7 +56,7 @@ public class TrainerDaoImpl implements TrainerDao {
 		Session session = getSession();
 		List<Trainer> list = null;
 		try {
-			list = session.createQuery("from trainer").list();
+			list = session.createQuery("from Trainer").list();
 		} catch (HibernateException e){
 			logger.warn(e);
 			e.printStackTrace();
@@ -67,7 +68,7 @@ public class TrainerDaoImpl implements TrainerDao {
 
 	@Override
 	public Trainer selectTrainerByName(String trainerFirstName, String trainerLastName) {
-		Session session = getSession();
+		Session session = HibernateUtil.getSession();
 		Trainer trainer = null;
 		try {
 			Criterion crit = Restrictions.conjunction().add(Restrictions.eq("trainerFirstName", trainerFirstName)).add(Restrictions.eq("trainerLastName", trainerLastName));
@@ -75,6 +76,8 @@ public class TrainerDaoImpl implements TrainerDao {
 		} catch (HibernateException e) {
 			logger.warn(e);
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		return trainer;
 	}

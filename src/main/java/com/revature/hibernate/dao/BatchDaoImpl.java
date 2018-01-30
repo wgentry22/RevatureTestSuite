@@ -6,8 +6,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
+import com.revature.hibernate.HibernateUtil;
 import com.revature.hibernate.model.Batch;
+import com.revature.hibernate.model.Curriculum;
+import com.revature.hibernate.model.Focus;
+import com.revature.hibernate.model.Room;
+import com.revature.hibernate.model.Trainer;
 
 public class BatchDaoImpl implements BatchDao {
 	
@@ -106,6 +112,95 @@ public class BatchDaoImpl implements BatchDao {
 		}
 	}
 	
+	public Batch selectBatchByName(String name) {
+		Session session = HibernateUtil.getSession();
+		Transaction t = null;
+		Batch batch = null;
+		try {
+			batch = (Batch) session.createCriteria(Batch.class).add(Restrictions.eq("batchName", name)).list().get(0);
+		} catch (HibernateException e ) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return batch;
+	}
 	
+	
+	public void addRoomToBatch(String batchName, Room room) {
+		Session session = HibernateUtil.getSession();
+		Transaction t = null;
+		try {
+			Batch batch = (Batch) session.createCriteria(Batch.class).add(Restrictions.eq("batchName", batchName)).list().get(0);
+			batch.setRoom(room);
+			t = session.beginTransaction();
+			session.save(batch);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void addFocusToBatch(String batchName, Focus focus) {
+		Session session = HibernateUtil.getSession();
+		Transaction t = null;
+		try {
+			Batch batch = (Batch) session.createCriteria(Batch.class).add(Restrictions.eq("batchName", batchName)).list().get(0);
+			batch.setFocus(focus);
+			t = session.beginTransaction();
+			session.save(batch);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void addCurriculumToBatch(String batchName, Curriculum curriculum) {
+		Session session = HibernateUtil.getSession();
+		Transaction t = null;
+		try {
+			Batch batch = (Batch) session.createCriteria(Batch.class).add(Restrictions.eq("batchName", batchName)).list().get(0);
+			batch.setCurriculum(curriculum);
+			t = session.beginTransaction();
+			session.save(batch);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+//			session.close();
+		}
+	}
+	
+	public void addTrainerToBatch(String batchName, Trainer trainer) {
+		Session session = HibernateUtil.getSession();
+		Transaction t = null;
+		try {
+			Batch batch = (Batch) session.createCriteria(Batch.class).add(Restrictions.eq("batchName", batchName)).list().get(0);
+			batch.setTrainer(trainer);
+			t = session.beginTransaction();
+			session.save(batch);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (t != null) {
+				t.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+//			session.close();
+		}
+	}
 	
 }
