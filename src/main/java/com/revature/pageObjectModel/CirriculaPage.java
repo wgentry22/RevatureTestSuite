@@ -39,15 +39,16 @@ public class CirriculaPage {
 	
 	
 	public static void loginVPCredentials(WebDriver driver) {
-		driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(vpUsername);
-		driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(vpPassword);
-		driver.findElement(By.xpath("//*[@id=\"Login\"]")).click();
+		MethodUtil.waitForLoad(driver, "//*[@id=\"username\"]").sendKeys(vpUsername);
+		MethodUtil.waitForLoad(driver, "//*[@id=\"password\"]").sendKeys(vpPassword);
+		MethodUtil.waitForLoad(driver, "//*[@id=\"Login\"]").click();
+		
 	}
 	
 	public static void loginTrainerCredentials(WebDriver driver) {
-		driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(trainerUsername);
-		driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(trainerPassword);
-		driver.findElement(By.xpath("//*[@id=\"Login\"]")).click();
+		MethodUtil.waitForLoad(driver, "//*[@id=\"username\"]").sendKeys(trainerUsername);
+		MethodUtil.waitForLoad(driver, "//*[@id=\"password\"]").sendKeys(trainerPassword);
+		MethodUtil.waitForLoad(driver, "//*[@id=\"Login\"]").click();
 	}
 //	/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[1]
 	public static WebElement overviewTab(WebDriver driver) {
@@ -232,7 +233,15 @@ public class CirriculaPage {
 		return e;
 	}
 	
+	public static WebElement editSkillsDropdownforFocus(WebDriver driver) {
+		e = MethodUtil.waitForLoad(driver, "/html/body/div[3]/md-dialog/md-dialog-content/form/div[2]/md-input-container[2]/md-select", 45);
+		return e;
+	}
 	
+	public static WebElement editFocusNameInputField(WebDriver driver) {
+		e = MethodUtil.waitForLoad(driver, "/html/body/div[3]/md-dialog/md-dialog-content/form/div[2]/md-input-container[1]/input", 45);
+		return e;
+	}
 	
 	
 	
