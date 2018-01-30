@@ -79,7 +79,23 @@ public class Room {
 		this.building = building;
 	}
 
+	public String getBuildingName() {
+		return this.getBuilding().getBuildingName();
+	}
 
+	public String getLocationName() {
+		return this.getBuilding().getLocation().getLocationName();
+	}
+	
+	public String getLocationCity() {
+		return this.getBuilding().getLocation().getLocationCity();
+	}
+	
+	public String getLocationState() {
+		return this.getBuilding().getLocation().getLocationState();
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Room [roomId=" + roomId + ", roomNumber=" + roomNumber + ", building=" + building + "]";

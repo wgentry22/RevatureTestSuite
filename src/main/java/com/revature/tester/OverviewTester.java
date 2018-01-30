@@ -51,7 +51,7 @@ public class OverviewTester {
 		}
 	}
 	
-	@Test(groups= {"VP","Trainer"},priority=3,enabled=false)
+	@Test(groups= {"VP","Trainer"},priority=3,enabled=true)
 	public void testTableSort() {
 		for (int i=1;i<=8;i++) {// for each column...
 			// Sort ascending

@@ -13,11 +13,14 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Trainer;
+import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.TrainerPage;
 import com.revature.tester.MethodUtil;
 
 public class TrainerTest {
+	Trainer t = AssignForce.getAllTrainers().get(0);
 	public WebDriver wd = DriverFactory.getDriver("chrome");
   
   public void clickCancelPTOCalendar() {
@@ -90,8 +93,8 @@ public class TrainerTest {
   @Test(groups= {"VP"}, priority=1, enabled=true)
   public void addTrainerSave() {
 	  clickAddTrainer();
-	  writeTrainerFullName("Testing1r", "Testing2p");
-	  clickAcceptTrainerInput();
+	  writeTrainerFullName(t.getTrainerFirstName(), t.getTrainerLastName());		//Modified By William
+	  clickAcceptTrainerInput();													//Hibernate integration
   }
   @Test(groups= {"VP"}, priority=2, enabled=true)
   public void addTrainerCancel() {

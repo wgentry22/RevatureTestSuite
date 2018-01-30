@@ -1,5 +1,8 @@
 package com.revature.hibernate.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,6 +43,9 @@ public class Batch {
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="focusId", nullable=true)
 	private Focus focus;
+	
+	
+	
 	
 	public Batch() {
 		super();
@@ -125,7 +131,26 @@ public class Batch {
 		return this.getRoom().getRoomNumber();
 	}
 	
-
+	
+	//Necessary for initial run of test to ensure that all of the skills are available
+	//for our input trainers, curriculums, and focuses
+	public Set<Skill> getAllRequiredSkills() {
+		Set<Skill> batchSkills = new HashSet<Skill>();
+		for (Skill s : this.getTrainer().getTrainerSkill()) {
+			batchSkills.add(s);
+		}
+		for (Skill s : this.getCurriculum().getCurriculumSkill()) {
+			batchSkills.add(s);
+		}
+		if (this.getFocus() != null) {
+			for (Skill s : this.getFocus().getFocusSkill()) {
+				batchSkills.add(s);
+			}
+		}
+		return batchSkills;
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

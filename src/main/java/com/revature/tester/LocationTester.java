@@ -6,13 +6,15 @@ import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Room;
+import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.LocationsPage;
 import com.revature.pageObjectModel.LoginPage;
-import com.revature.pageObjectModel.SettingsPage;
 
 public class LocationTester {
 
 	static WebDriver wd = null;
+	static Room room = AssignForce.getAllRooms().get(6);
 	
 	static String locationName;
 	static String locationCity;
@@ -30,14 +32,14 @@ public class LocationTester {
 		LoginPage.loginAs(wd, "test.vpoftech@revature.com.int1", "yuvi1712");
 
 		// Use Dummy Values When You Run Tests
-		locationName = "Test_1.38";
-		locationCity = "Austin";
-		locationState = "TX";
-		buildingName = "Random_1.38";
+		locationName = room.getLocationName();			//"Test_1.38";
+		locationCity = room.getLocationCity();			//"Austin";
+		locationState = room.getLocationState();		//"TX";
+		buildingName = room.getBuildingName();			//"Random_1.38";
 		newBuildingName = "Reston 11730";
-		roomName = "Test_Room_1.38";
+		roomName = room.getRoomNumber();				//"Test_Room_1.38";
 		
-		MethodUtil.waitForLoad(wd, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[3]/a").click();
+		MethodUtil.waitForLoad(wd, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[3]/a", 50).click();
 //		LocationsPage.navigateToLocationsPage(wd).click();
 	}
 	
@@ -59,6 +61,7 @@ public class LocationTester {
 		LocationsPage.newLocationName(wd).sendKeys(locationName);
 		LocationsPage.newLocationCity(wd).sendKeys(locationCity);
 		LocationsPage.newLocationState(wd).sendKeys(locationState);
+		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		//Added by William for his slow machine
 		LocationsPage.saveButton(wd).click();
 	}
 	
@@ -71,6 +74,7 @@ public class LocationTester {
 		LocationsPage.newBuildingButton(wd).click();
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
 		LocationsPage.newBuildingName(wd).sendKeys(buildingName);
+		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		//Added by William for his slow machine
 		LocationsPage.saveButton(wd).click();
 	}
 	
@@ -83,6 +87,7 @@ public class LocationTester {
 		LocationsPage.newRoomButton(wd).click();
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
 		LocationsPage.newRoomName(wd).sendKeys(roomName);
+		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		//Added by William for his slow machine
 		LocationsPage.saveButton(wd).click();
 	}
 	
@@ -96,6 +101,7 @@ public class LocationTester {
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
 		LocationsPage.newBuildingName(wd).clear();
 		LocationsPage.newBuildingName(wd).sendKeys(newBuildingName);
+		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		//Added by William for his slow machine
 		LocationsPage.saveButton(wd).click();
 	}
 
