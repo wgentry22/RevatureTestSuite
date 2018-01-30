@@ -148,7 +148,6 @@ public class TrainerTest {
 
   @BeforeClass(groups= {"VP"})
   public void signInAsVP() {
-	  LoginPage.goToAssignForce(wd);
 	  LoginPage.getUsernameInput(wd).sendKeys("test.vpoftech@revature.com.int1");
 	  LoginPage.getPasswordInput(wd).sendKeys("yuvi1712");
 	  LoginPage.getLoginBtn(wd).submit();
@@ -157,7 +156,6 @@ public class TrainerTest {
   
   @BeforeClass(groups= {"Trainer"})
   public void signInAsTrainer() {
-	  LoginPage.goToAssignForce(wd);
 	  LoginPage.getUsernameInput(wd).sendKeys("test.trainer@revature.com.int1");
 	  LoginPage.getPasswordInput(wd).sendKeys("trainer123");
 	  LoginPage.getLoginBtn(wd).submit();
@@ -166,12 +164,13 @@ public class TrainerTest {
 
   @AfterClass(groups= {"VP","Trainer"})
   public void afterClass() {
-	  MethodUtil.executeJSClick(wd, TrainerPage.selectLogout(wd));
+	  MethodUtil.executeJSClick(wd, LoginPage.getLogout(wd));
 	  MethodUtil.waitAndCloseDriver(wd, 1000);
   }
 
-  @BeforeTest
+  @BeforeTest(groups= {"VP","Trainer"})
   public void beforeTest() {
+	  LoginPage.goToAssignForce(wd);
   }
 
   @AfterTest

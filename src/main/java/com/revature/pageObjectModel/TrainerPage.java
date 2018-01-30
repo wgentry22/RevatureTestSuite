@@ -163,9 +163,6 @@ public class TrainerPage {
 		return waitForLoad(wd, "//*[@id=\"view\"]/md-card/md-content[1]/md-list/md-list-item[1]/div/button");
 	}
 
-	public static WebElement selectLogout(WebDriver wd) {
-		//return waitForLoad(wd, "(//button)[1]");
-		return waitForLoadByAnyType(wd, By.xpath("(//button)[1]"));
-	}
+	
 	
 }
