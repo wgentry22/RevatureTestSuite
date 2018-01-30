@@ -30,85 +30,100 @@ public class TrainerTest {
 	Batch batch = AssignForce.getAllBatches().get(2);
 	Trainer t = batch.getTrainer();
 	public WebDriver wd = DriverFactory.getDriver("chrome");
-  
+
+  public void clickDownloadResumeByName(String firstname, String lastname) {
+	  TrainerPage.selectTrainerDownloadResumeButton(wd, firstname, lastname).click();
+  }
+
+  public void clickProfileByName(String firstname, String lastname) {
+	  TrainerPage.selectTrainerProfileButton(wd, firstname, lastname).click();
+  }
+
+
   @When("^I click cancel on the Calendar$")
   public void clickCancelPTOCalendar() {
 	  MethodUtil.executeJSClick(wd,TrainerPage.selectCancelCalendar(wd));
   }
-  
-  @When("^I insert <firstname> and<lastname> onto the firstname and lastname inputs$")
+
+  @When("^I insert <firstname> and <lastname> onto the firstname and lastname inputs$")
   public void writeTrainerFullName(String firstname, String lastname) {
 	  TrainerPage.insertTrainerFirstname(wd).sendKeys(firstname);
-	  beforeMethod();
+	  holdOn(500);
 	  TrainerPage.insertTrainerLastname(wd).sendKeys(lastname);
   }
-  
+
   @When("^I select save$")
   public void clickAcceptTrainerInput() {
 	  TrainerPage.selectSaveNewTrainer(wd).click();
   }
-  
+
   @When("^I select cancel$")
   public void clickCancelTrainerInput() {
 	  TrainerPage.selectCancelAddTrainer(wd).click();
   }
-  
+
   @Given("^I click on the View PTO Calendar button$")
   public void clickPTOCalendar() {
 	  TrainerPage.selectViewPTOCalendar(wd).click();
   }
-  
+
   @Given("^I click new PTO Request$")
   public void clickNewPTORequest() {
 	  MethodUtil.executeJSClick(wd, TrainerPage.selectAddPTORequest(wd));
   }
-  
+
   @When("^I click cancel PTO Request$")
   public void clickCancelPTORequest() {
 	  TrainerPage.selectCancelPTORequest(wd).click();
   }
-  
-  public void enterPTODate() {
-	  TrainerPage.insertPTOStartDate(wd).sendKeys("1/1/18");
-	  TrainerPage.insertPTOEndDate(wd).sendKeys("1/2/17");
+
+  public void enterPTODate(String startDate, String endDate) {
+	  //TrainerPage.insertPTOStartDate(wd).click();
+	  TrainerPage.selectStartDateCalendarPopup(wd).click();
+	  //TrainerPage.insertPTOStartDate(wd).click();
+	  //TrainerPage.insertPTOStartDate(wd).sendKeys(startDate);
+	  //TrainerPage.insertPTOStartDate(wd).click();
+	  TrainerPage.selectEndDateCalendarPopup(wd).click();
+	  //TrainerPage.insertPTOStartDate(wd).click();
+	  //TrainerPage.insertPTOEndDate(wd).sendKeys(endDate);
   }
-  
+
   public void clickCalendarWeekView() {
 	  TrainerPage.selectCalendarWeekView(wd).click();
   }
-  
+
   public void clickCalendarMonthView() {
 	  TrainerPage.selectCalendarMonthView(wd).click();
   }
-  
+
   public void clickCalendarAgendaView() {
 	  TrainerPage.selectCalendarAgendaView(wd).click();
   }
-  
+
   public void clickCalendarBack() {
 	  TrainerPage.selectMoveBackInCalendar(wd).click();
   }
-  
+
   public void clickCalendarForward() {
 	  TrainerPage.selectMoveForwardInCalendar(wd).click();
   }
-  
+
   public void clickCalendarToday() {
 	  TrainerPage.selectTodayOnCalendar(wd);
   }
-  
+
   @Given("^I click add trainer$")
   public void clickAddTrainer() {
 	  TrainerPage.selectAddTrainer(wd).click();
   }
-  
+
   @Given("^I click on the trainers tab$")
   @Test(groups= {"VP", "Trainer"})
-  public void clickTrainersTab() { 
+  public void clickTrainersTab() {
 	  TrainerPage.selectTrainersTab(wd);
   }
-  
-  @Test(groups= {"VP"}, priority=1, enabled=true)
+
+  @Test(groups= {"VP"}, priority=1, enabled=false)
   public void addTrainerSave() {
 	  clickAddTrainer();
 	  writeTrainerFullName(t.getTrainerFirstName(), t.getTrainerLastName());		//Modified By William
@@ -117,23 +132,26 @@ public class TrainerTest {
   @Test(groups= {"VP"}, priority=2, enabled=false)
   public void addTrainerCancel() {
 	  clickAddTrainer();
-	  writeTrainerFullName(t.getTrainerFirstName(), t.getTrainerLastName());
-	  beforeMethod();
+	  writeTrainerFullName("Testing1r", "Testing2p");
+	  holdOn(500);
 	  clickCancelTrainerInput();
   }
-  
+
   @Test(groups= {"VP","Trainer"}, priority=4, enabled=true)
   public void checkPTOCalendar() {
-	  beforeMethod();
+	  holdOn(100);
 	  clickPTOCalendar();
 	  clickNewPTORequest();
+	  holdOn(300);
+	  enterPTODate("1/1/2018", "1/2/2017");
+	  holdOn(1000);
 	  clickCancelPTORequest();
 	  clickCancelPTOCalendar();
   }
-  
+
   @Test(groups= {"VP", "Trainer"}, priority=3, enabled=true)
   public void clickProfile() {
-	  MethodUtil.executeJSClick(wd, TrainerPage.selectProfile(wd));
+	  clickProfileByName("Damon", "Salvatore");
 	  try {
 		Thread.sleep(2000);
 	} catch (InterruptedException e) {
@@ -141,17 +159,17 @@ public class TrainerTest {
 	}
 	  wd.navigate().back();
   }
-  
+
   @Test(groups= {"VP"}, priority=5, enabled=true)
   public void clickDeactivateTrainerByName() {
 	  MethodUtil.executeJSClick(wd, TrainerPage.selectTrainerDeactivateButton(wd, t.getTrainerFirstName(), t.getTrainerLastName()));
   }
-  
+
   @Test(groups= {"VP"}, priority=6, enabled=true)
   public void clickReactivateTrainerByName() {
 	  TrainerPage.selectTrainerReactivateButton(wd, t.getTrainerFirstName(), t.getTrainerLastName()).click();
   }
-  
+
   @Test(groups= {"VP"}, priority=5, enabled=false)
   public void clickDeactivateTrainer() {
 	  List<WebElement> deactivatedtrainers = TrainerPage.selectDeactivatedTrainersList(wd);
@@ -160,24 +178,31 @@ public class TrainerTest {
 	  for(int i = 0; i < 5; i++)
 	  TrainerPage.selectDeactivateTrainer(wd).click();
   }
-  
+
   @Test(groups= {"VP"}, priority=6, enabled=false)
   public void clickReactivateTrainer() {
 	 for(int i = 0; i < 5; i++)
 	 TrainerPage.selectReactivateTrainer(wd).click();
   }
-  
+
   @When("^I click on the Download Resume button$")
   @Test(groups= {"VP", "Trainer"}, priority=7)
   public void clickDownloadResume() {
 	  //TrainerPage.selectDownloadResume(wd).click();
 	  MethodUtil.executeJSClick(wd, TrainerPage.selectDownloadResume(wd));
   }
-  
+
   @BeforeMethod(groups= {"VP","trainer"})
-  public void beforeMethod() {
+  public void holdOn() {
 	  try {
 		Thread.sleep(500);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
+  }
+  public void holdOn(int number) {
+	  try {
+		Thread.sleep(number);
 	} catch (InterruptedException e) {
 		e.printStackTrace();
 	}
@@ -197,7 +222,7 @@ public class TrainerTest {
 	  LoginPage.getLoginBtn(wd).submit();
 	  TrainerPage.selectTrainersTab(wd).click();
   }
-  
+
   @BeforeClass(groups= {"Trainer"})
   public void signInAsTrainer() {
 	  LoginPage.getUsernameInput(wd).sendKeys("test.trainer@revature.com.int1");
