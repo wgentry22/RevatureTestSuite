@@ -25,16 +25,25 @@ import cucumber.api.java.en.When;
 
 public class TrainerTest {
 	public WebDriver wd = DriverFactory.getDriver("chrome");
+	
+  public void clickDownloadResumeByName(String firstname, String lastname) {
+	  TrainerPage.selectTrainerDownloadResumeButton(wd, firstname, lastname).click();
+  }
+  
+  public void clickProfileByName(String firstname, String lastname) {
+	  TrainerPage.selectTrainerProfileButton(wd, firstname, lastname).click();
+  }
+  
   
   @When("^I click cancel on the Calendar$")
   public void clickCancelPTOCalendar() {
 	  MethodUtil.executeJSClick(wd,TrainerPage.selectCancelCalendar(wd));
   }
   
-  @When("^I insert <firstname> and<lastname> onto the firstname and lastname inputs$")
+  @When("^I insert <firstname> and <lastname> onto the firstname and lastname inputs$")
   public void writeTrainerFullName(String firstname, String lastname) {
 	  TrainerPage.insertTrainerFirstname(wd).sendKeys(firstname);
-	  beforeMethod();
+	  holdOn(500);
 	  TrainerPage.insertTrainerLastname(wd).sendKeys(lastname);
   }
   
@@ -63,9 +72,15 @@ public class TrainerTest {
 	  TrainerPage.selectCancelPTORequest(wd).click();
   }
   
-  public void enterPTODate() {
-	  TrainerPage.insertPTOStartDate(wd).sendKeys("1/1/18");
-	  TrainerPage.insertPTOEndDate(wd).sendKeys("1/2/17");
+  public void enterPTODate(String startDate, String endDate) {
+	  //TrainerPage.insertPTOStartDate(wd).click();
+	  TrainerPage.selectStartDateCalendarPopup(wd).click();
+	  //TrainerPage.insertPTOStartDate(wd).click();
+	  //TrainerPage.insertPTOStartDate(wd).sendKeys(startDate);
+	  //TrainerPage.insertPTOStartDate(wd).click();
+	  TrainerPage.selectEndDateCalendarPopup(wd).click();
+	  //TrainerPage.insertPTOStartDate(wd).click();
+	  //TrainerPage.insertPTOEndDate(wd).sendKeys(endDate);
   }
   
   public void clickCalendarWeekView() {
@@ -103,7 +118,7 @@ public class TrainerTest {
 	  TrainerPage.selectTrainersTab(wd);
   }
   
-  @Test(groups= {"VP"}, priority=1, enabled=true)
+  @Test(groups= {"VP"}, priority=1, enabled=false)
   public void addTrainerSave() {
 	  clickAddTrainer();
 	  writeTrainerFullName("Testing1r", "Testing2p");
@@ -113,22 +128,25 @@ public class TrainerTest {
   public void addTrainerCancel() {
 	  clickAddTrainer();
 	  writeTrainerFullName("Testing1r", "Testing2p");
-	  beforeMethod();
+	  holdOn(500);
 	  clickCancelTrainerInput();
   }
   
   @Test(groups= {"VP","Trainer"}, priority=4, enabled=true)
   public void checkPTOCalendar() {
-	  beforeMethod();
+	  holdOn(100);
 	  clickPTOCalendar();
 	  clickNewPTORequest();
+	  holdOn(300);
+	  enterPTODate("1/1/2018", "1/2/2017");
+	  holdOn(1000);
 	  clickCancelPTORequest();
 	  clickCancelPTOCalendar();
   }
   
   @Test(groups= {"VP", "Trainer"}, priority=3, enabled=true)
   public void clickProfile() {
-	  MethodUtil.executeJSClick(wd, TrainerPage.selectProfile(wd));
+	  clickProfileByName("Damon", "Salvatore");
 	  try {
 		Thread.sleep(2000);
 	} catch (InterruptedException e) {
@@ -170,9 +188,16 @@ public class TrainerTest {
   }
   
   @BeforeMethod(groups= {"VP","trainer"})
-  public void beforeMethod() {
+  public void holdOn() {
 	  try {
 		Thread.sleep(500);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
+  }
+  public void holdOn(int number) {
+	  try {
+		Thread.sleep(number);
 	} catch (InterruptedException e) {
 		e.printStackTrace();
 	}

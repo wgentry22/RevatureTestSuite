@@ -10,7 +10,7 @@ Feature: I want to navigate throughout the trainer page
   @VP
   Scenario: As a VP, I want to add a trainer
     Given I click add trainer
-    When I insert <firstname> and<lastname> onto the firstname and lastname inputs
+    When I insert <firstname> and <lastname> onto the firstname and lastname inputs
     And I select save
     Then I should see <firstname> <lastname> on the list of trainers in the deactivated list
 

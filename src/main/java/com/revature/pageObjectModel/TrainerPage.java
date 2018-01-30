@@ -130,14 +130,21 @@ public class TrainerPage {
 
 	public static WebElement insertPTOStartDate(WebDriver wd) {
 		// return wd.findElement(By.xpath("//*[@id=\"input_243\"]"));
-		return waitForLoad(wd, "//*[@id=\"input_243\"]");
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-model*='ptoCtrl.startDate']"), 25).findElement(By.tagName("input"));
 	}
 
 	public static WebElement insertPTOEndDate(WebDriver wd) {
 		// return wd.findElement(By.xpath("//*[@id=\"input_245\"]"));
-		return waitForLoad(wd, "//*[@id=\"input_245\"]");
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-model*='ptoCtrl.endDate']"), 25).findElement(By.tagName("input"));
 	}
-
+	
+	public static WebElement selectStartDateCalendarPopup(WebDriver wd) {
+		return waitForLoadByAnyType(wd, By.xpath("html/body/div[3]/md-dialog/form/div/md-input-container[1]/md-datepicker/div[1]/button"));
+	}
+	public static WebElement selectEndDateCalendarPopup(WebDriver wd) {
+		return waitForLoadByAnyType(wd, By.xpath("html/body/div[3]/md-dialog/form/div/md-input-container[2]/md-datepicker/div[1]/button"));
+	}
+	//*[@id="dialogContent_12"]/div/md-input-container[2]/md-datepicker/div[1]/button
 	public static WebElement selectSendPTORequest(WebDriver wd) {
 		// return
 		// wd.findElement(By.xpath("/html/body/div[3]/md-dialog/form/md-dialog-actions/button[1]"));
@@ -207,23 +214,42 @@ public class TrainerPage {
 				return name = we;
 		return name;
 	}
-
+	
+	public static WebElement selectTrainerProfileButton(WebDriver wd, String firstname, String lastname) {
+		WebElement name = null;
+		List<WebElement> names = selectActivatedTrainersList(wd);
+		for (WebElement we : names)
+			if (we.getText().contains(firstname + " " + lastname))
+				name = we;
+		return name.findElements(By.tagName("button")).get(0);
+	}
+	
 	public static WebElement selectTrainerDownloadResumeButton(WebDriver wd, String firstname, String lastname) {
-		WebElement name = selectTrainerByName(wd, firstname, lastname);
-		System.out.println("download: " + name.findElements(By.tagName("button")).get(1).getText());
+		WebElement name = null;
+		List<WebElement> names = selectActivatedTrainersList(wd);
+		for (WebElement we : names)
+			if (we.getText().contains(firstname + " " + lastname))
+				name = we;
+		System.out.println("reactivated: " + name.findElements(By.tagName("button")).get(0).getText());
 		return name.findElements(By.tagName("button")).get(1);
 		
 	}
 
 	public static WebElement selectTrainerDeactivateButton(WebDriver wd, String firstname, String lastname) {
-		WebElement name = selectTrainerByName(wd, firstname, lastname);
-		System.out.println("deactivated: " + name.findElements(By.tagName("button")).get(2).getText());
+		WebElement name = null;
+		List<WebElement> names = selectActivatedTrainersList(wd);
+		for (WebElement we : names)
+			if (we.getText().contains(firstname + " " + lastname))
+				name = we;
 		return name.findElements(By.tagName("button")).get(2);
 	}
 	
 	public static WebElement selectTrainerReactivateButton(WebDriver wd, String firstname, String lastname) {
-		WebElement name = selectTrainerByName(wd, firstname, lastname);
-		System.out.println("reactivated: " + name.findElements(By.tagName("button")).get(0).getText());
+		WebElement name = null;
+		List<WebElement> names = selectDeactivatedTrainersList(wd);
+		for (WebElement we : names)
+			if (we.getText().contains(firstname + " " + lastname))
+				name = we;
 		return name.findElements(By.tagName("button")).get(0);
 	}
 }
