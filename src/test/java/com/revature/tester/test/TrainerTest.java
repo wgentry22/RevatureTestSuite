@@ -16,6 +16,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Batch;
 import com.revature.hibernate.model.Trainer;
 import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.LoginPage;
@@ -26,7 +27,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 
 public class TrainerTest {
-	Trainer t = AssignForce.getAllTrainers().get(0);
+	Batch batch = AssignForce.getAllBatches().get(2);
+	Trainer t = batch.getTrainer();
 	public WebDriver wd = DriverFactory.getDriver("chrome");
   
   @When("^I click cancel on the Calendar$")
@@ -115,7 +117,7 @@ public class TrainerTest {
   @Test(groups= {"VP"}, priority=2, enabled=false)
   public void addTrainerCancel() {
 	  clickAddTrainer();
-	  writeTrainerFullName("Testing1r", "Testing2p");
+	  writeTrainerFullName(t.getTrainerFirstName(), t.getTrainerLastName());
 	  beforeMethod();
 	  clickCancelTrainerInput();
   }
@@ -142,12 +144,12 @@ public class TrainerTest {
   
   @Test(groups= {"VP"}, priority=5, enabled=true)
   public void clickDeactivateTrainerByName() {
-	  MethodUtil.executeJSClick(wd, TrainerPage.selectTrainerDeactivateButton(wd, "Damon", "Salvatore"));
+	  MethodUtil.executeJSClick(wd, TrainerPage.selectTrainerDeactivateButton(wd, t.getTrainerFirstName(), t.getTrainerLastName()));
   }
   
   @Test(groups= {"VP"}, priority=6, enabled=true)
   public void clickReactivateTrainerByName() {
-	  TrainerPage.selectTrainerReactivateButton(wd, "Damon", "Salvatore").click();
+	  TrainerPage.selectTrainerReactivateButton(wd, t.getTrainerFirstName(), t.getTrainerLastName()).click();
   }
   
   @Test(groups= {"VP"}, priority=5, enabled=false)

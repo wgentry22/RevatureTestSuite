@@ -8,9 +8,9 @@
 	</groups>
   <test name="Test">
     <classes>
-    	<class name="com.revature.tester.BatchTester"/>
+    	<!--<class name="com.revature.tester.BatchTester"/>-->
       <!--<class name="com.revature.tester.LocationTester"/>-->
-      <!--<class name="com.revature.tester.test.TrainerTest"/>-->
+      <class name="com.revature.tester.test.TrainerTest"/>
       <!--<class name="com.revature.tester.CurriculumTester"/>-->
       <!--<class name="com.revature.tester.test.ProfileTest"/>-->
       <!--<class name="com.revature.tester.SettingTester"/>-->
