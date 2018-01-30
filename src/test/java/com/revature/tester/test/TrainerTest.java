@@ -18,15 +18,15 @@ import com.revature.pageObjectModel.TrainerPage;
 import com.revature.tester.MethodUtil;
 
 public class TrainerTest {
-	WebDriver wd = DriverFactory.getDriver("chrome");
+	public WebDriver wd = DriverFactory.getDriver("chrome");
   
   public void clickCancelPTOCalendar() {
 	  MethodUtil.executeJSClick(wd,TrainerPage.selectCancelCalendar(wd));
   }
   
-  public void writeTrainerFullName() {
-	  TrainerPage.insertTrainerFirstname(wd).sendKeys("Testing");
-	  TrainerPage.insertTrainerLastname(wd).sendKeys("Testing");
+  public void writeTrainerFullName(String firstname, String lastname) {
+	  TrainerPage.insertTrainerFirstname(wd).sendKeys(firstname);
+	  TrainerPage.insertTrainerLastname(wd).sendKeys(lastname);
   }
   
   public void clickAcceptTrainerInput() {
@@ -77,6 +77,11 @@ public class TrainerTest {
   public void clickCalendarToday() {
 	  TrainerPage.selectTodayOnCalendar(wd);
   }
+  
+  public void clickAddTrainer() {
+	  TrainerPage.selectAddTrainer(wd).click();
+  }
+  
   @Test(groups= {"VP", "Trainer"})
   public void clickTrainersTab() { 
 	  TrainerPage.selectTrainersTab(wd);
@@ -84,8 +89,8 @@ public class TrainerTest {
   
   @Test(groups= {"VP"}, priority=1, enabled=true)
   public void addTrainerSave() {
-	  TrainerPage.selectAddTrainer(wd).click();
-	  writeTrainerFullName();
+	  clickAddTrainer();
+	  writeTrainerFullName("Testing1r", "Testing2p");
 	  clickAcceptTrainerInput();
   }
   @Test(groups= {"VP"}, priority=2, enabled=true)

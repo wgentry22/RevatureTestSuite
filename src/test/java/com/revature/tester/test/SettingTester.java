@@ -39,7 +39,7 @@ public class SettingTester {											// TestNG Framework
 	public static void navigateToSettinsPage() {
 		System.out.println("BeforeMethod");
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		// makes sure the page loads, before changing the fields
-		SettingsPage.navigateToSettingsPage(wd);
+//		SettingsPage.navigateToSettingsPage(wd);
 	}
 	
 	// -------- Group Test --------

@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import com.revature.tester.MethodUtil;
 
 
+
 public class ProfilePage {
 	
 	public static WebElement selectProfileTab(WebDriver wd) {
@@ -47,5 +48,9 @@ public class ProfilePage {
 	public static List<WebElement> getCurrentSkillList(WebDriver wd){
 		selectCurrentSkill(wd);
 		return wd.findElement(By.tagName("md-list")).findElements(By.tagName("button"));
+	}
+	
+	public static WebElement selectAddCertification(WebDriver wd) {
+		return MethodUtil.waitForLoadByAnyType(wd, By.cssSelector("[for*='input-file-cert']"));
 	}
 }

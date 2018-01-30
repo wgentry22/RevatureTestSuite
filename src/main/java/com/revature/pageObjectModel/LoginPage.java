@@ -34,4 +34,8 @@ public class LoginPage {
 	public static WebElement getLogout(WebDriver wd) {
 		return waitForLoadByAnyType(wd, By.xpath("(//button)[1]"));
 	}
+	
+	public static void logout(WebDriver wd) {
+		wd.findElement(By.xpath("/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[9]/button")).click();
+	}
 }

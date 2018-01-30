@@ -16,9 +16,9 @@ class Chrome implements IDriver{
 	MethodUtil.loadPropertiesFile(props);
 		File f = null;
 		if (System.getenv("PATH").contains("/home/")) {
-			URL resource = MethodUtil.class.getClassLoader().getResource("chromedriver");
-			f = new File(resource.getFile());
-			System.setProperty(props.getProperty("ChromeDriverName"), f.getAbsolutePath());
+			f = new File("src/main/resources/chromedriver");
+			System.out.println("Chrome driver path: " + f.getAbsolutePath());
+			System.setProperty("webdriver.chrome.driver", f.getAbsolutePath());
 		} else {
 			URL resource = MethodUtil.class.getClassLoader().getResource("chromedriver.exe");
 			f = new File(resource.getFile());
