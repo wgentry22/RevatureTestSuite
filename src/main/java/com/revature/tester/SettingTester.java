@@ -48,7 +48,7 @@ public class SettingTester {											// TestNG Framework
 	
 	@AfterGroups(enabled = true, groups = {"VP", "Trainer"})
 	public static void logout() {
-		LoginPage.logout(wd);
+		LoginPage.getLogout(wd).click();
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
 		wd.quit();
 	}

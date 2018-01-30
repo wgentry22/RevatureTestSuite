@@ -57,6 +57,14 @@ public class ProfileTest {
 		ProfilePage.selectCurrentSkill(wd).click();
 	}
 	
+	public void getChooseSkillList() {
+		ProfilePage.getChooseSkillList(wd);
+	}
+	
+	public void getCurrentSkillList() {
+		ProfilePage.getCurrentSkillList(wd);
+	}
+	
 	@Test(groups = "Trainer")
 	public void clickProfileTab() {
 		ProfilePage.selectProfileTab(wd).click();

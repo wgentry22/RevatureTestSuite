@@ -44,7 +44,7 @@ public class LocationTester {
 	@AfterGroups(enabled = true, groups = {"VP", "VP1", "VP2"})
 	public static void logout() {
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
-		LoginPage.logout(wd);
+		LoginPage.getLogout(wd).click();
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
 		wd.quit();
 	}
