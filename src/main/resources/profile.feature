@@ -27,22 +27,53 @@ Feature: Traversing the profile page
   	And I click on the profile tab
   	
 
-Scenario: I want to add a skill
-    Given I do not have "Not William WebDriver" as a skill
-    When I click on "Not William WebDriver" from choose skills
+#Scenario: I want to add a skill
+    #Given I do not have "Not William WebDriver" as a skill
+    #When I click on "Not William WebDriver" from choose skills
+    #And I save the skills
+    #Then 	I should see "Not William WebDriver" on my list of skills
+    #Then I Log out
+    #And close the window
+    #
+    #
+#Scenario: I want to remove a skill
+   #	Given I have "Not William WebDriver" as a skill
+   #	When I click on "Not William WebDriver" to remove from current skills
+   #	And I save the skills
+   #	Then I should see "Not William WebDriver" on the list of skills to choose from
+   #	Then I Log out
+    #And close the window
+
+Scenario Outline: I want to add a skill
+    Given I do not have <skill> as a skill
+    When I click on <skill> from choose skills
     And I save the skills
-    Then 	I should see "Not William WebDriver" on my list of skills
+    Then 	I should see <skill> on my list of skills
     Then I Log out
     And close the window
     
-Scenario: I want to remove a skill
-   	Given I have "Not William WebDriver" as a skill
-   	When I click on "Not William WebDriver" to remove from current skills
+    Examples:
+    |skill|
+    |"Not William WebDriver"|
+    |"Robin Script" |
+    |"Manual Testing" |
+    |"TestNG"|
+    
+    
+Scenario Outline: I want to remove a skill
+   	Given I have <skill> as a skill
+   	When I click on <skill> to remove from current skills
    	And I save the skills
-   	Then I should see "Not William WebDriver" on the list of skills to choose from
+   	Then I should see <skill> on the list of skills to choose from
    	Then I Log out
     And close the window
 
+    Examples:
+    |skill|
+    |"Not William WebDriver"|
+    |"Robin Script" |
+    |"Manual Testing" |
+    |"TestNG"|
 	
   #Scenario Outline: I want to add a skill
     #Given I am logged on as a trainer

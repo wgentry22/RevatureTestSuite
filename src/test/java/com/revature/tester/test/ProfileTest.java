@@ -139,9 +139,9 @@ public class ProfileTest {
 			} catch (NoSuchElementException e) {
 				try {
 					if(!done) {
-				clickChooseSkillByName("Not William WebDriver");
-				Thread.sleep(800);
-				clickCurrentSkillByName("Not William WebDriver");
+						clickChooseSkillByName("Not William WebDriver");
+						Thread.sleep(800);
+						clickCurrentSkillByName("Not William WebDriver");
 					}
 					else throw new NoSuchElementException("",e);
 				} catch (InterruptedException e1) {
