@@ -31,17 +31,6 @@ import org.testng.annotations.AfterSuite;
 
 public class ProfileTest {
 	WebDriver wd = DriverFactory.getDriver("chrome");
-
-	@When("^I save the skills$")
-	public void clickSaveSkill() {
-		ProfilePage.selectSaveSkill(wd).click();
-	}
-
-	@When("^I click on \"([^\"]*)\" to remove from current skills$")
-	public void clickCurrentSkillByName(String skillName) {
-		getCurrentSkillByName(skillName).click();
-	}
-	
 	public WebElement getCurrentSkillByName(String skillName) {
 		for (WebElement we : ProfilePage.getCurrentSkillList(wd)) {
 			if (we.getText().contains(skillName.toUpperCase())) {
@@ -51,11 +40,6 @@ public class ProfileTest {
 		throw new NoSuchElementException(skillName + " was not found");
 	}
 
-	@When("^I click on \"([^\"]*)\" from choose skills$")
-	public void clickChooseSkillByName(String skillName) {
-		getChooseSkillByName(skillName).click();
-	}
-	
 	public WebElement getChooseSkillByName(String skillName) {
 		for (WebElement we : ProfilePage.getChooseSkillList(wd)) {
 			if (we.getText().contains(skillName)) {
@@ -64,7 +48,6 @@ public class ProfileTest {
 		}
 		throw new NoSuchElementException(skillName + " was not found");
 	}
-
 	public void clickFirstChooseSkill() {
 		ProfilePage.selectChooseSkill(wd).click();
 	}
@@ -73,24 +56,24 @@ public class ProfileTest {
 		ProfilePage.selectCurrentSkill(wd).click();
 	}
 	
-	@Given("^I do not have \"([^\"]*)\" as a skill$")
-	public void removeSkillFromCurrentList(String skillName) {
-		try {
-			clickCurrentSkillByName(skillName);
-		} catch (NoSuchElementException e) {
-			System.out.println(skillName + " is not in the current skills list");
-		}
-		System.out.println(skillName + "has been removed from the current skills list");
+	public List<WebElement> getCurrentSkillList() {
+		return ProfilePage.getCurrentSkillList(wd);
 	}
 	
-	@Given("^I have \"([^\"]*)\" as a skill$")
-	public void addSkillToCurrentList(String skillName) {
-		try {
-			clickChooseSkillByName(skillName);
-		} catch (NoSuchElementException e) {
-			System.out.println(skillName + " is not in the list of skills to choose from");
-		}
-		System.out.println(skillName + "has been added to the list of skills");
+	@When("^I save the skills$")
+	public void clickSaveSkill() {
+		ProfilePage.selectSaveSkill(wd).click();
+	}
+	
+	@When("^I click on \"([^\"]*)\" to remove from current skills$")
+	public void clickCurrentSkillByName(String skillName) {
+		getCurrentSkillByName(skillName).click();
+	}
+	
+	
+	@When("^I click on \"([^\"]*)\" from choose skills$")
+	public void clickChooseSkillByName(String skillName) {
+		getChooseSkillByName(skillName).click();
 	}
 	
 	@Then("^I should see \"([^\"]*)\" on the list of skills to choose from$")
@@ -105,16 +88,35 @@ public class ProfileTest {
 	public void checkForSkillInCurrentList(String skillName) {
 		assertNotNull(getCurrentSkillByName(skillName));
 	}
-	public List<WebElement> getCurrentSkillList() {
-		return ProfilePage.getCurrentSkillList(wd);
+	
+	
+	@Given("^I do not have \"([^\"]*)\" as a skill$")
+	public void removeSkillFromCurrentList(String skillName) {
+		try {
+			clickCurrentSkillByName(skillName);
+		} catch (NoSuchElementException e) {
+			System.out.println(skillName + " is not in the current skills list");
+		}
+		System.out.println(skillName + " has been removed from the current skills list");
 	}
+	
+	@Given("^I have \"([^\"]*)\" as a skill$")
+	public void addSkillToCurrentList(String skillName) {
+		try {
+			clickChooseSkillByName(skillName);
+		} catch (NoSuchElementException e) {
+			System.out.println(skillName + " is not in the list of skills to choose from");
+		}
+		System.out.println(skillName + " has been added to the list of skills");
+	}
+	
 	
 	@Given("^I click on the profile tab$")
 	@Test(groups = "Trainer")
 	public void clickProfileTab() {
 		ProfilePage.selectProfileTab(wd).click();
 	}
-
+	
 	@Test(groups = "Trainer", priority = 5, dependsOnMethods = "clickProfileTab")
 	public void changeName() {
 		ProfilePage.insertFirstname(wd).clear();
@@ -122,6 +124,7 @@ public class ProfileTest {
 		ProfilePage.insertLastname(wd).clear();
 		ProfilePage.insertLastname(wd).sendKeys("Probably");
 	}
+
 
 	@Test(groups = "Trainer", priority = 7, dependsOnMethods = "clickProfileTab")
 	public void addResume() {
@@ -159,6 +162,32 @@ public class ProfileTest {
 				clickFirstCurrentSkill();
 	}
 
+	@Given("^log in as a trainer$")
+	@BeforeClass(groups = "Trainer")
+	public void loginAsTrainer() {
+		LoginPage.getUsernameInput(wd).sendKeys("test.trainer@revature.com.int1");
+		LoginPage.getPasswordInput(wd).sendKeys("trainer123");
+		LoginPage.getLoginBtn(wd).submit();
+	}
+	
+	@Then("^I Log out$")
+	@AfterClass(groups = "Trainer")
+	public void logout() {
+		MethodUtil.executeJSClick(wd, LoginPage.getLogout(wd));
+	}
+	
+	@Given("^I open a browser to go to AssignForce$")
+	@BeforeTest(groups = "Trainer")
+	public void openWebDriverToAssignForce() {
+		LoginPage.goToAssignForce(wd);
+	}
+	
+	@Then("^close the window$")
+	@AfterTest(groups = "Trainer")
+	public void closeDriver() {
+		wd.quit();
+	}
+	
 	@BeforeMethod(groups = "Trainer")
 	public void beforeMethod() {
 	}
@@ -167,31 +196,6 @@ public class ProfileTest {
 	public void afterMethod() {
 	}
 
-	@Given("^log in as a trainer$")
-	@BeforeClass(groups = "Trainer")
-	public void loginAsTrainer() {
-		LoginPage.getUsernameInput(wd).sendKeys("test.trainer@revature.com.int1");
-		LoginPage.getPasswordInput(wd).sendKeys("trainer123");
-		LoginPage.getLoginBtn(wd).submit();
-	}
-
-	@Then("^I Log out$")
-	@AfterClass(groups = "Trainer")
-	public void logout() {
-		MethodUtil.executeJSClick(wd, LoginPage.getLogout(wd));
-	}
-
-	@Given("^I open a browser to go to AssignForce$")
-	@BeforeTest(groups = "Trainer")
-	public void openWebDriverToAssignForce() {
-		LoginPage.goToAssignForce(wd);
-	}
-
-	@Then("^close the window$")
-	@AfterTest(groups = "Trainer")
-	public void closeDriver() {
-		wd.quit();
-	}
 
 	@BeforeSuite
 	public void beforeSuite() {

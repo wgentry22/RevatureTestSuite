@@ -5,15 +5,15 @@
 	 <run>
 	 	<include name="VP"/>
 	 </run>
-	  <run>
+	  <!--<run>
 	  	<include name="Trainer"/>
-	  </run>
+	  </run>-->
 	</groups>
   <test name="Test">
     <classes>
-      <!--<class name="com.revature.tester.test.TrainerTest"/>-->
+      <class name="com.revature.tester.test.TrainerTest"/>
       <!--<class name="com.revature.tester.test.CurriculaTest"/>-->
-      <class name="com.revature.tester.test.ProfileTest"/>
+      <!--<class name="com.revature.tester.test.ProfileTest"/>-->
       <!--<class name="com.revature.tester.test.SettingTester>-->
       <!--<class name="com.revature.tester.test.SettingTester>-->
       <!--<class name="com.revature.tester.test.SettingTester>-->
