@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.CirriculaPage;
 import com.revature.tester.MethodUtil;
 

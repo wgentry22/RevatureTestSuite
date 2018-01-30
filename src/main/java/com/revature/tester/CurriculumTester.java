@@ -16,16 +16,18 @@ import com.revature.driver.DriverFactory;
 import com.revature.hibernate.model.Curriculum;
 import com.revature.hibernate.model.Focus;
 import com.revature.hibernate.model.Skill;
+import com.revature.hibernate.model.Batch;
 import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.CirriculaPage;
 
 public class CurriculumTester {
 	
 	private static final Logger logger = Logger.getLogger(CurriculumTester.class);
+	Batch batch = AssignForce.getAllBatches().get(2);
 	WebDriver driver = DriverFactory.getDriver("chrome");
-//	Curriculum curriculum = AssignForce.getAllCurriculum().get(0);
-	Curriculum curriculum = null;
-	Focus focus = AssignForce.getAllFocuses().get(0);
+	Curriculum curriculum = batch.getCurriculum();
+//	Curriculum curriculum = null;
+	Focus focus = batch.getFocus();
 
 	@BeforeTest(groups = { "VP", "Hib"})
 	public void loginVP() {

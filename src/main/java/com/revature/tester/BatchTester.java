@@ -13,14 +13,18 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Skill;
+import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.BatchPage;
 import com.revature.pageObjectModel.LoginPage;
 
 public class BatchTester {
 	WebDriver wd = DriverFactory.getDriver("chrome");
 	Properties props = new Properties();
+	
 	String err = " not input correctly";
 	Batch b = new Batch();
+	com.revature.hibernate.model.Batch batch = AssignForce.getAllBatches().get(2);
 
 	@BeforeClass
 	public void doLogin() {
@@ -45,21 +49,23 @@ public class BatchTester {
 	@Test(groups = { "VP" }, priority = 1)
 	public void fillCurriculum() {
 		BatchPage.getBatchCurriculumSelect(wd).click();
-		BatchPage.getBatchCurriculumOption(wd, b.curriculum).click();
-		assertTrue(BatchPage.getBatchCurriculumSelect(wd).getText().contains(b.curriculum),"Curriculum"+err);
+		BatchPage.getBatchCurriculumOption(wd, batch.getCurriculumName()).click();
+		assertTrue(BatchPage.getBatchCurriculumSelect(wd).getText().contains(batch.getCurriculumName()),"Curriculum"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 2)
 	public void fillFocus() {
 		BatchPage.getBatchFocusSelect(wd).click();
-		BatchPage.getBatchFocusOption(wd, b.focus).click();
-		assertTrue(BatchPage.getBatchFocusSelect(wd).getText().contains(b.focus),"Focus"+err);
+		BatchPage.getBatchFocusOption(wd, batch.getFocusName()).click();
+		assertTrue(BatchPage.getBatchFocusSelect(wd).getText().contains(batch.getFocusName()),"Focus"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 3)
 	public void fillSkills() {
-		BatchPage.getBatchSkillsSelect(wd).click();
-		BatchPage.getBatchSkillsOption(wd, b.skills).click();
-		MethodUtil.executeJSClick(wd, wd.findElement(By.id("batchInfoDiv")));
-		assertTrue(BatchPage.getBatchSkillsSelect(wd).getText().contains(b.skills),"Skills"+err);
+		for (Skill s : batch.getAllRequiredSkills()) {
+			BatchPage.getBatchSkillsSelect(wd).click();
+			BatchPage.getBatchSkillsOption(wd, s.getSkillName()).click();
+			assertTrue(BatchPage.getBatchSkillsSelect(wd).getText().contains(s.getSkillName()),"Skills"+err);
+		}
+			MethodUtil.executeJSClick(wd, wd.findElement(By.id("batchInfoDiv")));
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 4)
 	public void fillStartDate() {
@@ -87,16 +93,16 @@ public class BatchTester {
 	@Test(enabled=true,groups = { "VP" }, priority = 7)
 	public void fillBatchName() {
 		BatchPage.getBatchNameInput(wd).clear();
-		BatchPage.getBatchNameInput(wd).sendKeys(b.name);
+		BatchPage.getBatchNameInput(wd).sendKeys(batch.getBatchName());
 		System.out.println("BATCH NAME INPUT :");
 		System.out.println(BatchPage.getBatchNameInput(wd).getAttribute("value"));
-		assertTrue(BatchPage.getBatchNameInput(wd).getAttribute("value").contains(b.name),"Batch Name"+err);
+		assertTrue(BatchPage.getBatchNameInput(wd).getAttribute("value").contains(batch.getBatchName()),"Batch Name"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 8)
 	public void fillTrainer() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchTrainerSelect(wd));
-		MethodUtil.executeJSClick(wd, BatchPage.getBatchTrainerOption(wd, b.trainer));
-		assertTrue(BatchPage.getBatchTrainerSelect(wd).getText().contains(b.trainer),"Trainer"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchTrainerOption(wd, batch.getTrainerName()));
+		assertTrue(BatchPage.getBatchTrainerSelect(wd).getText().contains(batch.getTrainerName()),"Trainer"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 9)
 	public void fillCoTrainer() {
@@ -107,20 +113,20 @@ public class BatchTester {
 	@Test(enabled=true,groups = { "VP" }, priority = 10)
 	public void fillLocation() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchLocationSelect(wd));
-		MethodUtil.executeJSClick(wd, BatchPage.getBatchLocationOption(wd, b.location));
-		assertTrue(BatchPage.getBatchLocationSelect(wd).getText().contains(b.location),"Location"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchLocationOption(wd, batch.getLocationName()));
+		assertTrue(BatchPage.getBatchLocationSelect(wd).getText().contains(batch.getLocationName()),"Location"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 11)
 	public void fillBuilding() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchBuildingSelect(wd));
-		MethodUtil.executeJSClick(wd, BatchPage.getBatchBuildingOption(wd, b.building));
-		assertTrue(BatchPage.getBatchBuildingSelect(wd).getText().contains(b.building),"Building"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchBuildingOption(wd, batch.getBuildingName()));
+		assertTrue(BatchPage.getBatchBuildingSelect(wd).getText().contains(batch.getBuildingName()),"Building"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 12)
 	public void fillRoom() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchRoomSelect(wd));
-		MethodUtil.executeJSClick(wd, BatchPage.getBatchRoomOption(wd, b.room));
-		assertTrue(BatchPage.getBatchRoomSelect(wd).getText().contains(b.room),"Room"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchRoomOption(wd, batch.getRoomName()));
+		assertTrue(BatchPage.getBatchRoomSelect(wd).getText().contains(batch.getRoomName()),"Room"+err);
 	}
 
 	@Test(enabled=true,groups = { "VP" }, priority = 13)
