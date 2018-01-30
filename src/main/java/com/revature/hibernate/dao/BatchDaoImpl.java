@@ -2,6 +2,8 @@ package com.revature.hibernate.dao;
 
 import static com.revature.hibernate.HibernateUtil.getSession;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -201,6 +203,17 @@ public class BatchDaoImpl implements BatchDao {
 		} finally {
 //			session.close();
 		}
+	}
+	
+	public List<Batch> selectAllBatches() {
+		Session session = HibernateUtil.getSession();
+		List<Batch> list = null;
+		try {
+			list = session.createQuery("from Batch").list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 }

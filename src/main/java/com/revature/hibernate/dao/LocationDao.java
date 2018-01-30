@@ -20,5 +20,6 @@ public interface LocationDao {
 	void addBuilding(String locationName, Building building);
 	void addRoom(String buildingName, Room room);
 	Room selectRoomByName(String room);
+	Building selectBuildingByName(String name);
 	
 }

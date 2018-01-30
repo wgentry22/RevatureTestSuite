@@ -139,7 +139,7 @@ public class FocusDaoImpl implements FocusDao {
 			Transaction t = session.beginTransaction();
 			Focus focus = (Focus) session.createCriteria(Focus.class).add(Restrictions.eq("focusName", focusName)).list().get(0);
 			focus.getFocusSkill().add(skill);
-			session.saveOrUpdate(focus);
+			session.save(focus);
 			t.commit();
 		} catch (HibernateException e) {
 			logger.warn(e);

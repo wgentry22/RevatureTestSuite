@@ -1,7 +1,19 @@
 package com.revature.hibernate;
 
-import com.revature.hibernate.dao.*;
-import com.revature.hibernate.model.*;
+import java.util.List;
+
+import com.revature.hibernate.dao.BatchDaoImpl;
+import com.revature.hibernate.dao.CurriculumDaoImpl;
+import com.revature.hibernate.dao.FocusDaoImpl;
+import com.revature.hibernate.dao.LocationDaoImpl;
+import com.revature.hibernate.dao.SkillDaoImpl;
+import com.revature.hibernate.dao.TrainerDaoImpl;
+import com.revature.hibernate.model.Batch;
+import com.revature.hibernate.model.Curriculum;
+import com.revature.hibernate.model.Focus;
+import com.revature.hibernate.model.Room;
+import com.revature.hibernate.model.Skill;
+import com.revature.hibernate.model.Trainer;
 
 public class TestClass {
 
@@ -136,6 +148,11 @@ public class TestClass {
 //		SkillDaoImpl.getInstance().insertSkill(new Skill("CSS"));
 //		SkillDaoImpl.getInstance().insertSkill(new Skill("Android Wear"));
 		
+//		SkillDaoImpl.getInstance().insertSkill(new Skill("Python"));
+//		SkillDaoImpl.getInstance().insertSkill(new Skill("jQuery"));
+//		SkillDaoImpl.getInstance().insertSkill(new Skill("JBehave"));
+//		SkillDaoImpl.getInstance().insertSkill(new Skill("PHP"));
+		
 //		List<Skill> allSkills = SkillDaoImpl.getInstance().selectAllSkills();
 //		System.out.println("Total Current Skills: " + allSkills.size());
 //		
@@ -196,7 +213,7 @@ public class TestClass {
 //		for (Trainer t : allTrainers) {
 //			System.out.println("Trainer: " + t.getTrainerFirstName() + " " + t.getTrainerLastName());
 //			for (Skill s : t.getTrainerSkill()) {
-//				System.out.println(s.getSkillName());
+//				System.out.print;ln(s.getSkillName());
 //			}
 //		}
 		
@@ -232,36 +249,70 @@ public class TestClass {
 //			}
 //		}
 		
+//		Focus focus = FocusDaoImpl.getInstance().selectFocusByName("Wildcard");
+//		Skill s1 = SkillDaoImpl.getInstance().selectSkill("Python");
+//		FocusDaoImpl.getInstance().addSkill(focus.getFocusName(), s1);
+//		Skill s2 = SkillDaoImpl.getInstance().selectSkill("PHP");
+//		FocusDaoImpl.getInstance().addSkill(focus.getFocusName(), s2);
+//		Skill s3 = SkillDaoImpl.getInstance().selectSkill("jQuery");
+//		FocusDaoImpl.getInstance().addSkill(focus.getFocusName(), s3);
+//		Skill s4 = SkillDaoImpl.getInstance().selectSkill("JBehave");
+//		FocusDaoImpl.getInstance().addSkill(focus.getFocusName(), s4);
 		
-		//ToDo: Batch relationships
-		Batch b1 = BatchDaoImpl.getInstance().selectBatchByName("2901JTA");
-//		Room r1 = LocationDaoImpl.getInstance().selectRoomByName("203B");
-//		Trainer t1 = TrainerDaoImpl.getInstance().selectTrainerByName("John", "Stevens");
-//		Curriculum c1 = CurriculumDaoImpl.getInstance().selectCurriculumByName("JTA Automation");
-//		Focus f1 = FocusDaoImpl.getInstance().selectFocusByName("Web Development");
 		
+//		Batch batch = new Batch("141AllAround");
+//		BatchDaoImpl.getInstance().createBatch(batch);
+//		
+//		//ToDo: Batch relationships
+//		Batch b1 = BatchDaoImpl.getInstance().selectBatchByName("141AllAround");
+//		Room r1 = LocationDaoImpl.getInstance().selectRoomByName("B3");
+//		Trainer t1 = TrainerDaoImpl.getInstance().selectTrainerByName("Alex", "Smith");
+//		Curriculum c1 = CurriculumDaoImpl.getInstance().selectCurriculumByName("Entrepenuer");
+//		Focus f1 = FocusDaoImpl.getInstance().selectFocusByName("Wildcard");
+//		
 //		BatchDaoImpl.getInstance().addRoomToBatch(b1.getBatchName(), r1);
 //		BatchDaoImpl.getInstance().addTrainerToBatch(b1.getBatchName(), t1);
 //		BatchDaoImpl.getInstance().addCurriculumToBatch(b1.getBatchName(), c1);
 //		BatchDaoImpl.getInstance().addFocusToBatch(b1.getBatchName(), f1);
 		
 		
-		System.out.println(b1.getBatchName());
-		System.out.println("Room: "+b1.getRoom().getRoomNumber());
-		System.out.println("Building: "+ b1.getRoom().getBuilding().getBuildingName());
-		System.out.println("Location: " + b1.getRoom().getBuilding().getLocation().getLocationName());
-		System.out.println("Trainer: " + b1.getTrainer().getTrainerFirstName() + " " + b1.getTrainer().getTrainerLastName());
-		for (Skill s : b1.getTrainer().getTrainerSkill()) {
-			System.out.println("Trainer Skill: " + s.getSkillName());
+//		Curriculum curriculum = new Curriculum("Entrepenuer");
+//		CurriculumDaoImpl.getInstance().insertCurriculum(curriculum);
+//		Skill s1 = SkillDaoImpl.getInstance().selectSkill("Core Java");
+//		CurriculumDaoImpl.getInstance().addSkill(curriculum.getCurriculumName(), s1);
+//		Skill s2 = SkillDaoImpl.getInstance().selectSkill("SQL");
+//		CurriculumDaoImpl.getInstance().addSkill(curriculum.getCurriculumName(), s2);
+//		Skill s3 = SkillDaoImpl.getInstance().selectSkill("Hibernate");
+//		CurriculumDaoImpl.getInstance().addSkill(curriculum.getCurriculumName(), s3);
+//		Skill s4 = SkillDaoImpl.getInstance().selectSkill("Ruby on Rails");
+//		CurriculumDaoImpl.getInstance().addSkill(curriculum.getCurriculumName(), s4);
+//		Skill s5 = SkillDaoImpl.getInstance().selectSkill("Servlets");
+//		CurriculumDaoImpl.getInstance().addSkill("Entrepenuer", s5);
+		
+		
+		
+		List<Batch> allBatches = BatchDaoImpl.getInstance().selectAllBatches();
+		for (Batch b : allBatches) {
+			System.out.println("Batch: " + b.getBatchName());
+			System.out.println("Room: "+b.getRoom().getRoomNumber());
+			System.out.println("Building: "+ b.getRoom().getBuilding().getBuildingName());
+			System.out.println("Location: " + b.getRoom().getBuilding().getLocation().getLocationName());
+			System.out.println("Trainer: " + b.getTrainer().getTrainerFirstName() + " " + b.getTrainer().getTrainerLastName());
+			for (Skill s : b.getTrainer().getTrainerSkill()) {
+				System.out.println("Trainer Skill: " + s.getSkillName());
+			}
+			System.out.println("Curriculum: " + b.getCurriculum().getCurriculumName());
+			for (Skill s : b.getCurriculum().getCurriculumSkill()) {
+				System.out.println("Curriculum Skill: " + s.getSkillName());
+			}
+			System.out.println("Focus: " + b.getFocus().getFocusName());
+			for (Skill s : b.getFocus().getFocusSkill()) {
+				System.out.println("Focus Skill: " + s.getSkillName());
+			}
 		}
-		System.out.println("Curriculum: " + b1.getCurriculum().getCurriculumName());
-		for (Skill s : b1.getCurriculum().getCurriculumSkill()) {
-			System.out.println("Curriculum Skill: " + s.getSkillName());
-		}
-		System.out.println("Focus: " + b1.getFocus().getFocusName());
-		for (Skill s : b1.getFocus().getFocusSkill()) {
-			System.out.println("Focus Skill: " + s.getSkillName());
-		}
+		
+	
+
 		
 		
 		HibernateUtil.shutdown();

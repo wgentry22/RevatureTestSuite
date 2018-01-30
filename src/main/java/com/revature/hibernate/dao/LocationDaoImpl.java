@@ -229,4 +229,18 @@ public class LocationDaoImpl implements LocationDao {
 		}
 		return room;
 	}
+	
+	public Building selectBuildingByName(String name) {
+		Session session = HibernateUtil.getSession();
+		Transaction t = null;
+		Building building = null;
+		try {
+			building = (Building) session.createCriteria(Building.class).add(Restrictions.eq("buildingName", name)).list().get(0);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return building;
+	}
 }

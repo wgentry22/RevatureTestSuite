@@ -1,5 +1,7 @@
 package com.revature.hibernate.dao;
 
+import java.util.List;
+
 import com.revature.hibernate.model.Batch;
 
 public interface BatchDao {
@@ -9,4 +11,5 @@ public interface BatchDao {
 	void cloneBatch(Batch b);
 	void deleteBatch(Batch b);
 	Batch selectBatchByName(String name);
+	List<Batch> selectAllBatches();
 }
