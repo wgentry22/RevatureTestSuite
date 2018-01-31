@@ -27,33 +27,47 @@ public class TesterServlet extends HttpServlet {
         super();
     }
 	
-	public static XmlSuite createSuite() {
+	public static XmlSuite createSuite(String which) {
 		// create <suite name="AllTests">
 		XmlSuite suite = new XmlSuite();
-		suite.setName("AllTests");
+		suite.setName("SuiteOfAllTests");
 		// create <test name="LoginTest">
 		XmlTest test = new XmlTest(suite);
-		test.setName("LoginTest");
+		test.setName("AllTests");
 		// create <classes>
 		List<XmlClass> classes = new ArrayList<XmlClass>();
-		// create classes <class name="com.revature.tester.Tester">
-		classes.add(new XmlClass("com.revature.tester.OverviewTester"));
-		classes.add(new XmlClass("com.revature.tester.BatchTester"));
-		classes.add(new XmlClass("com.revature.tester.CurriculumTester"));
-		classes.add(new XmlClass("com.revature.tester.LocationTester"));
-		classes.add(new XmlClass("com.revature.tester.TrainerTester"));
-		classes.add(new XmlClass("com.revature.tester.ReportTester"));
-		classes.add(new XmlClass("com.revature.tester.SettingTester"));
+		// create classes <class name="com.revature.tester.?">
+		System.out.println("creating suite for: "+which);
+		switch(which) {
+		case "all":
+			System.out.println("adding all classes");
+			classes.add(new XmlClass("com.revature.tester.OverviewTester"));
+			classes.add(new XmlClass("com.revature.tester.BatchTester"));
+//			classes.add(new XmlClass("com.revature.tester.CurriculumTester"));
+			classes.add(new XmlClass("com.revature.tester.LocationTester"));
+			classes.add(new XmlClass("com.revature.tester.TrainerTest"));
+			classes.add(new XmlClass("com.revature.tester.ReportTester"));
+			classes.add(new XmlClass("com.revature.tester.SettingSD"));
+			break;
+		case "VP":
+			System.out.println("adding VPGroupTester classes");
+			classes.add(new XmlClass("com.revature.tester.VPGroupTester"));
+			break;
+		case "Trainer":
+			System.out.println("adding TrainerGroupTester classes");
+			classes.add(new XmlClass("com.revature.tester.TrainerGroupTester"));
+			break;
+		}
 		test.setXmlClasses(classes);
 		return suite;
 	}
 	
-	public static ResponseObject runAllTests() {
+	public static ResponseObject runTests(String whichToRun) {
 		// testNG instance
 	    TestNG testng = new TestNG();
 	    // create list of suites to run
 	    List<XmlSuite> suites = new ArrayList<XmlSuite>();
-	    suites.add(createSuite());
+	    suites.add(createSuite(whichToRun));
 	    // add suites to testNG
 	    testng.setXmlSuites(suites);
 	    // create and add test listener which will generate response object
@@ -61,6 +75,7 @@ public class TesterServlet extends HttpServlet {
 	    testng.addListener(listener);
 	    testng.setUseDefaultListeners(false);
 	    // programmatically run testNG!!
+	    System.out.println("About to run TestNG");
 	    testng.run();
 	    // return the response object
 	    return ((ListenerTest) listener).getResponseObject();
@@ -87,9 +102,10 @@ public class TesterServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// run the tests and get the object that will be returned as JSON
-		//ResponseObject robj = runAllTests();
-		ResponseObject robj = getDummyData();
-		new TestPath().showResource();
+		String whichToRun = request.getParameter("group");
+		System.out.println("Parameter: "+whichToRun);
+		ResponseObject robj = runTests(whichToRun);
+		//ResponseObject robj = getDummyData();
         // create Jackson mapper object
 		ObjectMapper mapper = new ObjectMapper();
 		// send json data back

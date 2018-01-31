@@ -39,7 +39,7 @@ public class MethodUtil {
 	}
 	
 	public static WebElement waitForLoad(WebDriver driver, String xpath) {
-		return waitForLoad(driver, xpath, 10);
+		return waitForLoad(driver, xpath, 20);
 	}
 	
 	
@@ -69,7 +69,7 @@ public class MethodUtil {
 	}
 
 	public static WebElement waitForLoadByAnyType(WebDriver driver, By byType) {
-		return waitForLoadByAnyType(driver, byType, 10);
+		return waitForLoadByAnyType(driver, byType, 20);
 	}
 	
 	public static void loadPropertiesFile(Properties props) {

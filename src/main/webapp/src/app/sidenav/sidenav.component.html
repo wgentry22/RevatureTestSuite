@@ -4,7 +4,6 @@
       <div class="sidenav">
         <h3><a routerLink="/overview">Overview</a></h3>
         <h3><a routerLink="/metrics-view">Metrics</a></h3>
-        <h3>{{tmp}}</h3>
         <h3>Test Groups</h3>
         <ul class="nav nav-pills nav-stacked">
           <li *ngFor="let group of groups">
@@ -17,6 +16,7 @@
             <a routerLink="/tests/{{test.id}}">{{test.name}}</a>
           </li>
         </ul>
+      </div>
     </div>
   </div>
 </div>

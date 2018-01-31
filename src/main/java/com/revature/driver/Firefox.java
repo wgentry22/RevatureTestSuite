@@ -13,8 +13,7 @@ class Firefox implements IDriver {
 	 public WebDriver selectDriver() {
 		File f = null;
 		if (System.getenv("PATH").contains("/home/")) {
-			URL resource = MethodUtil.class.getClassLoader().getResource("geckodriver");
-			f = new File(resource.getFile());
+			f = new File("src/main/resources/geckodriver");
 			System.setProperty("webdriver.gecko.driver", f.getAbsolutePath());
 			return new FirefoxDriver();
 		} else {
