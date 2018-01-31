@@ -2,6 +2,7 @@ package com.revature.tester.test;
 
 
 import java.util.List;
+import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,8 +29,14 @@ import cucumber.api.java.en.When;
 public class TrainerTest {
 	Trainer t = AssignForce.getAllTrainers().get(0);
 	public WebDriver wd = DriverFactory.getDriver("chrome");
+	public Properties props;
   
-  @When("^I click cancel on the Calendar$")
+  public TrainerTest(WebDriver wd2, Properties props2) {
+		this.wd = wd2;
+		this.props = props2;
+	}
+
+@When("^I click cancel on the Calendar$")
   public void clickCancelPTOCalendar() {
 	  MethodUtil.executeJSClick(wd,TrainerPage.selectCancelCalendar(wd));
   }

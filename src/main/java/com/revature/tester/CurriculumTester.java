@@ -1,6 +1,7 @@
 package com.revature.tester;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -26,6 +27,12 @@ public class CurriculumTester {
 //	Curriculum curriculum = AssignForce.getAllCurriculum().get(0);
 	Curriculum curriculum = null;
 	Focus focus = AssignForce.getAllFocuses().get(0);
+	Properties props;
+
+	public CurriculumTester(WebDriver wd, Properties props) {
+		this.driver = wd;
+		this.props = props;
+	}
 
 	@BeforeTest(groups = { "VP", "Hib"})
 	public void loginVP() {

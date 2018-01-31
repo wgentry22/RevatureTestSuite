@@ -1,5 +1,7 @@
 package com.revature.tester;
 
+import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -17,20 +19,29 @@ import com.revature.pageObjectModel.LoginPage;
 
 public class LocationTester {
 
-	static WebDriver wd = null;
-	static Room room = AssignForce.getAllRooms().get(6);
+	WebDriver wd = null;
+	WebDriverWait wait;
+	Actions act;
+	Room room = AssignForce.getAllRooms().get(6);
 
-	static String locationName;
-	static String locationCity;
-	static String locationState;
+	String locationName;
+	String locationCity;
+	String locationState;
 
-	static String buildingName;
-	static String newBuildingName;
+	String buildingName;
+	String newBuildingName;
 
-	static String roomName;
+	String roomName;
+	
+	Properties props;
+
+	public LocationTester(WebDriver wd2, Properties props) {
+		this.wd = wd2;
+		this.props = props;
+	}
 
 	@BeforeGroups(enabled = true, groups = {"VP", "VP1", "VP2"})
-	public static void loginAsVP() {
+	public void loginAsVP() {
 
 		wd = DriverFactory.getDriver("chrome");
 		wd.get("https://dev.assignforce.revaturelabs.com");
@@ -49,7 +60,7 @@ public class LocationTester {
 	}
 
 	@AfterGroups(enabled = true, groups = {"VP", "VP1", "VP2"})
-	public static void logout() {
+	public void logout() {
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 		LoginPage.logout(wd);
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -57,7 +68,7 @@ public class LocationTester {
 	}
 
 	@Test(enabled = true, groups = "VP", priority = 0)
-	public static void addLocation() {
+	public void addLocation() {
 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-click*='lCtrl.addLocation()']")));
 		LocationsPage.newLocationButton(wd).click();
@@ -71,7 +82,7 @@ public class LocationTester {
 	}
 
 	@Test(enabled = true, groups = "VP", priority = 1)
-	public static void addBuilding() {
+	public void addBuilding() {
 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[aria-label*='Toggle  "+ locationCity + ", " + locationState +"']")));
 		LocationsPage.locationCheckBox(wd, locationCity, locationState).click();
@@ -86,7 +97,7 @@ public class LocationTester {
 	}
 
 	@Test(enabled = true, groups = "VP", priority = 2)
-	public static void addRoom() {
+	public void addRoom() {
 
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 //		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"loc1\"]/md-list-item[2]/div/div[1]/md-checkbox")));
@@ -102,7 +113,7 @@ public class LocationTester {
 	}
 
 	@Test(enabled = true, groups = "VP", priority = 3)
-	public static void editBuilding() {
+	public void editBuilding() {
 
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 //		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"loc1\"]/md-list-item[2]/div/div[1]/md-checkbox")));
@@ -119,7 +130,7 @@ public class LocationTester {
 	}
 
 	@Test(enabled = true, groups = "VP", priority = 4)
-	public static void deactivateLocation() {
+	public void deactivateLocation() {
 
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 //		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[aria-label*='Toggle  "+ locationCity + ", " + locationState +"']")));

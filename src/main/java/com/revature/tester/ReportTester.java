@@ -1,5 +1,7 @@
 package com.revature.tester;
 
+import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterGroups;
 import org.testng.annotations.BeforeGroups;
@@ -11,10 +13,16 @@ import com.revature.pageObjectModel.ReportsPage;
 
 public class ReportTester {
 
-	static WebDriver wd = null;
+	WebDriver wd = null;
+	Properties props;
 	
+	public ReportTester(WebDriver wd2, Properties props2) {
+		this.wd = wd2;
+		this.props = props2;
+	}
+
 	@BeforeGroups(enabled = true, groups = "VP")
-	public static void loginAsVP() {
+	public void loginAsVP() {
 		wd = DriverFactory.getDriver("chrome");
 		wd.get("https://dev.assignforce.revaturelabs.com");
 		LoginPage.loginAs(wd, "test.vpoftech@revature.com.int1", "yuvi1712");
@@ -24,7 +32,7 @@ public class ReportTester {
 	}
 	
 	@AfterGroups(enabled = true, groups = "VP")
-	public static void logout() {
+	public void logout() {
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.logout(wd).click();
 		try { Thread.sleep(1500); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -32,7 +40,7 @@ public class ReportTester {
 	}
 	
 	@Test(enabled = true, groups = "VP")
-	public static void testBatchProjection() {
+	public void testBatchProjection() {
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
 		ReportsPage.batchProjectionToolbar(wd).click();
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -42,7 +50,7 @@ public class ReportTester {
 	}
 	
 	@Test(enabled = true, groups = "VP")
-	public static void testGraduateSummary() {
+	public void testGraduateSummary() {
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
 		ReportsPage.gradArrowButton(wd).click();
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -52,7 +60,7 @@ public class ReportTester {
 	}
 	
 	@Test(enabled = true, groups = "VP")
-	public static void testIncomingTraineeSummary() {
+	public void testIncomingTraineeSummary() {
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
 		ReportsPage.incomingTraineeToolbar(wd).click();
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
