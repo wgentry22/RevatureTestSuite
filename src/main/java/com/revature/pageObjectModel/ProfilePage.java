@@ -13,14 +13,18 @@ import com.revature.tester.MethodUtil;
 public class ProfilePage {
 	
 	public static WebElement selectProfileTab(WebDriver wd) {
-		return MethodUtil.waitForLoadByAnyType(wd, By.xpath("/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[6]/a"));
+		return MethodUtil.waitForLoadByAnyType(wd, By.xpath("/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[6]/a"), 100);
 	}
 	
 	public static WebElement insertFirstname(WebDriver wd) {
+		
+		//return wd.findElements(By.tagName("input")).get(0);
 		return MethodUtil.waitForLoadByAnyType(wd, By.cssSelector("[ng-model*='pCtrl.trainer.firstName']"));
 	}
 
 	public static WebElement insertLastname(WebDriver wd) {
+		
+		//return wd.findElements(By.tagName("input")).get(1);
 		return MethodUtil.waitForLoadByAnyType(wd, By.cssSelector("[ng-model*='pCtrl.trainer.lastName']"));
 	}
 	

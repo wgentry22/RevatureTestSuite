@@ -8,7 +8,7 @@
   		</run>
   	<groups>
     <classes>
-      <class name="com.revature.tester.test.CurriculaTester"/>
+      <class name="com.revature.tester.ProfileTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

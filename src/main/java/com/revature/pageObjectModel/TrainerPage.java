@@ -26,7 +26,7 @@ public class TrainerPage {
 	public static WebElement selectViewPTOCalendar(WebDriver wd) {
 		// return
 		// wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-toolbar[1]/div/button[2]"));
-		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*='tdCtrl.cancel()']"));
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*='tCtrl.showCalendar()']"));
 
 	}
 
