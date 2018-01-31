@@ -1,5 +1,7 @@
 package com.revature.tester;
 
+import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -38,6 +40,14 @@ public class SettingSD {
 	// fields should be updated automatically when saving the settings page
 	public String locationInBatch = null;
 	public String buildingInBatch = null;
+	
+	public Properties props;
+	
+	public SettingSD() {}
+	public SettingSD(WebDriver wd, Properties props) {
+		this.wd = wd;
+		this.props = props;
+	}
 	
 	@Given("^I am in the Settings Page/Tab and logged in as the VP$")
 	@BeforeGroups(enabled = true, groups = {"VP"})
@@ -259,6 +269,9 @@ public class SettingSD {
 	@Test(enabled = true, groups = "Trainer", priority = 6)
 	public void testSettingsPageAsTrainer() {
 	
+		wait = new WebDriverWait(wd, 10);
+		act = new Actions(wd);
+		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.trainersPerPage']")));
 		SettingsPage.timelineTrainersPerPage(wd).clear();
 		SettingsPage.timelineTrainersPerPage(wd).sendKeys("30");

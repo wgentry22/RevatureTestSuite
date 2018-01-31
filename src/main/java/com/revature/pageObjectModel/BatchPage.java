@@ -17,9 +17,7 @@ public class BatchPage {
 	}
 	
 	public static WebElement getOptionByText(WebDriver wd,int menuIndex, String text) {
-		//List<WebElement> list = wd.findElements(By.xpath("//md-option/div[@class=\"md-text ng-binding\"]"));
 		List<WebElement> list = wd.findElements(By.xpath("//md-option/div[1]"));
-		//System.out.println(list);
 		for (int i=0; i<list.size();i++) {
 			if (list.get(i).getText().contains(text))
 				return list.get(i);
@@ -34,9 +32,7 @@ public class BatchPage {
 	}
 	
 	public static WebElement getSkillsOptsByText(WebDriver wd,int menuIndex, String text) {
-		//List<WebElement> list = wd.findElements(By.xpath("//md-option/div[@class=\"md-text ng-binding\"]"));
 		List<WebElement> list = wd.findElements(By.xpath("//md-option/div[2]"));
-		//System.out.println(list);
 		for (int i=0; i<list.size();i++) {
 			if (list.get(i).getText().contains(text))
 				return list.get(i);
@@ -134,4 +130,10 @@ public class BatchPage {
 	public static WebElement getBatchCancelBtn(WebDriver wd) {
 		return MethodUtil.waitForLoad(wd,"(//button)[3]");
 	}
+	
+	public static WebElement getColumnSortBtn(WebDriver wd,int index) {
+		return MethodUtil.waitForLoad(wd,"//*[@id=\"view\"]/md-card/md-content[1]/div/md-table-container/table/thead/tr/th["+index+"]/md-icon");
+	}
+										  //*[@id="view"]/md-card/md-content[1]/div/md-table-container/table/thead/tr/th[2]/md-icon
+										  //*[@id="view"]/md-card/md-content[1]/div/md-table-container/table/thead/tr/th[10]/md-icon
 }

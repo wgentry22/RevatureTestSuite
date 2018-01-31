@@ -1,6 +1,7 @@
 package com.revature.tester;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,46 +11,74 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Batch;
+import com.revature.hibernate.model.Curriculum;
+import com.revature.hibernate.model.Focus;
+import com.revature.hibernate.model.Skill;
+import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.CirriculaPage;
 
 public class CurriculumTester {
 
-	WebDriver driver = DriverFactory.getDriver("chrome");
+	private static final Logger logger = Logger.getLogger(CurriculumTester.class);
+	private Batch batch = null;
+	WebDriver driver;
+	Curriculum curriculum;
+	Focus focus;
+	Properties props;
 
-	@BeforeTest(groups = { "VP" })
-	public void loginVP() {
-		CirriculaPage.loginVPCredentials(driver);
+	public CurriculumTester(WebDriver wd, Properties props, Batch batch) {
+		this.driver = wd;
+		this.props = props;
+		this.batch = batch;
+		this.curriculum = batch.getCurriculum();
+		this.focus = batch.getFocus();
 	}
+
+	public CurriculumTester() {
+		this.batch = AssignForce.getAllBatches().get(0);
+		this.driver = DriverFactory.getDriver("chrome");
+		this.focus = batch.getFocus();
+		this.curriculum = batch.getCurriculum();
+	}
+
+
+//	@BeforeTest(groups = { "VP", "Hib"})
+//	public void loginVP() {
+//		CirriculaPage.loginVPCredentials(driver);
+//	}
 
 	@BeforeTest(groups = "Trainer")
 	public void loginTrainer() {
 		CirriculaPage.loginTrainerCredentials(driver);
 	}
 
-	@AfterTest(groups = { "VP", "Trainer" })
+	@AfterTest(groups = { "VP", "Trainer", "Hib"})
 	public void afterTest() {
 		MethodUtil.executeJSClick(driver, CirriculaPage.logoutTab(driver));
 	}
 
-	@BeforeSuite(groups = { "VP", "Trainer" })
+	@BeforeSuite(groups = { "VP", "Trainer" , "Hib"})
 	public void beforeSuite() {
 		CirriculaPage.openSalesforceChrome(driver);
+		CirriculaPage.loginVPCredentials(driver);
 	}
 
-	@AfterSuite(groups = { "VP", "Trainer" })
+	@AfterSuite(groups = { "VP", "Trainer", "Hib" })
 	public void afterSuite() {
 		driver.close();
 		driver.quit();
 	}
 
-	@Test(priority = 1, enabled = true, groups = { "VP", "Trainer" })
+	@Test(priority = 1, enabled = true, groups = { "VP", "Trainer", "Hib" })
 	public void navigateToCurriculumTab() {
 		MethodUtil.executeJSClick(driver, CirriculaPage.curriculaTab(driver));
 	}
 
-	@Test(priority = 16, enabled = true, groups = "Trainer")
+	@Test(priority = 17, enabled = true, groups = "Trainer")
 	public void closeCirriculumPanel() {
 		try {
 			Thread.sleep(300);
@@ -59,7 +88,7 @@ public class CurriculumTester {
 		}
 	}
 
-	@Test(priority = 17, enabled = true, groups = "Trainer")
+	@Test(priority = 18, enabled = true, groups = "Trainer")
 	public void openCurriculumPanel() {
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 			return;
@@ -68,12 +97,12 @@ public class CurriculumTester {
 		}
 	}
 
-	@Test(priority = 18, enabled = true, groups = "Trainer")
+	@Test(priority = 19, enabled = true, groups = "Trainer")
 	public void closeFocusPanel() {
 		MethodUtil.executeJSClick(driver, CirriculaPage.trainerToggleFocusPanel(driver));
 	}
 
-	@Test(priority = 19, enabled = true, groups = "Trainer")
+	@Test(priority = 20, enabled = true, groups = "Trainer")
 	public void openFocusPanel() {
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
 			return;
@@ -121,7 +150,7 @@ public class CurriculumTester {
 				Thread.sleep(400);
 				CirriculaPage.editCurriculumNameInputField(driver).clear();
 				Thread.sleep(400);
-				CirriculaPage.editCurriculumNameInputField(driver).sendKeys("Definitely William");
+				CirriculaPage.editCurriculumNameInputField(driver).sendKeys("Definitely Not William");
 				Thread.sleep(400);
 				CirriculaPage.confirmButtonEditCurriculumPopup(driver).click();
 			} catch (InterruptedException e) {
@@ -209,34 +238,70 @@ public class CurriculumTester {
 		}
 	}
 
-	@Test(priority = 11, enabled = true, groups = "VP")
-	public void addSkill() {
+	@Test(priority = 11, enabled = false, groups = {"VP", "Hib"})
+	public void addSkillCurriculum() {
 		if (CirriculaPage.isSkillPanelOpen(driver)) {
 			try {
-				Thread.sleep(250);
-				CirriculaPage.addSkillInputField(driver).sendKeys("Possibly William WebDriver");
-				Thread.sleep(1000);
-				MethodUtil.executeJSClick(driver, CirriculaPage.createButtonSkill(driver));
-				Thread.sleep(250);
+				for (Skill s : curriculum.getCurriculumSkill()) {
+					Thread.sleep(400);
+					CirriculaPage.addSkillInputField(driver).sendKeys(s.getSkillName());
+					Thread.sleep(1000);
+					MethodUtil.executeJSClick(driver, CirriculaPage.createButtonSkill(driver));
+					Thread.sleep(400);
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				Thread.sleep(100);
-				MethodUtil.executeJSClick(driver, CirriculaPage.toggleSkillPanel(driver));
-				Thread.sleep(250);
-				CirriculaPage.addSkillInputField(driver).sendKeys("Not William WebDriver");
-				Thread.sleep(450);
-				MethodUtil.executeJSClick(driver, CirriculaPage.createButtonSkill(driver));
-				Thread.sleep(800);
+				for (Skill s : curriculum.getCurriculumSkill()) {
+					Thread.sleep(100);
+					MethodUtil.executeJSClick(driver, CirriculaPage.toggleSkillPanel(driver));
+					Thread.sleep(250);
+					CirriculaPage.addSkillInputField(driver).sendKeys(s.getSkillName());
+					Thread.sleep(450);
+					MethodUtil.executeJSClick(driver, CirriculaPage.createButtonSkill(driver));
+					Thread.sleep(800);
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	@Test(priority = 12, enabled = true, groups = "VP")
+
+	@Test(priority=12, enabled=true, groups= {"VP", "Hib"})
+	public void addSkillFocus() {
+		if (CirriculaPage.isFocusPanelOpen(driver)) {
+			try {
+				for (Skill s : focus.getFocusSkill()) {
+					Thread.sleep(400);
+					CirriculaPage.addSkillInputField(driver).sendKeys(s.getSkillName());
+					Thread.sleep(1000);
+					MethodUtil.executeJSClick(driver, CirriculaPage.createButtonSkill(driver));
+					Thread.sleep(400);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				for (Skill s : focus.getFocusSkill()) {
+					Thread.sleep(100);
+					MethodUtil.executeJSClick(driver, CirriculaPage.toggleSkillPanel(driver));
+					Thread.sleep(250);
+					CirriculaPage.addSkillInputField(driver).sendKeys(s.getSkillName());
+					Thread.sleep(450);
+					MethodUtil.executeJSClick(driver, CirriculaPage.createButtonSkill(driver));
+					Thread.sleep(800);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Test(priority = 13, enabled = true, groups = "VP")
 	public void editCurriculumPopupAddSkills() {
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 			try {
@@ -305,7 +370,7 @@ public class CurriculumTester {
 		}
 	}
 
-	@Test(priority = 13, enabled = true, groups = "VP")
+	@Test(priority = 14, enabled = true, groups = "VP")
 	public void editFocusPopupAddSkills() {
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
 			try {
@@ -378,99 +443,114 @@ public class CurriculumTester {
 		}
 	}
 
-	@Test(priority = 14, enabled = true, groups = "VP")
+	@Test(priority = 15, enabled = false, groups = {"VP", "Hib"})
 	public void addNewCurriculum() {
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 			try {
-				Thread.sleep(400);
+				Thread.sleep(1000);
 				// Opens add new curricula popup
 				MethodUtil.executeJSClick(driver, CirriculaPage.addNewCurriculumButton(driver));
-				Thread.sleep(400);
+				Thread.sleep(600);
 				// clears the text field and sends text to the Curriculum Name field
 				CirriculaPage.editCurriculumNameInputField(driver).clear();
-				CirriculaPage.editCurriculumNameInputField(driver).sendKeys("RobinScrippp");
-				Thread.sleep(400);
+				CirriculaPage.editCurriculumNameInputField(driver).sendKeys(curriculum.getCurriculumName());
+				Thread.sleep(600);
 				// Opens dropdown list
 				MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforCurriculum(driver));
 				List<WebElement> skills = driver.findElements(By.tagName("md-option"));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Add skills to the curriculum
-				for (int i = 0; i < skills.size(); i++) {
-					if (i % 2 == 0) {
-						skills.get(i).click();
+				for (Skill s : curriculum.getCurriculumSkill()) {
+					for (int i = 0; i < skills.size(); i++) {
+						if (skills.get(i).getText().equals(s.getSkillName())) {
+							skills.get(i).click();
+							Thread.sleep(500);
+						}
 					}
 				}
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Deactivates dropdown list
 				MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforCurriculum(driver));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Save curriculum
 				MethodUtil.executeJSClick(driver, CirriculaPage.cancelButtonEditFocusPopup(driver));
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+			} catch (Exception e2) {
+				logger.debug(e2);
 			}
+
 		} else {
 			try {
-				Thread.sleep(150);
+				Thread.sleep(600);
 				MethodUtil.executeJSClick(driver, CirriculaPage.toggleCoreCurriculaPanel(driver));
-				Thread.sleep(230);
+				Thread.sleep(600);
 				// Opens add new curricula popup
 				MethodUtil.executeJSClick(driver, CirriculaPage.addNewCurriculumButton(driver));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// clears the text field and sends text to the Curriculum Name field
 				CirriculaPage.editCurriculumNameInputField(driver).clear();
-				CirriculaPage.editCurriculumNameInputField(driver).sendKeys("RobinScrippp");
-				Thread.sleep(200);
+				CirriculaPage.editCurriculumNameInputField(driver).sendKeys(curriculum.getCurriculumName());
+				Thread.sleep(600);
 				// Opens dropdown list
 				MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforCurriculum(driver));
 				List<WebElement> skills = driver.findElements(By.tagName("md-option"));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Add skills to the curriculum
-				for (int i = 0; i < skills.size(); i++) {
-					if (i % 2 == 0) {
-						skills.get(i).click();
+				for (Skill s : curriculum.getCurriculumSkill()) {
+					for (int i = 0; i < skills.size(); i++) {
+						if (skills.get(i).getText().equals(s.getSkillName())) {
+							skills.get(i).click();
+							Thread.sleep(500);
+						}
 					}
 				}
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Deactivates dropdown list
 				MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforCurriculum(driver));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Save curriculum
 				MethodUtil.executeJSClick(driver, CirriculaPage.cancelButtonEditFocusPopup(driver));
 
 			} catch (InterruptedException e) {
+				logger.debug(e);
 				e.printStackTrace();
+			} catch (Exception e2) {
+				logger.debug(e2);
 			}
 		}
 	}
 
-	@Test(priority = 15, enabled = true, groups = "VP")
+	@Test(priority = 16, enabled = true, groups = {"VP", "Hib"})
 	public void addNewFocus() {
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
 			try {
-				Thread.sleep(400);
+				Thread.sleep(1000);
 				// Opens the add new focus popup
 				MethodUtil.executeJSClick(driver, CirriculaPage.addNewFocusButton(driver));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Clears the Focus name input field and sends keys
 				CirriculaPage.editFocusNameInputField(driver).clear();
-				CirriculaPage.editFocusNameInputField(driver).sendKeys("Andrew's Sorcery");
-				Thread.sleep(200);
+				CirriculaPage.editFocusNameInputField(driver).sendKeys(focus.getFocusName());
+				Thread.sleep(600);
 				// Opens the dropdown list
 				MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforFocus(driver));
 				List<WebElement> skills = driver.findElements(By.tagName("md-option"));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Add skills to the curriculum
-				for (int i = 0; i < skills.size(); i++) {
-					if (i % 5 == 0) {
-						skills.get(i).click();
+				for (Skill s : focus.getFocusSkill()) {
+					for (int i = 0; i < skills.size(); i++) {
+						if (skills.get(i).getText().equals(s.getSkillName())) {
+							skills.get(i).click();
+							Thread.sleep(500);
+						}
 					}
 				}
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Deactivates dropdown list
 				MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforFocus(driver));
-				Thread.sleep(400);
+				Thread.sleep(600);
 				// Save curriculum
 				MethodUtil.executeJSClick(driver, CirriculaPage.confirmButtonEditFocusPopup(driver));
 
@@ -479,30 +559,33 @@ public class CurriculumTester {
 			}
 		} else {
 			try {
-				Thread.sleep(150);
+				Thread.sleep(1000);
 				MethodUtil.executeJSClick(driver, CirriculaPage.toggleFocusPanel(driver));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Opens the add new focus popup
 				MethodUtil.executeJSClick(driver, CirriculaPage.addNewFocusButton(driver));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Clears the Focus name input field and sends keys
 				CirriculaPage.editFocusNameInputField(driver).clear();
 				CirriculaPage.editFocusNameInputField(driver).sendKeys("Andrew's Sorcery");
-				Thread.sleep(400);
+				Thread.sleep(600);
 				// Opens the dropdown list
 				MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforFocus(driver));
 				List<WebElement> skills = driver.findElements(By.tagName("md-option"));
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Add skills to the curriculum
-				for (int i = 0; i < skills.size(); i++) {
-					if (i % 5 == 0) {
-						skills.get(i).click();
+				for (Skill s : focus.getFocusSkill()) {
+					for (int i = 0; i < skills.size(); i++) {
+						if (skills.get(i).getText().equals(s.getSkillName())) {
+							skills.get(i).click();
+							Thread.sleep(500);
+						}
 					}
 				}
-				Thread.sleep(200);
+				Thread.sleep(600);
 				// Deactivates dropdown list
 				MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforFocus(driver));
-				Thread.sleep(400);
+				Thread.sleep(600);
 				// Save curriculum
 				MethodUtil.executeJSClick(driver, CirriculaPage.confirmButtonEditFocusPopup(driver));
 

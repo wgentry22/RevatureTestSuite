@@ -27,7 +27,7 @@ public class LoginTester {
 	public void logout() {
 		MethodUtil.waitForLoad(wd, "(//button)[1]").click();
 	}
-	
+
 	@AfterSuite
 	public void closeDriver() {
 		MethodUtil.waitAndCloseDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
@@ -53,7 +53,7 @@ public class LoginTester {
 	@Test(enabled=true,priority=1)
 	public void testIfOnLoginPage() {
 		wd.get(props.getProperty("EntryURL"));
-		assertEquals("Login | Salesforce",wd.getTitle());
+		assertEquals("Login | Salesforce", wd.getTitle());
 	}
 
 }
