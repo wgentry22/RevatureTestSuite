@@ -43,7 +43,7 @@ public class TesterServlet extends HttpServlet {
 			System.out.println("adding all classes");
 			classes.add(new XmlClass("com.revature.tester.OverviewTester"));
 			classes.add(new XmlClass("com.revature.tester.BatchTester"));
-			classes.add(new XmlClass("com.revature.tester.CurriculumTester"));
+//			classes.add(new XmlClass("com.revature.tester.CurriculumTester"));
 			classes.add(new XmlClass("com.revature.tester.LocationTester"));
 			classes.add(new XmlClass("com.revature.tester.TrainerTest"));
 			classes.add(new XmlClass("com.revature.tester.ReportTester"));

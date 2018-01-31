@@ -62,7 +62,7 @@ public class VPGroupTester {
 	@Test(priority=4)
 	public void batchTestFillCurriculum() {
 		// navigate to batch page
-		MethodUtil.waitForLoad(wd, "//a[@ng-href=\"batches\"]",20).click();
+		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "//a[@ng-href=\"batches\"]",20));
 		bt.fillCurriculum();
 	}
 	
@@ -132,13 +132,15 @@ public class VPGroupTester {
 	}
 	
 	@Test(priority=17)
-	public void testRefresh() {
+	public void batchTestRefresh() {
 		bt.testRefresh();
 	}
 	
 //  START LOCATION PAGE TESTING
 	@Test(priority=18)
 	public void locationAddLocation() {
+		// navigate to batch page
+		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "//a[@ng-href=\"locations\"]",20));
 		lt.addLocation();
 	}
 	
@@ -221,6 +223,8 @@ public class VPGroupTester {
 //	START TRAINERS PAGE TESTING
 	@Test(priority=34)
 	public void trainerAddNewFocus() {
+		// navigate to batch page
+		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "//a[@ng-href=\"trainers\"]",20));
 		tt.clickTrainersTab();
 		tt.addTrainerSave();
 	}
@@ -258,6 +262,8 @@ public class VPGroupTester {
 //	START REPORTS PAGE TESTING
 	@Test(priority=41)
 	public void reportsTestBatchProjection() {
+		// navigate to batch page
+		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "//a[@ng-href=\"reports\"]",20));
 		rt.testBatchProjection();
 	}
 	
@@ -274,6 +280,8 @@ public class VPGroupTester {
 //	START SETTINGS PAGE TESTING
 	@Test(priority=42)
 	public void settingsTestTrainersPerPage() {
+		// navigate to batch page
+		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "//a[@ng-href=\"settings\"]",20));
 		st.testTrainersPerPage();
 	}
 	

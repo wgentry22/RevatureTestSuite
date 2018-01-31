@@ -39,13 +39,13 @@ public class BatchTester {
 		this.wd = wd2;
 		this.props = props2;
 		this.batch = batch;
-		this.focus = batch.getFocus();
-		this.curriculum = batch.getCurriculum();
+		this.focus = batch.getFocus().getFocusName();
+		this.curriculum = batch.getCurriculum().getCurriculumName();
 	}
 
 	public BatchTester() {
-		this.focus = batch.getFocus();
-		this.curriculum = batch.getCurriculum();
+		this.focus = batch.getFocus().getFocusName();
+		this.curriculum = batch.getCurriculum().getCurriculumName();
 	}
 
 	@BeforeSuite

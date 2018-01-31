@@ -18,7 +18,7 @@
     </li>
     <div *ngIf="test.status=='failure'">
       <div *ngFor="let e of test.exceptionThrown.stackTrace" class="text-danger">
-        at method {{e.methodName}} in class {{e.className}} (line {{e.lineNumber}}) in file {{e.fileName}}
+        at method <strong>{{e.methodName}}:{{e.lineNumber}}</strong> in class {{e.className}} in file {{e.fileName}}
       </div>
     </div>
   </ul>
