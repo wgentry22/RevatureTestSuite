@@ -15,7 +15,7 @@ public class ReportTester {
 
 	WebDriver wd = null;
 	Properties props;
-	
+
 	public ReportTester(WebDriver wd2, Properties props2) {
 		this.wd = wd2;
 		this.props = props2;
@@ -30,7 +30,7 @@ public class ReportTester {
 //		ReportsPage.navigateToReportsPage(wd);
 		MethodUtil.waitForLoad(wd, "/html/body/div[1]/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[7]/a").click();
 	}
-	
+
 	@AfterGroups(enabled = true, groups = "VP")
 	public void logout() {
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -38,7 +38,7 @@ public class ReportTester {
 		try { Thread.sleep(1500); } catch (InterruptedException e) { e.printStackTrace(); }
 		wd.quit();
 	}
-	
+
 	@Test(enabled = true, groups = "VP")
 	public void testBatchProjection() {
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
@@ -48,7 +48,7 @@ public class ReportTester {
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.batchArrowButton(wd).click();
 	}
-	
+
 	@Test(enabled = true, groups = "VP")
 	public void testGraduateSummary() {
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
@@ -58,7 +58,7 @@ public class ReportTester {
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.gradToolbar(wd).click();
 	}
-	
+
 	@Test(enabled = true, groups = "VP")
 	public void testIncomingTraineeSummary() {
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }		// wait for page to load
@@ -68,5 +68,5 @@ public class ReportTester {
 		try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
 		ReportsPage.incArrowButton(wd).click();
 	}
-	
+
 }

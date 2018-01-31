@@ -1,15 +1,13 @@
 package com.revature.tester;
 
 
-import com.revature.tester.test.TrainerTest;
-
 import cucumber.api.CucumberOptions;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 
-//@CucumberOptions(features = "src/test/resources/trainer.feature")
+@CucumberOptions(features = "src/main/resources/trainerVP.feature")
 public class TrainerTester extends AbstractTestNGCucumberTests {
 
 //	//WebDriver wd = DriverFactory.getDriver("chrome");
