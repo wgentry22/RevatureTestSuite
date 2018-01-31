@@ -1,7 +1,7 @@
 # RevatureTestSuite
 ### Contributors
 
-* William 
+* William (EC2)
 * Robin
 * Andrew
 * Joseph
