@@ -17,7 +17,7 @@ import com.revature.tester.MethodUtil;
 
 public class PreloadingAllSkills {
 
-	Set<Skill> necessarySkills = AssignForce.getAllBatches().get(0).getAllRequiredSkills();
+	Set<Skill> necessarySkills = AssignForce.getAllBatches().get(2).getAllRequiredSkills();
 	WebDriver driver = DriverFactory.getDriver("chrome");
 
 	@BeforeTest(groups = { "VP", "Hib"})

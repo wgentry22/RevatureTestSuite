@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Batch;
 import com.revature.hibernate.model.Room;
 import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.LocationsPage;
@@ -19,11 +20,22 @@ import com.revature.pageObjectModel.LoginPage;
 
 public class LocationTester {
 
+
+	Batch batch = AssignForce.getAllBatches().get(2);
+
+	WebDriver wd = null;
+	WebDriverWait wait;
+	Actions act;
+	Room room = batch.getRoom();
+
+<<<<<<< HEAD
 	WebDriver wd = null;
 	WebDriverWait wait;
 	Actions act;
 	Room room = AssignForce.getAllRooms().get(6);
 
+=======
+>>>>>>> 266e2520c42ec1bb04eeefc8cec7ad7e78b98519
 	String locationName;
 	String locationCity;
 	String locationState;
@@ -32,7 +44,7 @@ public class LocationTester {
 	String newBuildingName;
 
 	String roomName;
-	
+
 	Properties props;
 
 	public LocationTester(WebDriver wd2, Properties props) {

@@ -3,18 +3,19 @@
 <suite name="Suite" parallel="false">
 	 <groups>
 	  <run>
-	  	<include name="Hib"/>
+	  	<include name="VP"/>
 	  </run>
 	</groups>
   <test name="Test">
     <classes>
+    	<!--<class name="com.revature.tester.BatchTester"/>-->
       <!--<class name="com.revature.tester.LocationTester"/>-->
-      <!--<class name="com.revature.tester.test.TrainerTest"/>-->
+      <class name="com.revature.tester.test.TrainerTest"/>
       <!--<class name="com.revature.tester.CurriculumTester"/>-->
       <!--<class name="com.revature.tester.test.ProfileTest"/>-->
       <!--<class name="com.revature.tester.SettingTester"/>-->
       <!--<class name="com.revature.tester.test.ProtractorCurricula"/>-->
-      <class name="com.revature.tester.PreloadingAllSkills"/>
+      <!--<class name="com.revature.tester.PreloadingAllSkills"/>-->
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
