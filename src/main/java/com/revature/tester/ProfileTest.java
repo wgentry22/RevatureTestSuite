@@ -52,6 +52,7 @@ public class ProfileTest {
 		
 	}
 
+<<<<<<< HEAD
 
 	WebDriver wd = null;
 	public WebElement getCurrentSkillByName(String skillName) {
@@ -62,15 +63,12 @@ public class ProfileTest {
 		}
 		throw new NoSuchElementException(skillName + " was not found");
 	}
+=======
+public class ProfileTest {
+	WebDriver wd = DriverFactory.getDriver("chrome");
+>>>>>>> cucumber
 
-	public WebElement getChooseSkillByName(String skillName) {
-		for (WebElement we : ProfilePage.getChooseSkillList(wd)) {
-			if (we.getText().contains(skillName)) {
-				return we;
-			}
-		}
-		throw new NoSuchElementException(skillName + " was not found");
-	}
+
 	public void clickFirstChooseSkill() {
 		ProfilePage.selectChooseSkill(wd).click();
 	}
@@ -93,16 +91,41 @@ public class ProfileTest {
 		getCurrentSkillByName(skillName).click();
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cucumber
 	@When("^I click on \"([^\"]*)\" from choose skills$")
 	public void clickChooseSkillByName(String skillName) {
 		getChooseSkillByName(skillName).click();
 	}
+<<<<<<< HEAD
+=======
+	
+	public WebElement getCurrentSkillByName(String skillName) {
+		for (WebElement we : ProfilePage.getCurrentSkillList(wd)) {
+			if (we.getText().contains(skillName.toUpperCase())) {
+				return we;
+			}
+		}
+		throw new NoSuchElementException(skillName + " was not found in \"Current Skills\"");
+	}
+	
+	public WebElement getChooseSkillByName(String skillName) {
+		for (WebElement we : ProfilePage.getChooseSkillList(wd)) {
+			if (we.getText().contains(skillName)) {
+				return we;
+			}
+		}
+		throw new NoSuchElementException(skillName + " was not found in \"Choose Skills\"");
+	}
+>>>>>>> cucumber
 
 	@Then("^I should see \"([^\"]*)\" on the list of skills to choose from$")
 	public void checkForSkillInChooseList(String skillName) {
 		assertNotNull(getChooseSkillByName(skillName));
 	}
+
 	public List<WebElement> getChooseSkillList() {
 		return ProfilePage.getChooseSkillList(wd);
 	}
@@ -112,7 +135,10 @@ public class ProfileTest {
 		assertNotNull(getCurrentSkillByName(skillName));
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cucumber
 	@Given("^I do not have \"([^\"]*)\" as a skill$")
 	public void removeSkillFromCurrentList(String skillName) {
 		try {
@@ -133,14 +159,21 @@ public class ProfileTest {
 		System.out.println(skillName + " has been added to the list of skills");
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cucumber
 	@Given("^I click on the profile tab$")
 	@Test(groups = "Trainer")
 	public void clickProfileTab() {
 		ProfilePage.selectProfileTab(wd).click();
 	}
 
+<<<<<<< HEAD
 	@Test(groups = "Trainer", priority = 10, dependsOnMethods = "clickProfileTab")
+=======
+	@Test(groups = "Trainer", priority = 5, dependsOnMethods = "clickProfileTab")
+>>>>>>> cucumber
 	public void changeName() {
 		ProfilePage.insertFirstname(wd).clear();
 		ProfilePage.insertFirstname(wd).sendKeys(t.getTrainerFirstName());
@@ -148,8 +181,12 @@ public class ProfileTest {
 		ProfilePage.insertLastname(wd).sendKeys(t.getTrainerLastName());
 	}
 
+<<<<<<< HEAD
 
 	@Test(groups = "Trainer", enabled=false, priority = 7, dependsOnMethods = "clickProfileTab")
+=======
+	@Test(groups = "Trainer", priority = 7, dependsOnMethods = "clickProfileTab")
+>>>>>>> cucumber
 	public void addResume() {
 		ProfilePage.selectAddResume(wd).click();
 	}
@@ -157,25 +194,23 @@ public class ProfileTest {
 	@Test(groups = "Trainer", priority = 3, dependsOnMethods = "clickProfileTab")
 	public void saveSkills() {
 		boolean done = false;
+		try {
+			clickCurrentSkillByName("Not William WebDriver");
+			done = true;
+			Thread.sleep(800);
+			clickChooseSkillByName("Not William WebDriver");
+		} catch (NoSuchElementException e) {
 			try {
-				clickCurrentSkillByName("Not William WebDriver");
-				done = true;
-				Thread.sleep(800);
-				clickChooseSkillByName( "Not William WebDriver");
-			} catch (NoSuchElementException e) {
-				try {
-					if(!done) {
-						clickChooseSkillByName("Not William WebDriver");
-						Thread.sleep(800);
-						clickCurrentSkillByName("Not William WebDriver");
-					}
-					else throw new NoSuchElementException("",e);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				if (!done) {
+					clickChooseSkillByName("Not William WebDriver");
+					Thread.sleep(800);
+					clickCurrentSkillByName("Not William WebDriver");
+				} else
+					throw new NoSuchElementException("", e);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
 			}
+<<<<<<< HEAD
 //			clickSaveSkill();
 //			int chooseSkillList = ProfilePage.getChooseSkillList(wd).size()/2;
 //			for(int i = 0; i < chooseSkillList; i++)
@@ -192,6 +227,18 @@ public class ProfileTest {
 						clickChooseSkillByName(s);
 			}
 			clickSaveSkill();
+=======
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		clickSaveSkill();
+		int chooseSkillList = ProfilePage.getChooseSkillList(wd).size() / 2;
+		for (int i = 0; i < chooseSkillList; i++)
+			clickFirstChooseSkill();
+		int currentSkillList = ProfilePage.getCurrentSkillList(wd).size();
+		for (int i = 0; i < currentSkillList; i++)
+			clickFirstCurrentSkill();
+>>>>>>> cucumber
 	}
 
 	@Given("^log in as a trainer$")
@@ -227,7 +274,6 @@ public class ProfileTest {
 	@AfterMethod
 	public void afterMethod() {
 	}
-
 
 	@BeforeSuite
 	public void beforeSuite() {

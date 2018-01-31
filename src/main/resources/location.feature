@@ -1,5 +1,5 @@
 #Author: robin.pierre16@outlook.com
-#Keywords Summary : Overview Page Traversal
+#Keywords Summary :
 #Feature: List of scenarios.
 #Scenario: Business rule through list of steps with arguments.
 #Given: Some precondition step
@@ -16,14 +16,22 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-@tag
-Feature: Traverse the Overview Page
- 
- Background: I log in
- And I am on the home page
- 
- Scenario: I want to download a CSV file
- When I click on Download CSV
- Then I should see the download and logout
+Feature: Traversing the Location page
 
-  
+  Background: I want to get on the location page
+    Given I open up a web browser and I login as VP
+
+  @VP
+  Scenario: Adding a new room
+    #Given I want to write a step with precondition
+    #And some other precondition
+    When I add a location
+    And I add a building to the location
+    And I add a room to the building
+    Then I can edit the building
+    And I logout
+
+  @VP
+  Scenario: I no longer have a building available in a location
+    When I deactivate a location
+    Then I logout

@@ -21,6 +21,10 @@ import com.revature.hibernate.model.Skill;
 import com.revature.pageObjectModel.BatchPage;
 import com.revature.pageObjectModel.LoginPage;
 
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
 public class BatchTester {
 	WebDriver wd;
 	Properties props = new Properties();
@@ -53,6 +57,7 @@ public class BatchTester {
 		wd = DriverFactory.getDriver("chrome");
 	}
 
+	@Given("^I log in as VP$")
 	@BeforeClass
 	public void doLogin() {
 		MethodUtil.loadPropertiesFile(props);
@@ -61,7 +66,7 @@ public class BatchTester {
 		// go to batches tab
 		MethodUtil.waitForLoad(wd, "//a[@ng-href=\"batches\"]",20).click();
 	}
-
+	@Then("^I log out$")
 	@AfterClass
 	public void doLogout() {
 		try {
@@ -72,19 +77,21 @@ public class BatchTester {
 		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "(//button)[1]"));
 		MethodUtil.waitAndCloseDriver(wd, Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
 	}
-
+	@When("^I fill in the curriculum for the batch$")
 	@Test(groups = { "VP" }, priority = 1)
 	public void fillCurriculum() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchCurriculumSelect(wd));
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchCurriculumOption(wd, curriculum));
 		assertTrue(BatchPage.getBatchCurriculumSelect(wd).getText().contains(curriculum),"Curriculum"+err);
 	}
+	@When("^I fill in focus for the batch$")
 	@Test(enabled=true,groups = { "VP" }, priority = 2)
 	public void fillFocus() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchFocusSelect(wd));
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchFocusOption(wd, focus));
 		assertTrue(BatchPage.getBatchFocusSelect(wd).getText().contains(focus),"Focus"+err);
 	}
+	@When("^I fill in skills for the batch$")
 	@Test(enabled=true,groups = { "VP" }, priority = 3)
 	public void fillSkills() {
 		for (Skill s : skills) {
@@ -94,6 +101,7 @@ public class BatchTester {
 		}
 			MethodUtil.executeJSClick(wd, wd.findElement(By.id("batchInfoDiv")));
 	}
+	@When("^I fill in the start date of the batch$")
 	@Test(enabled=true,groups = { "VP" }, priority = 4)
 	public void fillStartDate() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchStartDateInput(wd));
@@ -106,6 +114,7 @@ public class BatchTester {
 			e.printStackTrace();
 		}
 	}
+	@When("^I fill in the end date of the batch$")
 	@Test(enabled=true,groups = { "VP" }, priority = 5)
 	public void fillEndDate() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchEndDateInput(wd));
@@ -113,40 +122,47 @@ public class BatchTester {
 		BatchPage.getBatchEndDateInput(wd).sendKeys(localData.end);
 		assertEquals(BatchPage.getBatchEndDateInput(wd).getAttribute("value"),localData.end,"End date"+err);
 	}
+	@Then("^I should see the correct weekspan$")
 	@Test(enabled=true,groups = { "VP" }, priority = 6)
 	public void showAccurateWeekspan() {
 		assertEquals(BatchPage.getBatchWeekSpanInput(wd).getAttribute("value"),"Spans "+localData.weekspan+" Weeks","Weekspan"+err);
 	}
+	@When("^I fill in the batch name$")
 	@Test(enabled=true,groups = { "VP" }, priority = 7)
 	public void fillBatchName() {
 		BatchPage.getBatchNameInput(wd).clear();
 		BatchPage.getBatchNameInput(wd).sendKeys(batchName);
 		assertTrue(BatchPage.getBatchNameInput(wd).getAttribute("value").contains(batchName),"Batch Name"+err);
 	}
+	@When("^I fill in the trainer for the batch$")
 	@Test(enabled=true,groups = { "VP" }, priority = 8)
 	public void fillTrainer() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchTrainerSelect(wd));
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchTrainerOption(wd, trainerName));
 		assertTrue(BatchPage.getBatchTrainerSelect(wd).getText().contains(trainerName),"Trainer"+err);
 	}
+	@When("^I fill in the co-trainer for the batch$")
 	@Test(enabled=true,groups = { "VP" }, priority = 9)
 	public void fillCoTrainer() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchCoTrainerSelect(wd));
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchCoTrainerOption(wd, localData.cotrainer));
 		assertTrue(BatchPage.getBatchCoTrainerSelect(wd).getText().contains(localData.cotrainer),"Co-trainer"+err);
 	}
+	@When("^I fill in location of the building$")
 	@Test(enabled=true,groups = { "VP" }, priority = 10)
 	public void fillLocation() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchLocationSelect(wd));
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchLocationOption(wd, location));
 		assertTrue(BatchPage.getBatchLocationSelect(wd).getText().contains(location),"Location"+err);
 	}
+	@When("^I fill in the building itself$")
 	@Test(enabled=true,groups = { "VP" }, priority = 11)
 	public void fillBuilding() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchBuildingSelect(wd));
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchBuildingOption(wd, building));
 		assertTrue(BatchPage.getBatchBuildingSelect(wd).getText().contains(building),"Building"+err);
 	}
+	@When("^I fill in the room number in the building$")
 	@Test(enabled=true,groups = { "VP" }, priority = 12)
 	public void fillRoom() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchRoomSelect(wd));
@@ -154,6 +170,7 @@ public class BatchTester {
 		assertTrue(BatchPage.getBatchRoomSelect(wd).getText().contains(room),"Room"+err);
 	}
 
+	@When("^I click create batch")
 	@Test(enabled=true,groups = { "VP" }, priority = 13)
 	public void testVPCreateBatch() {
 		try {
@@ -164,7 +181,6 @@ public class BatchTester {
 		// submit button/create new batch
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchSubmitBtn(wd));
 	}
-
 	@Test(enabled=true,groups = { "VP" }, priority = 14)
 	public void testVPCancelBatchCreation() {
 		fillCurriculum();
@@ -177,7 +193,7 @@ public class BatchTester {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchCancelBtn(wd));
 		assertFalse(BatchPage.getBatchCurriculumSelect(wd).getText().contains(curriculum),"Curriculum was not cleared when cancel button was clicked");
 	}
-
+	@Then("^I should get a response confirming a new batch was created$")
 	@Test(enabled=true,groups = { "VP" }, priority = 15)
 	public void testRefresh() {
 		wd.get(props.getProperty("BatchesURL"));
