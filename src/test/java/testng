@@ -11,7 +11,7 @@
 	</groups>
   <test name="Test">
     <classes>
-      <class name="com.revature.tester.test.TrainerTest"/>
+      <class name="com.revature.tester.TrainerTest"/>
       <!--<class name="com.revature.tester.test.CurriculaTest"/>-->
       <!--<class name="com.revature.tester.test.ProfileTest"/>-->
       <!--<class name="com.revature.tester.test.SettingTester>-->

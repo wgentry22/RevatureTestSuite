@@ -14,7 +14,7 @@ public class TrainerPage {
 	public static WebElement selectTrainersTab(WebDriver wd) {
 		// return
 		// wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-toolbar[1]/div/button[1]"));
-		return waitForLoad(wd, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[5]", 30);
+		return waitForLoad(wd, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[5]", 40);
 	}
 
 	public static WebElement selectAddTrainer(WebDriver wd) {
@@ -26,7 +26,7 @@ public class TrainerPage {
 	public static WebElement selectViewPTOCalendar(WebDriver wd) {
 		// return
 		// wd.findElement(By.xpath("//*[@id=\"view\"]/md-card/md-toolbar[1]/div/button[2]"));
-		return waitForLoadByAnyType(wd, By.xpath("//*[@id=\"view\"]/md-card/md-toolbar[1]/div/button[2]"));
+		return waitForLoadByAnyType(wd, By.cssSelector("[ng-click*='tdCtrl.cancel()']"));
 
 	}
 
@@ -139,10 +139,14 @@ public class TrainerPage {
 	}
 	
 	public static WebElement selectStartDateCalendarPopup(WebDriver wd) {
-		return waitForLoadByAnyType(wd, By.xpath("html/body/div[3]/md-dialog/form/div/md-input-container[1]/md-datepicker/div[1]/button"));
+		insertPTOStartDate(wd);
+		return wd.findElements(By.cssSelector("[ng-click*='ctrl.openCalendarPane($event)']")).get(0);
+		//return waitForLoadByAnyType(wd, By.cssSelector("html/body/div[3]/md-dialog/form/div/md-input-container[1]/md-datepicker/div[1]/button"));
 	}
 	public static WebElement selectEndDateCalendarPopup(WebDriver wd) {
-		return waitForLoadByAnyType(wd, By.xpath("html/body/div[3]/md-dialog/form/div/md-input-container[2]/md-datepicker/div[1]/button"));
+		insertPTOEndDate(wd);
+		return wd.findElements(By.cssSelector("[ng-click*='ctrl.openCalendarPane($event)']")).get(1);
+		//return waitForLoadByAnyType(wd, By.xpath("html/body/div[3]/md-dialog/form/div/md-input-container[2]/md-datepicker/div[1]/button"));
 	}
 	//*[@id="dialogContent_12"]/div/md-input-container[2]/md-datepicker/div[1]/button
 	public static WebElement selectSendPTORequest(WebDriver wd) {

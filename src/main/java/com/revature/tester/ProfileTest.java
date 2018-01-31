@@ -1,11 +1,10 @@
-package com.revature.tester.test;
+package com.revature.tester;
 
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.ProfilePage;
-import com.revature.tester.MethodUtil;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
