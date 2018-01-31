@@ -28,14 +28,6 @@ public class LocationTester {
 	Actions act;
 	Room room = batch.getRoom();
 
-<<<<<<< HEAD
-	WebDriver wd = null;
-	WebDriverWait wait;
-	Actions act;
-	Room room = AssignForce.getAllRooms().get(6);
-
-=======
->>>>>>> 266e2520c42ec1bb04eeefc8cec7ad7e78b98519
 	String locationName;
 	String locationCity;
 	String locationState;
