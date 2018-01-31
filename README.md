@@ -1,7 +1,7 @@
 # RevatureTestSuite
 ### Contributors
 
-* William (Testing Angular Build # 2)
+* William (Testing Angular Build # 3)
 * Robin
 * Andrew
 * Joseph
