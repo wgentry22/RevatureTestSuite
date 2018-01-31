@@ -25,11 +25,12 @@ public class BatchTester {
 	
 	String err = " not input correctly";
 	Batch b = new Batch();
-	com.revature.hibernate.model.Batch batch = AssignForce.getAllBatches().get(2);
+	private com.revature.hibernate.model.Batch batch = null;
 
-	public BatchTester(WebDriver wd2, Properties props2) {
+	public BatchTester(WebDriver wd2, Properties props2, com.revature.hibernate.model.Batch batch) {
 		this.wd = wd2;
 		this.props = props2;
+		this.batch = batch;
 	}
 	
 	@BeforeSuite

@@ -16,8 +16,7 @@ import com.revature.tester.test.TrainerTest;
 public class VPGroupTester {
 	WebDriver wd = DriverFactory.getDriver("chrome");
 	Properties props = new Properties();
-	//private static final Logger logger = Logger.getLogger(CurriculumTester.class);
-	Focus focus = AssignForce.getAllFocuses().get(0);
+	com.revature.hibernate.model.Batch batch = AssignForce.getAllBatches().get(0);
 	
 //	RUN BEFORE THE SUITE
 	@BeforeSuite
@@ -30,10 +29,10 @@ public class VPGroupTester {
 	
 //	INSTANTIATE TEST CLASSES
 	OverviewTester ot = new OverviewTester(wd,props);
-	BatchTester bt = new BatchTester(wd,props);
-	LocationTester lt = new LocationTester(wd,props);
-	CurriculumTester ct = new CurriculumTester(wd,props);
-	TrainerTest tt = new TrainerTest(wd,props);
+	BatchTester bt = new BatchTester(wd,props, batch);
+	LocationTester lt = new LocationTester(wd,props, batch);
+	CurriculumTester ct = new CurriculumTester(wd,props, batch);
+	TrainerTest tt = new TrainerTest(wd,props, batch);
 	ReportTester rt = new ReportTester(wd,props);
 	SettingTester st = new SettingTester(wd,props);
 

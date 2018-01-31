@@ -21,7 +21,7 @@ import com.revature.pageObjectModel.LoginPage;
 public class LocationTester {
 
 
-	Batch batch = AssignForce.getAllBatches().get(2);
+	private Batch batch = null;
 
 	WebDriver wd = null;
 	WebDriverWait wait;
@@ -39,9 +39,10 @@ public class LocationTester {
 
 	Properties props;
 
-	public LocationTester(WebDriver wd2, Properties props) {
+	public LocationTester(WebDriver wd2, Properties props, Batch batch) {
 		this.wd = wd2;
 		this.props = props;
+		this.batch = batch;
 	}
 
 	@BeforeGroups(enabled = true, groups = {"VP", "VP1", "VP2"})

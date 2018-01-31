@@ -28,14 +28,15 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 
 public class TrainerTest {
-	Batch batch = AssignForce.getAllBatches().get(2);
+	Batch batch = null;
 	Trainer t = batch.getTrainer();
-	public WebDriver wd = DriverFactory.getDriver("chrome");
+	public WebDriver wd = null;
 	public Properties props;
 
-  public TrainerTest(WebDriver wd2, Properties props2) {
+  public TrainerTest(WebDriver wd2, Properties props2, Batch batch) {
 		this.wd = wd2;
 		this.props = props2;
+		this.batch = batch;
 	}
 
 @When("^I click cancel on the Calendar$")

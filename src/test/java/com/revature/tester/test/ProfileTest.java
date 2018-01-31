@@ -4,6 +4,7 @@ import static org.testng.Assert.assertNotNull;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.openqa.selenium.NoSuchElementException;
@@ -34,9 +35,18 @@ import cucumber.api.java.en.When;
 
 
 public class ProfileTest {
-	Batch batch = AssignForce.getAllBatches().get(2);
+	private Batch batch = null;
+	Properties props = null;
 	Trainer t = batch.getTrainer();
-	WebDriver wd = DriverFactory.getDriver("chrome");
+	
+	public ProfileTest(WebDriver wd, Properties props, Batch batch) {
+		this.wd = wd;
+		this.props = props;
+		this.batch = batch;
+	}
+	
+	
+	WebDriver wd = null;
 	public WebElement getCurrentSkillByName(String skillName) {
 		for (WebElement we : ProfilePage.getCurrentSkillList(wd)) {
 			if (we.getText().contains(skillName.toUpperCase())) {

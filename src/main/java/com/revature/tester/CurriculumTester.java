@@ -24,18 +24,16 @@ import com.revature.pageObjectModel.CirriculaPage;
 public class CurriculumTester {
 
 	private static final Logger logger = Logger.getLogger(CurriculumTester.class);
-	Batch batch = AssignForce.getAllBatches().get(2);
+	private Batch batch = null;
 	WebDriver driver = DriverFactory.getDriver("chrome");
-//	Curriculum curriculum = AssignForce.getAllCurriculum().get(0);
-//	Curriculum curriculum = null;
 	Curriculum curriculum = batch.getCurriculum();
-	//Focus focus = AssignForce.getAllFocuses().get(0);
 	Focus focus = batch.getFocus();
 	Properties props;
 
-	public CurriculumTester(WebDriver wd, Properties props) {
+	public CurriculumTester(WebDriver wd, Properties props, Batch batch) {
 		this.driver = wd;
 		this.props = props;
+		this.batch = batch;
 	}
 
 	@BeforeTest(groups = { "VP", "Hib"})
