@@ -4,7 +4,9 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +16,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Batch;
 import com.revature.hibernate.model.Skill;
 import com.revature.pageObjectModel.BatchPage;
 import com.revature.pageObjectModel.LoginPage;
@@ -21,18 +24,45 @@ import com.revature.pageObjectModel.LoginPage;
 public class BatchTester {
 	WebDriver wd = null;
 	Properties props = new Properties();
-	
 	String err = " not input correctly";
-	Batch b = new Batch();
-	private com.revature.hibernate.model.Batch batch = null;
+	private Batch batch = null;
+	String curriculum;
+	String focus;
+	Set<Skill> skills;
+	String batchName;
+	String trainerName;
+	String location;
+	String building;
+	String room;
 
-	public BatchTester(WebDriver wd2, Properties props2, com.revature.hibernate.model.Batch batch) {
+	public BatchTester(WebDriver wd2, Properties props2, Batch batch) {
 		this.wd = wd2;
 		this.props = props2;
 		this.batch = batch;
+		this.curriculum = batch.getCurriculumName();
+		this.skills = batch.getAllRequiredSkills();
+		this.focus = batch.getFocusName();
+		this.batchName = batch.getBatchName();
+		this.trainerName = batch.getTrainerName();
+		this.location = batch.getLocationName();
+		this.building = batch.getBuildingName();
+		this.room = batch.getRoomName();
 	}
 	
-	public BatchTester() {}
+	public BatchTester() {
+		this.curriculum = localData.curriculum;
+		Set<Skill> l = new HashSet<Skill>();
+		Skill s = new Skill();
+		s.setSkillName(localData.skills);
+		l.add(s);
+		this.skills = l;
+		this.focus = localData.focus;
+		this.batchName = localData.name;
+		this.trainerName = localData.trainer;
+		this.location = localData.location;
+		this.building = localData.building;
+		this.room = localData.room;
+	}
 	
 	@BeforeSuite
 	public void initWebDriver() {
@@ -61,21 +91,21 @@ public class BatchTester {
 
 	@Test(groups = { "VP" }, priority = 1)
 	public void fillCurriculum() {
-		BatchPage.getBatchCurriculumSelect(wd).click();
-		BatchPage.getBatchCurriculumOption(wd, batch.getCurriculumName()).click();
-		assertTrue(BatchPage.getBatchCurriculumSelect(wd).getText().contains(batch.getCurriculumName()),"Curriculum"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchCurriculumSelect(wd));
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchCurriculumOption(wd, curriculum));
+		assertTrue(BatchPage.getBatchCurriculumSelect(wd).getText().contains(curriculum),"Curriculum"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 2)
 	public void fillFocus() {
-		BatchPage.getBatchFocusSelect(wd).click();
-		BatchPage.getBatchFocusOption(wd, batch.getFocusName()).click();
-		assertTrue(BatchPage.getBatchFocusSelect(wd).getText().contains(batch.getFocusName()),"Focus"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchFocusSelect(wd));
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchFocusOption(wd, focus));
+		assertTrue(BatchPage.getBatchFocusSelect(wd).getText().contains(focus),"Focus"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 3)
 	public void fillSkills() {
-		for (Skill s : batch.getAllRequiredSkills()) {
-			BatchPage.getBatchSkillsSelect(wd).click();
-			BatchPage.getBatchSkillsOption(wd, s.getSkillName()).click();
+		for (Skill s : skills) {
+			MethodUtil.executeJSClick(wd, BatchPage.getBatchSkillsSelect(wd));
+			MethodUtil.executeJSClick(wd, BatchPage.getBatchSkillsOption(wd, s.getSkillName()));
 			assertTrue(BatchPage.getBatchSkillsSelect(wd).getText().contains(s.getSkillName()),"Skills"+err);
 		}
 			MethodUtil.executeJSClick(wd, wd.findElement(By.id("batchInfoDiv")));
@@ -84,8 +114,8 @@ public class BatchTester {
 	public void fillStartDate() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchStartDateInput(wd));
 		BatchPage.getBatchStartDateInput(wd).clear();
-		BatchPage.getBatchStartDateInput(wd).sendKeys(b.start);
-		assertEquals(BatchPage.getBatchStartDateInput(wd).getAttribute("value"),b.start,"Start date"+err);
+		BatchPage.getBatchStartDateInput(wd).sendKeys(localData.start);
+		assertEquals(BatchPage.getBatchStartDateInput(wd).getAttribute("value"),localData.start,"Start date"+err);
 		try {
 			Thread.sleep(1000);
 		} catch (Exception e) {
@@ -96,50 +126,48 @@ public class BatchTester {
 	public void fillEndDate() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchEndDateInput(wd));
 		BatchPage.getBatchEndDateInput(wd).clear();
-		BatchPage.getBatchEndDateInput(wd).sendKeys(b.end);
-		assertEquals(BatchPage.getBatchEndDateInput(wd).getAttribute("value"),b.end,"End date"+err);
+		BatchPage.getBatchEndDateInput(wd).sendKeys(localData.end);
+		assertEquals(BatchPage.getBatchEndDateInput(wd).getAttribute("value"),localData.end,"End date"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 6)
 	public void showAccurateWeekspan() {
-		assertEquals(BatchPage.getBatchWeekSpanInput(wd).getAttribute("value"),"Spans "+b.weekspan+" Weeks","Weekspan"+err);
+		assertEquals(BatchPage.getBatchWeekSpanInput(wd).getAttribute("value"),"Spans "+localData.weekspan+" Weeks","Weekspan"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 7)
 	public void fillBatchName() {
 		BatchPage.getBatchNameInput(wd).clear();
-		BatchPage.getBatchNameInput(wd).sendKeys(batch.getBatchName());
-		System.out.println("BATCH NAME INPUT :");
-		System.out.println(BatchPage.getBatchNameInput(wd).getAttribute("value"));
-		assertTrue(BatchPage.getBatchNameInput(wd).getAttribute("value").contains(batch.getBatchName()),"Batch Name"+err);
+		BatchPage.getBatchNameInput(wd).sendKeys(batchName);
+		assertTrue(BatchPage.getBatchNameInput(wd).getAttribute("value").contains(batchName),"Batch Name"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 8)
 	public void fillTrainer() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchTrainerSelect(wd));
-		MethodUtil.executeJSClick(wd, BatchPage.getBatchTrainerOption(wd, batch.getTrainerName()));
-		assertTrue(BatchPage.getBatchTrainerSelect(wd).getText().contains(batch.getTrainerName()),"Trainer"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchTrainerOption(wd, trainerName));
+		assertTrue(BatchPage.getBatchTrainerSelect(wd).getText().contains(trainerName),"Trainer"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 9)
 	public void fillCoTrainer() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchCoTrainerSelect(wd));
-		MethodUtil.executeJSClick(wd, BatchPage.getBatchCoTrainerOption(wd, b.cotrainer));
-		assertTrue(BatchPage.getBatchCoTrainerSelect(wd).getText().contains(b.cotrainer),"Co-trainer"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchCoTrainerOption(wd, localData.cotrainer));
+		assertTrue(BatchPage.getBatchCoTrainerSelect(wd).getText().contains(localData.cotrainer),"Co-trainer"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 10)
 	public void fillLocation() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchLocationSelect(wd));
-		MethodUtil.executeJSClick(wd, BatchPage.getBatchLocationOption(wd, batch.getLocationName()));
-		assertTrue(BatchPage.getBatchLocationSelect(wd).getText().contains(batch.getLocationName()),"Location"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchLocationOption(wd, location));
+		assertTrue(BatchPage.getBatchLocationSelect(wd).getText().contains(location),"Location"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 11)
 	public void fillBuilding() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchBuildingSelect(wd));
-		MethodUtil.executeJSClick(wd, BatchPage.getBatchBuildingOption(wd, batch.getBuildingName()));
-		assertTrue(BatchPage.getBatchBuildingSelect(wd).getText().contains(batch.getBuildingName()),"Building"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchBuildingOption(wd, building));
+		assertTrue(BatchPage.getBatchBuildingSelect(wd).getText().contains(building),"Building"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 12)
 	public void fillRoom() {
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchRoomSelect(wd));
-		MethodUtil.executeJSClick(wd, BatchPage.getBatchRoomOption(wd, batch.getRoomName()));
-		assertTrue(BatchPage.getBatchRoomSelect(wd).getText().contains(batch.getRoomName()),"Room"+err);
+		MethodUtil.executeJSClick(wd, BatchPage.getBatchRoomOption(wd, room));
+		assertTrue(BatchPage.getBatchRoomSelect(wd).getText().contains(room),"Room"+err);
 	}
 
 	@Test(enabled=true,groups = { "VP" }, priority = 13)
@@ -163,7 +191,7 @@ public class BatchTester {
 		}
 		// hit button to cancel new batch creation
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchCancelBtn(wd));
-		assertFalse(BatchPage.getBatchCurriculumSelect(wd).getText().contains(b.curriculum),"Curriculum was not cleared when cancel button was clicked");
+		assertFalse(BatchPage.getBatchCurriculumSelect(wd).getText().contains(curriculum),"Curriculum was not cleared when cancel button was clicked");
 	}
 
 	@Test(enabled=true,groups = { "VP" }, priority = 15)
@@ -173,17 +201,17 @@ public class BatchTester {
 	}
 }
 
-class Batch {
-	public String curriculum = ".NET";
-	public String focus = "No Focus";
-	public String skills = "JSP";
-	public String start = "02/05/2018";
-	public String end = "04/13/2018";
-	public String weekspan = "10";
-	public String name = "TestBatch";
-	public String trainer = "Test Trainer";
-	public String cotrainer = "Testing Testing";
-	public String location = "New York City";
-	public String building = "CUNY QUEENS";
-	public String room = "1";
+class localData {
+	public static String curriculum = ".NET";
+	public static String focus = "No Focus";
+	public static String skills = "JSP";
+	public static String start = "02/05/2018";
+	public static String end = "04/13/2018";
+	public static String weekspan = "10";
+	public static String name = "TestBatch";
+	public static String trainer = "Test Trainer";
+	public static String cotrainer = "Testing Testing";
+	public static String location = "New York City";
+	public static String building = "CUNY QUEENS";
+	public static String room = "1";
 }
