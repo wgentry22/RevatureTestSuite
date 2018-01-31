@@ -13,6 +13,10 @@ import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.LocationsPage;
 import com.revature.pageObjectModel.LoginPage;
 
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
 public class LocationTester {
 
 	static WebDriver wd = null;
@@ -27,7 +31,7 @@ public class LocationTester {
 	static String newBuildingName;
 	
 	static String roomName;
-	
+	@Given("^I open up a web browser and I login as VP")
 	@BeforeGroups(enabled = true, groups = {"VP", "VP1", "VP2"})
 	public static void loginAsVP() {
 		
@@ -49,7 +53,7 @@ public class LocationTester {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[3]/a")));
 		wd.findElement(By.xpath("/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[3]/a")).click();
 	}
-	
+	@Then("^I logout$")
 	@AfterGroups(enabled = true, groups = {"VP", "VP1", "VP2"})
 	public static void logout() {
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -58,6 +62,7 @@ public class LocationTester {
 		wd.quit();
 	}
 	
+	@When("^I add a location$")
 	@Test(enabled = true, groups = "VP", priority = 0)
 	public static void addLocation() {
 
@@ -70,7 +75,7 @@ public class LocationTester {
 		LocationsPage.newLocationState(wd).sendKeys(locationState);
 		LocationsPage.saveButton(wd).click();
 	}
-	
+	@When("^I add a building to the location$")
 	@Test(enabled = true, groups = "VP", priority = 1)
 	public static void addBuilding() {		
 
@@ -84,7 +89,7 @@ public class LocationTester {
 		LocationsPage.newBuildingName(wd).sendKeys(buildingName);
 		LocationsPage.saveButton(wd).click();
 	}
-	
+	@When("^I add a room to the building$")
 	@Test(enabled = true, groups = "VP", priority = 2)
 	public static void addRoom() {
 
@@ -99,7 +104,7 @@ public class LocationTester {
 		LocationsPage.newRoomName(wd).sendKeys(roomName);
 		LocationsPage.saveButton(wd).click();
 	}
-	
+	@Then("^I can edit the building$")
 	@Test(enabled = true, groups = "VP", priority = 3)
 	public static void editBuilding() {
 
@@ -115,7 +120,7 @@ public class LocationTester {
 		LocationsPage.newBuildingName(wd).sendKeys(newBuildingName);
 		LocationsPage.saveButton(wd).click();
 	}
-
+	@When("^I deactivate a location$")
 	@Test(enabled = true, groups = "VP", priority = 4)
 	public static void deactivateLocation() {
 

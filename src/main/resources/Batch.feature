@@ -21,6 +21,7 @@ Given I log in as VP
     And I fill in the room number in the building
     And I click create batch
     Then I should get a response confirming a new batch was created
+    And I should see the correct weekspan
     And I log out
 
   #@VP

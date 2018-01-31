@@ -88,7 +88,7 @@ public class BatchTester {
 		BatchPage.getBatchEndDateInput(wd).sendKeys(b.end);
 		assertEquals(BatchPage.getBatchEndDateInput(wd).getAttribute("value"),b.end,"End date"+err);
 	}
-	
+	@Then("^I should see the correct weekspan$")
 	@Test(enabled=true,groups = { "VP" }, priority = 6)
 	public void showAccurateWeekspan() {
 		assertEquals(BatchPage.getBatchWeekSpanInput(wd).getAttribute("value"),"Spans "+b.weekspan+" Weeks","Weekspan"+err);
@@ -138,6 +138,7 @@ public class BatchTester {
 		assertTrue(BatchPage.getBatchRoomSelect(wd).getText().contains(b.room),"Room"+err);
 	}
 
+	@When("^I click create batch")
 	@Test(enabled=true,groups = { "VP" }, priority = 13)
 	public void testVPCreateBatch() {
 		try {
@@ -148,7 +149,6 @@ public class BatchTester {
 		// submit button/create new batch
 		MethodUtil.executeJSClick(wd, BatchPage.getBatchSubmitBtn(wd));
 	}
-	@When("^I click create batch")
 	@Test(enabled=true,groups = { "VP" }, priority = 14)
 	public void testVPCancelBatchCreation() {
 		fillCurriculum();
@@ -170,7 +170,7 @@ public class BatchTester {
 }
 
 class Batch {
-	public String curriculum = ".NET";
+	public String curriculum = "SDET";
 	public String focus = "No Focus";
 	public String skills = "JSP";
 	public String start = "02/05/2018";

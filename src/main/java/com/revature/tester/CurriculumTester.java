@@ -14,10 +14,13 @@ import org.testng.annotations.Test;
 import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.CirriculaPage;
 
+import cucumber.api.java.en.Given;
+
 public class CurriculumTester {
 
 	WebDriver driver = DriverFactory.getDriver("chrome");
 
+	@Given("^I login as VP in curriculum")
 	@BeforeTest(groups = { "VP" })
 	public void loginVP() {
 		CirriculaPage.loginVPCredentials(driver);
@@ -44,6 +47,7 @@ public class CurriculumTester {
 		driver.quit();
 	}
 
+	@Given("^I navigage to the curriculum tab")
 	@Test(priority = 1, enabled = true, groups = { "VP", "Trainer" })
 	public void navigateToCurriculumTab() {
 		MethodUtil.executeJSClick(driver, CirriculaPage.curriculaTab(driver));
@@ -114,6 +118,10 @@ public class CurriculumTester {
 
 	@Test(priority = 4, enabled = true, groups = "VP")
 	public void editCurriculaButtonAndUpdateName() {
+		//Insert openCurriculaPanel instead then you just run your logic after 
+//		openCurriculumPanel();
+//		editCurriculumName("Definitely William");
+//		clickConfirmCurriculumUpdate();
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 			try {
 				Thread.sleep(400);
@@ -145,6 +153,22 @@ public class CurriculumTester {
 
 		}
 
+	}
+	@When("^I edit the curriculum name$")
+	public void editCurriculumName(String curriculumName) {
+		CirriculaPage.editNthCurriculaPanelButton(driver, 1).click();
+		try {
+			Thread.sleep(400);
+			CirriculaPage.editCurriculumNameInputField(driver).clear();
+			Thread.sleep(400);
+			CirriculaPage.editCurriculumNameInputField(driver).sendKeys(curriculumName);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	@Then("^I can confirm the curriculum on popup$")
+	public void clickConfirmCurriculumUpdate() {
+		CirriculaPage.confirmButtonEditCurriculumPopup(driver).click();
 	}
 
 	@Test(priority = 7, enabled = true, groups = "VP")
@@ -304,6 +328,10 @@ public class CurriculumTester {
 			}
 		}
 	}
+	
+	public void clickCancelCurriculumUpdate() {
+		MethodUtil.executeJSClick(driver, CirriculaPage.cancelCurriculumUpdateChanges(driver));
+	}
 
 	@Test(priority = 13, enabled = true, groups = "VP")
 	public void editFocusPopupAddSkills() {
@@ -378,8 +406,16 @@ public class CurriculumTester {
 		}
 	}
 
+	@When("^I add a curriculum$")
 	@Test(priority = 14, enabled = true, groups = "VP")
 	public void addNewCurriculum() {
+//		openCurriculumPanel();
+//		editCurriculumName("RobinScrippp");
+//		clickEditSkillsDropdownForCurriculum();
+//		List<WebElement> skills = getEditSkillsDropdownList();
+//		
+//		addEveryOtherSkill(skills);
+//		clickCancelCurriculumUpdate();
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 			try {
 				Thread.sleep(400);
@@ -441,6 +477,21 @@ public class CurriculumTester {
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+			}
+		}
+	}
+
+	public void clickEditSkillsDropdownForCurriculum() {
+		MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforCurriculum(driver));
+	}
+	public List<WebElement> getEditSkillsDropdownList() {
+		return driver.findElements(By.tagName("md-option"));
+	}
+	
+	public void addEveryOtherSkill(List<WebElement> skills) {
+		for (int i = 0; i < skills.size(); i++) {
+			if (i % 2 == 0) {
+				skills.get(i).click();
 			}
 		}
 	}
