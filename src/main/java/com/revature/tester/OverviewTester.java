@@ -12,10 +12,15 @@ import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.OverviewPage;
 
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
 public class OverviewTester {
 	WebDriver wd = DriverFactory.getDriver("chrome");
 	Properties props = new Properties();
 	
+	@Given("^I am on the home page$")
 	@BeforeClass
 	public void doLogin() {
 		MethodUtil.loadPropertiesFile(props);
@@ -23,6 +28,7 @@ public class OverviewTester {
 		LoginPage.loginAs(wd, props.getProperty("TrainerUsername"), props.getProperty("TrainerPassword"));
 	}
 	
+	@Then("^I should see the download and logout$")
 	@AfterClass
 	public void doLogout() {
 		MethodUtil.executeJSClick(wd, MethodUtil.waitForLoad(wd, "(//button)[1]"));
@@ -33,6 +39,7 @@ public class OverviewTester {
 		MethodUtil.waitAndCloseDriver(wd,Long.parseLong(props.getProperty("WaitTimeBeforeClosing")));
 	}
 	
+	@When("^I click on Download CSV$")
 	@Test(groups= {"VP","Trainer"},priority=1)
 	public void testCSVDownload() {
 		// navigate to correct page
