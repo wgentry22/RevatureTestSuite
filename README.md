@@ -1,7 +1,7 @@
 # RevatureTestSuite
 ### Contributors
 
-* William (AssignForce Pipeline Test # 4)
+* William (Testing Angular Build)
 * Robin
 * Andrew
 * Joseph
