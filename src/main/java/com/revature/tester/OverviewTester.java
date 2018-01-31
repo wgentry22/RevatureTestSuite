@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
@@ -13,9 +14,19 @@ import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.OverviewPage;
 
 public class OverviewTester {
-	WebDriver wd = DriverFactory.getDriver("chrome");
+	WebDriver wd = null;
 	Properties props = new Properties();
 	
+	public OverviewTester(WebDriver wd2, Properties props2) {
+		this.wd = wd2;
+		this.props = props2;
+	}
+	
+	@BeforeSuite
+	public void initWebDriver() {
+		wd = DriverFactory.getDriver("chrome");
+	}
+
 	@BeforeClass
 	public void doLogin() {
 		MethodUtil.loadPropertiesFile(props);
@@ -51,7 +62,7 @@ public class OverviewTester {
 		}
 	}
 	
-	@Test(groups= {"VP","Trainer"},priority=3,enabled=true)
+	@Test(groups= {"VP","Trainer"},priority=3)
 	public void testTableSort() {
 		for (int i=1;i<=8;i++) {// for each column...
 			// Sort ascending

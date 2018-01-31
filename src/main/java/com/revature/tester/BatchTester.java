@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
@@ -19,12 +20,22 @@ import com.revature.pageObjectModel.BatchPage;
 import com.revature.pageObjectModel.LoginPage;
 
 public class BatchTester {
-	WebDriver wd = DriverFactory.getDriver("chrome");
+	WebDriver wd = null;
 	Properties props = new Properties();
 	
 	String err = " not input correctly";
 	Batch b = new Batch();
 	com.revature.hibernate.model.Batch batch = AssignForce.getAllBatches().get(2);
+
+	public BatchTester(WebDriver wd2, Properties props2) {
+		this.wd = wd2;
+		this.props = props2;
+	}
+	
+	@BeforeSuite
+	public void initWebDriver() {
+		wd = DriverFactory.getDriver("chrome");
+	}
 
 	@BeforeClass
 	public void doLogin() {

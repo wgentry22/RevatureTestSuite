@@ -1,5 +1,7 @@
 package com.revature.tester;
 
+import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -15,23 +17,29 @@ import com.revature.pageObjectModel.SettingsPage;
 
 public class SettingTester {											// TestNG Framework
 
-	static WebDriver wd = null;
-	static WebDriverWait wait = null;
-	static Actions act = null;
+	WebDriver wd = null;
+	Properties props = new Properties();
+	WebDriverWait wait = null;
+	Actions act = null;
 
-	public static String input1 = null;
-	public static String input2 = null; 
-	public static String input3 = null;
-	public static String input4 = null;
-	public static String input5 = null;
-	public static String locationInSettings = null;
-	public static String input6 = null;
-	public static String input7 = null;
+	public String input1 = null;
+	public String input2 = null; 
+	public String input3 = null;
+	public String input4 = null;
+	public String input5 = null;
+	public String locationInSettings = null;
+	public String input6 = null;
+	public String input7 = null;
 	
-	public static String locationInBatch = null;
+	public String locationInBatch = null;
 	
+	public SettingTester(WebDriver wd2, Properties props2) {
+		this.wd = wd2;
+		this.props = props2;
+	}
+
 	@BeforeGroups(enabled = true, groups = {"VP", "checkChanges"})
-	public static void loginAsVP() {
+	public void loginAsVP() {
 		System.out.println("BeforeTest - VP");
 		wd = DriverFactory.getDriver("chrome");
 
@@ -46,7 +54,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@BeforeGroups(enabled = true, groups = "Trainer")
-	public static void loginAsTrainer() {
+	public void loginAsTrainer() {
 		System.out.println("BeforeTest - Trainer");
 		wd = DriverFactory.getDriver("chrome");
 		
@@ -55,7 +63,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@AfterGroups(enabled = true, groups = {"VP", "Trainer"})
-	public static void logout() {
+	public void logout() {
 		LoginPage.logout(wd);
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
 		wd.quit();
@@ -63,7 +71,7 @@ public class SettingTester {											// TestNG Framework
 	
 	// -------- Individual Test --------
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testTrainersPerPage() {
+	public void testTrainersPerPage() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.trainersPerPage']")));
 		input1 = "10";
 		SettingsPage.timelineTrainersPerPage(wd).clear();
@@ -71,7 +79,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testReportsOutgoingGrads() {
+	public void testReportsOutgoingGrads() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.reportGrads']")));
 		input2 = "40";
 		SettingsPage.reportsOutgoingGrads(wd).clear();
@@ -79,7 +87,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testReportsIncomingCandidates() {
+	public void testReportsIncomingCandidates() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.reportIncomingGrads']")));
 		input3 = "35";
 		SettingsPage.reportsIncomingCandidates(wd).clear();
@@ -87,7 +95,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testDefaultLocation() {
+	public void testDefaultLocation() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.defaultLocation']")));
 		
 		// only works if ONE word
@@ -100,7 +108,7 @@ public class SettingTester {											// TestNG Framework
 	
 	// will almost always fail, because you need to reload the page for the buildings for the new location to show up
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testDefaultBuilding() {
+	public void testDefaultBuilding() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.defaultBuilding']")));
 		
 		// only works if ONE word
@@ -110,7 +118,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testMinBatchSize() {
+	public void testMinBatchSize() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.minBatchSize']")));
 		input4 = "22";
 		SettingsPage.minBatchSize(wd).clear();
@@ -118,7 +126,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testMaxBatchSize() {
+	public void testMaxBatchSize() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.maxBatchSize']")));
 		input5 = "25";
 		SettingsPage.maxBatchSize(wd).clear();
@@ -126,7 +134,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testDefaultBatchLength() {
+	public void testDefaultBatchLength() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.batchLength']")));
 		input6 = "23";
 		SettingsPage.defaultBatchLength(wd).clear();
@@ -134,7 +142,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testMinBetweenTrainerBatch() {
+	public void testMinBetweenTrainerBatch() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.trainerBreakDays']")));
 		input7 = "14";
 		SettingsPage.minBetweenTrainerBatch(wd).clear();
@@ -143,14 +151,14 @@ public class SettingTester {											// TestNG Framework
 	
 	// --- only available as VP ---
 	@Test(enabled = true, groups = {"VP"}, priority = 0)
-	public static void testSaveButton() {
+	public void testSaveButton() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-click='sCtrl.updateSettings()']")));
 		act.moveToElement(SettingsPage.findSaveButton(wd)).click().build().perform();
 	}
 	
 	// -------- Group Test --------
 	@Test(enabled = false, groups = {"VP"}, priority = 0)
-	public static void testSettingsPageAsVP() {
+	public void testSettingsPageAsVP() {
 
 		MethodUtil.waitForLoad(wd, "/html/body/div[1]/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[8]/a").click();
 		
@@ -195,7 +203,7 @@ public class SettingTester {											// TestNG Framework
 	
 	// -------- Tests to make sure changes were saved --------
 	@Test(enabled = true, groups = "VP", priority = 2)
-	public static void testTheDefaultLocation() {
+	public void testTheDefaultLocation() {
 
 		System.out.println("--- locationInSettings: " + locationInSettings);
 		
@@ -217,7 +225,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = "VP", priority = 3)
-	public static void testTimelineTrainersPerPage() {
+	public void testTimelineTrainersPerPage() {
 		
 		System.out.println("input1:" + input1);
 		
@@ -235,7 +243,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = "VP", priority = 4)
-	public static void testOutgoingGrads() {
+	public void testOutgoingGrads() {
 		
 		System.out.println("input2: " + input2);
 
@@ -257,7 +265,7 @@ public class SettingTester {											// TestNG Framework
 	}
 	
 	@Test(enabled = true, groups = "VP", priority = 5)
-	public static void testIncomingTrainees() {
+	public void testIncomingTrainees() {
 		
 		System.out.println("input3: " + input3);
 
@@ -276,7 +284,7 @@ public class SettingTester {											// TestNG Framework
 	
 	// ----- Testing Settings Page As A Trainer -----
 	@Test(enabled = true, groups = "Trainer", priority = 6)
-	public static void testSettingsPageAsTrainer() {
+	public void testSettingsPageAsTrainer() {
 
 		MethodUtil.waitForLoad(wd, "/html/body/div[1]/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[8]/a").click();
 		

@@ -1,5 +1,7 @@
 package com.revature.tester;
 
+import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -17,15 +19,23 @@ import com.revature.pageObjectModel.LocationsPage;
 import com.revature.pageObjectModel.LoginPage;
 
 public class LocationTester {
-	
-	
+
+
 	Batch batch = AssignForce.getAllBatches().get(2);
-	
+
 	WebDriver wd = null;
 	WebDriverWait wait;
 	Actions act;
 	Room room = batch.getRoom();
 
+<<<<<<< HEAD
+	WebDriver wd = null;
+	WebDriverWait wait;
+	Actions act;
+	Room room = AssignForce.getAllRooms().get(6);
+
+=======
+>>>>>>> 266e2520c42ec1bb04eeefc8cec7ad7e78b98519
 	String locationName;
 	String locationCity;
 	String locationState;
@@ -34,6 +44,13 @@ public class LocationTester {
 	String newBuildingName;
 
 	String roomName;
+
+	Properties props;
+
+	public LocationTester(WebDriver wd2, Properties props) {
+		this.wd = wd2;
+		this.props = props;
+	}
 
 	@BeforeGroups(enabled = true, groups = {"VP", "VP1", "VP2"})
 	public void loginAsVP() {

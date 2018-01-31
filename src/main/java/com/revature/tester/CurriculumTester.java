@@ -1,6 +1,7 @@
 package com.revature.tester;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,13 +22,21 @@ import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.CirriculaPage;
 
 public class CurriculumTester {
-	
+
 	private static final Logger logger = Logger.getLogger(CurriculumTester.class);
 	Batch batch = AssignForce.getAllBatches().get(2);
 	WebDriver driver = DriverFactory.getDriver("chrome");
-	Curriculum curriculum = batch.getCurriculum();
+//	Curriculum curriculum = AssignForce.getAllCurriculum().get(0);
 //	Curriculum curriculum = null;
+	Curriculum curriculum = batch.getCurriculum();
+	//Focus focus = AssignForce.getAllFocuses().get(0);
 	Focus focus = batch.getFocus();
+	Properties props;
+
+	public CurriculumTester(WebDriver wd, Properties props) {
+		this.driver = wd;
+		this.props = props;
+	}
 
 	@BeforeTest(groups = { "VP", "Hib"})
 	public void loginVP() {
@@ -46,7 +55,7 @@ public class CurriculumTester {
 
 	@BeforeSuite(groups = { "VP", "Trainer" , "Hib"})
 	public void beforeSuite() {
-		
+
 		CirriculaPage.openSalesforceChrome(driver);
 	}
 
@@ -251,8 +260,8 @@ public class CurriculumTester {
 			}
 		}
 	}
-	
-	
+
+
 	@Test(priority=12, enabled=true, groups= {"VP", "Hib"})
 	public void addSkillFocus() {
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
@@ -463,7 +472,7 @@ public class CurriculumTester {
 			} catch (Exception e2) {
 				logger.debug(e2);
 			}
-			
+
 		} else {
 			try {
 				Thread.sleep(600);

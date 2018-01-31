@@ -2,6 +2,7 @@ package com.revature.tester.test;
 
 
 import java.util.List;
+import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,17 +31,14 @@ public class TrainerTest {
 	Batch batch = AssignForce.getAllBatches().get(2);
 	Trainer t = batch.getTrainer();
 	public WebDriver wd = DriverFactory.getDriver("chrome");
+	public Properties props;
 
-  public void clickDownloadResumeByName(String firstname, String lastname) {
-	  TrainerPage.selectTrainerDownloadResumeButton(wd, firstname, lastname).click();
-  }
+  public TrainerTest(WebDriver wd2, Properties props2) {
+		this.wd = wd2;
+		this.props = props2;
+	}
 
-  public void clickProfileByName(String firstname, String lastname) {
-	  TrainerPage.selectTrainerProfileButton(wd, firstname, lastname).click();
-  }
-
-
-  @When("^I click cancel on the Calendar$")
+@When("^I click cancel on the Calendar$")
   public void clickCancelPTOCalendar() {
 	  MethodUtil.executeJSClick(wd,TrainerPage.selectCancelCalendar(wd));
   }
