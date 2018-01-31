@@ -18,6 +18,8 @@ public class VPGroupTester {
 	Properties props = new Properties();
 	com.revature.hibernate.model.Batch batch = AssignForce.getAllBatches().get(0);
 	
+	public VPGroupTester(){}
+	
 //	RUN BEFORE THE SUITE
 	@BeforeSuite
 	public void loadProps() {
@@ -25,9 +27,7 @@ public class VPGroupTester {
 	}
 	
 //  RUN BEFORE THE CLASS
-	
-	
-//	INSTANTIATE TEST CLASSES
+//  INSTANTIATE TEST CLASSES
 	OverviewTester ot = new OverviewTester(wd,props);
 	BatchTester bt = new BatchTester(wd,props, batch);
 	LocationTester lt = new LocationTester(wd,props, batch);
