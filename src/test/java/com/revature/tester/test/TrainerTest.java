@@ -132,7 +132,7 @@ public class TrainerTest {
   @Test(groups= {"VP"}, priority=2, enabled=false)
   public void addTrainerCancel() {
 	  clickAddTrainer();
-	  writeTrainerFullName("Testing1r", "Testing2p");
+	  writeTrainerFullName(t.getTrainerFirstName(), t.getTrainerLastName() );
 	  holdOn(500);
 	  clickCancelTrainerInput();
   }

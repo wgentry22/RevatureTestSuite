@@ -481,10 +481,10 @@ public class CurriculumTester {
 				List<WebElement> skills = driver.findElements(By.tagName("md-option"));
 				Thread.sleep(600);
 				// Add skills to the curriculum
-				for (int i = 0; i < curriculum.getCurriculumSkill().size(); i++) {
-					for (int j = 0; j < skills.size(); j++) {
-						if (curriculum.getCurriculumSkill().contains(skills.get(j).getText())) {
-							skills.get(j).click();
+				for (Skill s : curriculum.getCurriculumSkill()) {
+					for (int i = 0; i < skills.size(); i++) {
+						if (skills.get(i).getText().equals(s.getSkillName())) {
+							skills.get(i).click();
 							Thread.sleep(500);
 						}
 					}

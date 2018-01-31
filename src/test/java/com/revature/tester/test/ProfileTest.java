@@ -1,8 +1,29 @@
 package com.revature.tester.test;
 
+import static org.testng.Assert.assertNotNull;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Batch;
+import com.revature.hibernate.model.Skill;
+import com.revature.hibernate.model.Trainer;
+import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.ProfilePage;
 import com.revature.tester.MethodUtil;
@@ -11,25 +32,10 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-
-import static org.testng.Assert.assertNotNull;
-
-import java.util.List;
-
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.AfterSuite;
-
 
 public class ProfileTest {
+	Batch batch = AssignForce.getAllBatches().get(2);
+	Trainer t = batch.getTrainer();
 	WebDriver wd = DriverFactory.getDriver("chrome");
 	public WebElement getCurrentSkillByName(String skillName) {
 		for (WebElement we : ProfilePage.getCurrentSkillList(wd)) {
@@ -117,12 +123,12 @@ public class ProfileTest {
 		ProfilePage.selectProfileTab(wd).click();
 	}
 	
-	@Test(groups = "Trainer", priority = 5, dependsOnMethods = "clickProfileTab")
+	@Test(groups = "Trainer", priority = 10, dependsOnMethods = "clickProfileTab")
 	public void changeName() {
 		ProfilePage.insertFirstname(wd).clear();
-		ProfilePage.insertFirstname(wd).sendKeys("NotTest?");
+		ProfilePage.insertFirstname(wd).sendKeys(t.getTrainerFirstName());
 		ProfilePage.insertLastname(wd).clear();
-		ProfilePage.insertLastname(wd).sendKeys("Probably");
+		ProfilePage.insertLastname(wd).sendKeys(t.getTrainerLastName());
 	}
 
 
@@ -131,7 +137,7 @@ public class ProfileTest {
 		ProfilePage.selectAddResume(wd).click();
 	}
 
-	@Test(groups = "Trainer", priority = 4, dependsOnMethods = "clickProfileTab")
+	@Test(groups = "Trainer", priority = 3, dependsOnMethods = "clickProfileTab")
 	public void saveSkills() {
 		boolean done = false;
 			try {
@@ -153,13 +159,22 @@ public class ProfileTest {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			clickSaveSkill();
-			int chooseSkillList = ProfilePage.getChooseSkillList(wd).size()/2;
-			for(int i = 0; i < chooseSkillList; i++)
-				clickFirstChooseSkill();
+//			clickSaveSkill();
+//			int chooseSkillList = ProfilePage.getChooseSkillList(wd).size()/2;
+//			for(int i = 0; i < chooseSkillList; i++)
+//				clickFirstChooseSkill();
 			int currentSkillList = ProfilePage.getCurrentSkillList(wd).size();
 			for(int i = 0; i < currentSkillList; i++)
 				clickFirstCurrentSkill();
+			Set<String> skillStrings = new HashSet<String>();	
+			for (Skill s : t.getTrainerSkill()) {
+				skillStrings.add(s.getSkillName());
+			}
+			
+			for (String s : skillStrings) {
+						clickChooseSkillByName(s);
+			}
+			clickSaveSkill();
 	}
 
 	@Given("^log in as a trainer$")
