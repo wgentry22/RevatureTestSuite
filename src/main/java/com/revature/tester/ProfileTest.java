@@ -20,14 +20,12 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.revature.driver.DriverFactory;
 import com.revature.hibernate.model.Batch;
 import com.revature.hibernate.model.Skill;
 import com.revature.hibernate.model.Trainer;
 import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.ProfilePage;
-import com.revature.tester.MethodUtil;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

@@ -4,7 +4,6 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 

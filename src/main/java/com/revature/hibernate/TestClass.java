@@ -3,17 +3,8 @@ package com.revature.hibernate;
 import java.util.List;
 
 import com.revature.hibernate.dao.BatchDaoImpl;
-import com.revature.hibernate.dao.CurriculumDaoImpl;
-import com.revature.hibernate.dao.FocusDaoImpl;
-import com.revature.hibernate.dao.LocationDaoImpl;
-import com.revature.hibernate.dao.SkillDaoImpl;
-import com.revature.hibernate.dao.TrainerDaoImpl;
 import com.revature.hibernate.model.Batch;
-import com.revature.hibernate.model.Curriculum;
-import com.revature.hibernate.model.Focus;
-import com.revature.hibernate.model.Room;
 import com.revature.hibernate.model.Skill;
-import com.revature.hibernate.model.Trainer;
 
 public class TestClass {
 

@@ -1,6 +1,5 @@
 package com.revature.hibernate.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
