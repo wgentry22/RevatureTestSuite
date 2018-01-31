@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { jsonObject } from '../jsonObject';
 import { TestService } from '../test.service';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-metrics-view',
