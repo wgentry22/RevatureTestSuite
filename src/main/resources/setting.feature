@@ -1,6 +1,6 @@
 Feature: Testing the Settings Page
 
-@tag1
+@VP
 Scenario: Testing the Settings Page as the VP
   Given I am in the Settings Page/Tab and logged in as the VP
 	When I change the timelineTrainersPerPage field
@@ -17,8 +17,22 @@ Scenario: Testing the Settings Page as the VP
 	And I should check if the trainers per page changed in the Batches Page
 	And I should log out
 
-@tag2
+@Trainer
 Scenario: Testing the Settings Page as the Trainer
 	Given I am in the Settings Page/Tab and logged in as the Trainer
 	When I change the fields in the settings page
 	Then I should log out
+
+### if you use this Scenario, you have to declare the field variables/strings in the LoginAsTrainer method ###
+#@Trainer
+#Scenario: Testing the Settings Page as the Trainer
+#	Given I am in the Settings Page/Tab and logged in as the Trainer
+#	When I change the timelineTrainersPerPage field
+#	And I change the reportsOutgoingGrads field
+#	And I change the reportsIncomingCandidates field
+#	And I change the deafultLocation field
+#	And I change the minimumBatchSize field
+#	And I change the maximumBatchSize field
+#	And I change the defaultBatchLength field
+#	And I change the daysBetweenTrainerBatches field
+#	Then I should log out
