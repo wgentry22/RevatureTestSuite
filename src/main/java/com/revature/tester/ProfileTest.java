@@ -1,4 +1,4 @@
-package com.revature.tester.test;
+package com.revature.tester;
 
 import static org.testng.Assert.assertNotNull;
 
@@ -38,14 +38,14 @@ public class ProfileTest {
 	private Batch batch = null;
 	Properties props = new Properties();
 	Trainer t = batch.getTrainer();
-	
+
 	public ProfileTest(WebDriver wd, Properties props, Batch batch) {
 		this.wd = wd;
 		this.props = props;
 		this.batch = batch;
 	}
-	
-	
+
+
 	WebDriver wd = null;
 	public WebElement getCurrentSkillByName(String skillName) {
 		for (WebElement we : ProfilePage.getCurrentSkillList(wd)) {
@@ -67,31 +67,31 @@ public class ProfileTest {
 	public void clickFirstChooseSkill() {
 		ProfilePage.selectChooseSkill(wd).click();
 	}
-	
+
 	public void clickFirstCurrentSkill() {
 		ProfilePage.selectCurrentSkill(wd).click();
 	}
-	
+
 	public List<WebElement> getCurrentSkillList() {
 		return ProfilePage.getCurrentSkillList(wd);
 	}
-	
+
 	@When("^I save the skills$")
 	public void clickSaveSkill() {
 		ProfilePage.selectSaveSkill(wd).click();
 	}
-	
+
 	@When("^I click on \"([^\"]*)\" to remove from current skills$")
 	public void clickCurrentSkillByName(String skillName) {
 		getCurrentSkillByName(skillName).click();
 	}
-	
-	
+
+
 	@When("^I click on \"([^\"]*)\" from choose skills$")
 	public void clickChooseSkillByName(String skillName) {
 		getChooseSkillByName(skillName).click();
 	}
-	
+
 	@Then("^I should see \"([^\"]*)\" on the list of skills to choose from$")
 	public void checkForSkillInChooseList(String skillName) {
 		assertNotNull(getChooseSkillByName(skillName));
@@ -99,13 +99,13 @@ public class ProfileTest {
 	public List<WebElement> getChooseSkillList() {
 		return ProfilePage.getChooseSkillList(wd);
 	}
-	
+
 	@Then("^I should see \"([^\"]*)\" on my list of skills$")
 	public void checkForSkillInCurrentList(String skillName) {
 		assertNotNull(getCurrentSkillByName(skillName));
 	}
-	
-	
+
+
 	@Given("^I do not have \"([^\"]*)\" as a skill$")
 	public void removeSkillFromCurrentList(String skillName) {
 		try {
@@ -115,7 +115,7 @@ public class ProfileTest {
 		}
 		System.out.println(skillName + " has been removed from the current skills list");
 	}
-	
+
 	@Given("^I have \"([^\"]*)\" as a skill$")
 	public void addSkillToCurrentList(String skillName) {
 		try {
@@ -125,14 +125,14 @@ public class ProfileTest {
 		}
 		System.out.println(skillName + " has been added to the list of skills");
 	}
-	
-	
+
+
 	@Given("^I click on the profile tab$")
 	@Test(groups = "Trainer")
 	public void clickProfileTab() {
 		ProfilePage.selectProfileTab(wd).click();
 	}
-	
+
 	@Test(groups = "Trainer", priority = 10, dependsOnMethods = "clickProfileTab")
 	public void changeName() {
 		ProfilePage.insertFirstname(wd).clear();
@@ -176,11 +176,11 @@ public class ProfileTest {
 			int currentSkillList = ProfilePage.getCurrentSkillList(wd).size();
 			for(int i = 0; i < currentSkillList; i++)
 				clickFirstCurrentSkill();
-			Set<String> skillStrings = new HashSet<String>();	
+			Set<String> skillStrings = new HashSet<String>();
 			for (Skill s : t.getTrainerSkill()) {
 				skillStrings.add(s.getSkillName());
 			}
-			
+
 			for (String s : skillStrings) {
 						clickChooseSkillByName(s);
 			}
@@ -194,25 +194,25 @@ public class ProfileTest {
 		LoginPage.getPasswordInput(wd).sendKeys("trainer123");
 		LoginPage.getLoginBtn(wd).submit();
 	}
-	
+
 	@Then("^I Log out$")
 	@AfterClass(groups = "Trainer")
 	public void logout() {
 		MethodUtil.executeJSClick(wd, LoginPage.getLogout(wd));
 	}
-	
+
 	@Given("^I open a browser to go to AssignForce$")
 	@BeforeTest(groups = "Trainer")
 	public void openWebDriverToAssignForce() {
 		LoginPage.goToAssignForce(wd);
 	}
-	
+
 	@Then("^close the window$")
 	@AfterTest(groups = "Trainer")
 	public void closeDriver() {
 		wd.quit();
 	}
-	
+
 	@BeforeMethod(groups = "Trainer")
 	public void beforeMethod() {
 	}

@@ -41,6 +41,7 @@ export class GroupDetailComponent implements OnInit {
 
   ngDoCheck(): void {
     this.showGroup();
+    console.log(this.group.name);
   }
 
   showGroup(): void {

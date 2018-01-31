@@ -19,14 +19,12 @@ import com.revature.pageObjectModel.LocationsPage;
 import com.revature.pageObjectModel.LoginPage;
 
 public class LocationTester {
-
-
 	private Batch batch = null;
 
 	WebDriver wd = null;
 	WebDriverWait wait;
 	Actions act;
-	Room room = batch.getRoom();
+	Room room;
 
 	String locationName;
 	String locationCity;
@@ -43,6 +41,11 @@ public class LocationTester {
 		this.wd = wd2;
 		this.props = props;
 		this.batch = batch;
+	}
+	
+	public LocationTester() {
+		Batch batch = AssignForce.getAllBatches().get(0);
+		this.room = batch.getRoom();
 	}
 
 	@BeforeGroups(enabled = true, groups = {"VP", "VP1", "VP2"})

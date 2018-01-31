@@ -22,6 +22,8 @@ public class OverviewTester {
 		this.props = props2;
 	}
 	
+	public OverviewTester() {}
+	
 	@BeforeSuite
 	public void initWebDriver() {
 		wd = DriverFactory.getDriver("chrome");
