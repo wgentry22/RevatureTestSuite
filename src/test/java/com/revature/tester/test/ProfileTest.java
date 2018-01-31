@@ -36,7 +36,7 @@ import cucumber.api.java.en.When;
 
 public class ProfileTest {
 	private Batch batch = null;
-	Properties props = null;
+	Properties props = new Properties();
 	Trainer t = batch.getTrainer();
 	
 	public ProfileTest(WebDriver wd, Properties props, Batch batch) {
