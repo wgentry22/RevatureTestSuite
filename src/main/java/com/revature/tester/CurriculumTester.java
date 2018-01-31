@@ -13,8 +13,11 @@ import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.CirriculaPage;
+import com.revature.pageObjectModel.LoginPage;
 
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 
 public class CurriculumTester {
 
@@ -30,24 +33,28 @@ public class CurriculumTester {
 	public void loginTrainer() {
 		CirriculaPage.loginTrainerCredentials(driver);
 	}
-
+	
+	@Then("^I logout from curriculum page$")
 	@AfterTest(groups = { "VP", "Trainer" })
 	public void afterTest() {
-		MethodUtil.executeJSClick(driver, CirriculaPage.logoutTab(driver));
+		//MethodUtil.executeJSClick(driver, CirriculaPage.logoutTab(driver));
+		MethodUtil.executeJSClick(driver, LoginPage.getLogout(driver));
 	}
 
+	@Given("^I open up a web browser$")
 	@BeforeSuite(groups = { "VP", "Trainer" })
 	public void beforeSuite() {
 		CirriculaPage.openSalesforceChrome(driver);
 	}
 
+	@Then("^I close the browser$")
 	@AfterSuite(groups = { "VP", "Trainer" })
 	public void afterSuite() {
 		driver.close();
 		driver.quit();
 	}
 
-	@Given("^I navigage to the curriculum tab")
+	@Given("^I navigate to the curriculum tab")
 	@Test(priority = 1, enabled = true, groups = { "VP", "Trainer" })
 	public void navigateToCurriculumTab() {
 		MethodUtil.executeJSClick(driver, CirriculaPage.curriculaTab(driver));
@@ -115,7 +122,7 @@ public class CurriculumTester {
 			}
 		}
 	}
-
+	@When("^I edit the curriculum name$")
 	@Test(priority = 4, enabled = true, groups = "VP")
 	public void editCurriculaButtonAndUpdateName() {
 		//Insert openCurriculaPanel instead then you just run your logic after 
@@ -154,7 +161,7 @@ public class CurriculumTester {
 		}
 
 	}
-	@When("^I edit the curriculum name$")
+	
 	public void editCurriculumName(String curriculumName) {
 		CirriculaPage.editNthCurriculaPanelButton(driver, 1).click();
 		try {
@@ -166,11 +173,8 @@ public class CurriculumTester {
 			e.printStackTrace();
 		}
 	}
-	@Then("^I can confirm the curriculum on popup$")
-	public void clickConfirmCurriculumUpdate() {
-		CirriculaPage.confirmButtonEditCurriculumPopup(driver).click();
-	}
-
+	
+	@When("^I edit a focus$")
 	@Test(priority = 7, enabled = true, groups = "VP")
 	public void editFocusButtonAndEditName() {
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
@@ -233,6 +237,7 @@ public class CurriculumTester {
 		}
 	}
 
+	@When("^I add a skill$")
 	@Test(priority = 11, enabled = true, groups = "VP")
 	public void addSkill() {
 		if (CirriculaPage.isSkillPanelOpen(driver)) {
@@ -260,6 +265,7 @@ public class CurriculumTester {
 		}
 	}
 
+	@When("^I add a skill to a curriculum$")
 	@Test(priority = 12, enabled = true, groups = "VP")
 	public void editCurriculumPopupAddSkills() {
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
@@ -333,6 +339,7 @@ public class CurriculumTester {
 		MethodUtil.executeJSClick(driver, CirriculaPage.cancelCurriculumUpdateChanges(driver));
 	}
 
+	@When("^I add a skill to a focus$")
 	@Test(priority = 13, enabled = true, groups = "VP")
 	public void editFocusPopupAddSkills() {
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
@@ -481,8 +488,14 @@ public class CurriculumTester {
 		}
 	}
 
+
 	public void clickEditSkillsDropdownForCurriculum() {
 		MethodUtil.executeJSClick(driver, CirriculaPage.editSkillsDropdownforCurriculum(driver));
+	}
+	
+	public void modifySkillList() {
+		List<WebElement> skills = getEditSkillsDropdownList();
+		addEveryOtherSkill(skills);
 	}
 	public List<WebElement> getEditSkillsDropdownList() {
 		return driver.findElements(By.tagName("md-option"));
@@ -496,6 +509,7 @@ public class CurriculumTester {
 		}
 	}
 
+	@When("^I add a focus$")
 	@Test(priority = 15, enabled = true, groups = "VP")
 	public void addNewFocus() {
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
