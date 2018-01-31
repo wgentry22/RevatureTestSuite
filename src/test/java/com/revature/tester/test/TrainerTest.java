@@ -110,6 +110,10 @@ public class TrainerTest {
   public void clickCalendarToday() {
 	  TrainerPage.selectTodayOnCalendar(wd);
   }
+  
+  public void clickProfileByName(String firstname, String lastname) {
+      TrainerPage.selectTrainerProfileButton(wd, firstname, lastname).click();
+  }
 
   @Given("^I click add trainer$")
   public void clickAddTrainer() {
