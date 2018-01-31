@@ -2,7 +2,6 @@ package com.revature.tester;
 
 import static org.testng.Assert.assertNotNull;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -20,7 +19,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.revature.driver.DriverFactory;
 import com.revature.hibernate.model.Batch;
 import com.revature.hibernate.model.Skill;
 import com.revature.hibernate.model.Trainer;
@@ -45,14 +43,13 @@ public class ProfileTest {
 		this.batch = batch;
 		this.t = batch.getTrainer();
 	}
-	
+
 	public ProfileTest() {
+
 		this.batch = AssignForce.getAllBatches().get(0);
 		this.t = batch.getTrainer();
-		
 	}
 
-<<<<<<< HEAD
 
 	WebDriver wd = null;
 	public WebElement getCurrentSkillByName(String skillName) {
@@ -63,10 +60,6 @@ public class ProfileTest {
 		}
 		throw new NoSuchElementException(skillName + " was not found");
 	}
-=======
-public class ProfileTest {
-	WebDriver wd = DriverFactory.getDriver("chrome");
->>>>>>> cucumber
 
 
 	public void clickFirstChooseSkill() {
@@ -91,17 +84,12 @@ public class ProfileTest {
 		getCurrentSkillByName(skillName).click();
 	}
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cucumber
 	@When("^I click on \"([^\"]*)\" from choose skills$")
 	public void clickChooseSkillByName(String skillName) {
 		getChooseSkillByName(skillName).click();
 	}
-<<<<<<< HEAD
-=======
-	
+
 	public WebElement getCurrentSkillByName(String skillName) {
 		for (WebElement we : ProfilePage.getCurrentSkillList(wd)) {
 			if (we.getText().contains(skillName.toUpperCase())) {
@@ -110,7 +98,7 @@ public class ProfileTest {
 		}
 		throw new NoSuchElementException(skillName + " was not found in \"Current Skills\"");
 	}
-	
+
 	public WebElement getChooseSkillByName(String skillName) {
 		for (WebElement we : ProfilePage.getChooseSkillList(wd)) {
 			if (we.getText().contains(skillName)) {
@@ -119,7 +107,6 @@ public class ProfileTest {
 		}
 		throw new NoSuchElementException(skillName + " was not found in \"Choose Skills\"");
 	}
->>>>>>> cucumber
 
 	@Then("^I should see \"([^\"]*)\" on the list of skills to choose from$")
 	public void checkForSkillInChooseList(String skillName) {
@@ -135,10 +122,7 @@ public class ProfileTest {
 		assertNotNull(getCurrentSkillByName(skillName));
 	}
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cucumber
 	@Given("^I do not have \"([^\"]*)\" as a skill$")
 	public void removeSkillFromCurrentList(String skillName) {
 		try {
@@ -159,75 +143,76 @@ public class ProfileTest {
 		System.out.println(skillName + " has been added to the list of skills");
 	}
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cucumber
 	@Given("^I click on the profile tab$")
 	@Test(groups = "Trainer")
 	public void clickProfileTab() {
 		ProfilePage.selectProfileTab(wd).click();
 	}
 
-<<<<<<< HEAD
-	@Test(groups = "Trainer", priority = 10, dependsOnMethods = "clickProfileTab")
-=======
 	@Test(groups = "Trainer", priority = 5, dependsOnMethods = "clickProfileTab")
->>>>>>> cucumber
 	public void changeName() {
-		ProfilePage.insertFirstname(wd).clear();
-		ProfilePage.insertFirstname(wd).sendKeys(t.getTrainerFirstName());
-		ProfilePage.insertLastname(wd).clear();
-		ProfilePage.insertLastname(wd).sendKeys(t.getTrainerLastName());
+		try {
+			Thread.sleep(100);
+			ProfilePage.insertFirstname(wd).clear();
+			Thread.sleep(100);
+			ProfilePage.insertFirstname(wd).sendKeys(t.getTrainerFirstName());
+			Thread.sleep(2000);
+			ProfilePage.insertLastname(wd).clear();
+			Thread.sleep(100);
+			ProfilePage.insertLastname(wd).sendKeys(t.getTrainerLastName());
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
-<<<<<<< HEAD
-
-	@Test(groups = "Trainer", enabled=false, priority = 7, dependsOnMethods = "clickProfileTab")
-=======
 	@Test(groups = "Trainer", priority = 7, dependsOnMethods = "clickProfileTab")
->>>>>>> cucumber
 	public void addResume() {
 		ProfilePage.selectAddResume(wd).click();
 	}
 
+//	@Test(groups = "Trainer", priority = 3, dependsOnMethods = "clickProfileTab")
+//	public void saveSkills() {
+//		boolean done = false;
+//			try {
+//				clickCurrentSkillByName("Not William WebDriver");
+//				done = true;
+//				Thread.sleep(800);
+//				clickChooseSkillByName( "Not William WebDriver");
+//			} catch (NoSuchElementException e) {
+//				try {
+//					if(!done) {
+//						clickChooseSkillByName("Not William WebDriver");
+//						Thread.sleep(800);
+//						clickCurrentSkillByName("Not William WebDriver");
+//					}
+//					else throw new NoSuchElementException("",e);
+//				} catch (InterruptedException e1) {
+//					e1.printStackTrace();
+//				}
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+////			clickSaveSkill();
+////			int chooseSkillList = ProfilePage.getChooseSkillList(wd).size()/2;
+////			for(int i = 0; i < chooseSkillList; i++)
+////				clickFirstChooseSkill();
+//			int currentSkillList = ProfilePage.getCurrentSkillList(wd).size();
+//			for(int i = 0; i < currentSkillList; i++)
+//				clickFirstCurrentSkill();
+//			Set<String> skillStrings = new HashSet<String>();
+//			for (Skill s : t.getTrainerSkill()) {
+//				skillStrings.add(s.getSkillName());
+//			}
+//
+//			for (String s : skillStrings) {
+//						clickChooseSkillByName(s);
+//			}
+//			clickSaveSkill();
+//	}
 	@Test(groups = "Trainer", priority = 3, dependsOnMethods = "clickProfileTab")
 	public void saveSkills() {
-		boolean done = false;
-		try {
-			clickCurrentSkillByName("Not William WebDriver");
-			done = true;
-			Thread.sleep(800);
-			clickChooseSkillByName("Not William WebDriver");
-		} catch (NoSuchElementException e) {
-			try {
-				if (!done) {
-					clickChooseSkillByName("Not William WebDriver");
-					Thread.sleep(800);
-					clickCurrentSkillByName("Not William WebDriver");
-				} else
-					throw new NoSuchElementException("", e);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-<<<<<<< HEAD
-//			clickSaveSkill();
-//			int chooseSkillList = ProfilePage.getChooseSkillList(wd).size()/2;
-//			for(int i = 0; i < chooseSkillList; i++)
-//				clickFirstChooseSkill();
-			int currentSkillList = ProfilePage.getCurrentSkillList(wd).size();
-			for(int i = 0; i < currentSkillList; i++)
-				clickFirstCurrentSkill();
-			Set<String> skillStrings = new HashSet<String>();
-			for (Skill s : t.getTrainerSkill()) {
-				skillStrings.add(s.getSkillName());
-			}
-
-			for (String s : skillStrings) {
-						clickChooseSkillByName(s);
-			}
-			clickSaveSkill();
-=======
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -238,7 +223,16 @@ public class ProfileTest {
 		int currentSkillList = ProfilePage.getCurrentSkillList(wd).size();
 		for (int i = 0; i < currentSkillList; i++)
 			clickFirstCurrentSkill();
->>>>>>> cucumber
+=======
+		int currentSkillList = ProfilePage.getCurrentSkillList(wd).size();
+		for(int i = 0; i < currentSkillList; i++)
+			clickFirstCurrentSkill();
+		Set<Skill> skillStrings = t.getTrainerSkill();
+		System.out.println("Amount of skills: " + skillStrings.size());
+		for (Skill s : skillStrings)
+			clickChooseSkillByName(s.getSkillName());
+		clickSaveSkill();
+>>>>>>> hibernate
 	}
 
 	@Given("^log in as a trainer$")
