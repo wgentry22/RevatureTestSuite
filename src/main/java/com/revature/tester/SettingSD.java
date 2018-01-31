@@ -269,6 +269,9 @@ public class SettingSD {
 	@Test(enabled = true, groups = "Trainer", priority = 6)
 	public void testSettingsPageAsTrainer() {
 	
+		wait = new WebDriverWait(wd, 10);
+		act = new Actions(wd);
+		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[ng-model*='sCtrl.settings.trainersPerPage']")));
 		SettingsPage.timelineTrainersPerPage(wd).clear();
 		SettingsPage.timelineTrainersPerPage(wd).sendKeys("30");

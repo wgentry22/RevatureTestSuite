@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
@@ -12,14 +13,12 @@ import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.CirriculaPage;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.ProfilePage;
-import com.revature.tester.ProfileTest;
-import com.revature.tester.TrainerTest;
 
 public class TrainerGroupTester {
 
+	com.revature.hibernate.model.Batch batch = AssignForce.getAllBatches().get(0);
 	WebDriver driver = DriverFactory.getDriver("chrome");
 	Properties props = new Properties();
-	com.revature.hibernate.model.Batch batch = AssignForce.getAllBatches().get(0);
 	
 	
 	//Runs before the Suite
@@ -40,11 +39,12 @@ public class TrainerGroupTester {
 	ReportTester rt = new ReportTester(driver,props);
 	SettingSD st = new SettingSD(driver,props);
 	
-//	Loggin in as Trainer
-	@Test(priority=0)
+//	Login in as Trainer
+	@BeforeClass()
 	public void loginAsTrainer() {
 		driver.get(props.getProperty("EntryURL"));
-		LoginPage.loginAs(driver, props.getProperty("TrainerUsename"), props.getProperty("TrainerPassword"));
+		LoginPage.loginAs(driver, props.getProperty("TrainerUsername"), props.getProperty("TrainerPassword"));
+		
 	}
 	
 	
@@ -63,26 +63,27 @@ public class TrainerGroupTester {
 	
 	@Test(priority=3)
 	public void overviewTestTableSort() {
+		try { Thread.sleep(2500);} catch (InterruptedException e) { e.printStackTrace();}
 		ot.testTableSort();
 	}
 	
 	//Batches Page Tests
 	@Test(priority=4) 
 	public void navigateToBatchesPage() {
-		CirriculaPage.batchesTab(driver).click();
+		MethodUtil.executeJSClick(driver, CirriculaPage.batchesTab(driver));
 	}
 	
 	
 	@Test(priority=5)
 	public void batchesTestTableSort() {
-		ot.testTableSort();
+		bt.testTableSort();
 	}
 	
 	
 	//Locations Page Tests
 	@Test(priority = 6)
 	public void navigateToLocationsPage() {
-		CirriculaPage.locationsTab(driver).click();
+		MethodUtil.executeJSClick(driver, CirriculaPage.locationsTab(driver));
 	}
 	
 	
@@ -97,7 +98,7 @@ public class TrainerGroupTester {
 	//Jump in priority to allow space for Locations page
 	@Test(priority=13)
 	public void navigateToCurriculaPage() {
-		CirriculaPage.curriculaTab(driver).click();
+		MethodUtil.executeJSClick(driver, CirriculaPage.curriculaTab(driver));
 	}
 	
 	
@@ -127,13 +128,13 @@ public class TrainerGroupTester {
 	//Trainers Page Tests
 	@Test(priority=18)
 	public void navigateToTrainersPage() {
-		CirriculaPage.trainersTab(driver).click();
+		MethodUtil.executeJSClick(driver, CirriculaPage.trainersTab(driver));
 	}
 	
 	
 	@Test(priority=19)
-	public void trainersCheckPTOCalendar() {
-		tt.checkPTOCalendar();
+	public void trainersAddTrainerSave() {
+		tt.addTrainerSave();
 	}
 	
 	
@@ -142,43 +143,61 @@ public class TrainerGroupTester {
 		tt.clickProfile();
 	}
 	
+	
 	@Test(priority=21)
+	public void trainersCheckPTOCalendar() {
+		tt.checkPTOCalendar();
+	}
+	
+	
+	@Test(priority=22)
+	public void trainersDeactivateTrainerByName() {
+		tt.clickDeactivateTrainerByName();
+	}
+	
+	
+	@Test(priority=23)
+	public void trainersActivateTrainerByName() {
+		tt.clickReactivateTrainerByName();
+	}
+	
+	
+	@Test(priority=24)
 	public void trainersClickDownloadResume() {
 		tt.clickDownloadResume();
 	}
 	
 	
 	//Profile Page Tests
-	@Test(priority=22)
+	@Test(priority=25)
 	public void navigateToProfilePage() {
-		pt.clickProfileTab();
+		MethodUtil.executeJSClick(driver, ProfilePage.selectProfileTab(driver));
 	}
 	
-	@Test(priority=23)
+	@Test(priority=26)
 	public void profileSaveSkills() {
+		try { Thread.sleep(1500);} catch (InterruptedException e) { e.printStackTrace();}
 		pt.saveSkills();
 	}
 	
 	
-	@Test(priority=24)
-	public void profileAddResume() {
-		pt.addResume();
-	}
 	
 	
-	@Test(priority=25)
+	
+	@Test(priority=28)
 	public void profileChangeName() {
 		pt.changeName();
 	}
 	
 	
 	//Reports page Tests
-	@Test(priority=26)
+	@Test(priority=28)
 	public void navigateToReportsPage() {
-		CirriculaPage.reportsTab(driver).click();
+		MethodUtil.executeJSClick(driver, CirriculaPage.reportsTab(driver));
 	}
 	
 	//TODO: Trainer group Reports tests
+	
 	
 	
 	

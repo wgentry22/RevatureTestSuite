@@ -37,12 +37,19 @@ import cucumber.api.java.en.When;
 public class ProfileTest {
 	private Batch batch = null;
 	Properties props = new Properties();
-	Trainer t = batch.getTrainer();
+	Trainer t;
 
 	public ProfileTest(WebDriver wd, Properties props, Batch batch) {
 		this.wd = wd;
 		this.props = props;
 		this.batch = batch;
+		this.t = batch.getTrainer();
+	}
+	
+	public ProfileTest() {
+		this.batch = AssignForce.getAllBatches().get(0);
+		this.t = batch.getTrainer();
+		
 	}
 
 
@@ -142,7 +149,7 @@ public class ProfileTest {
 	}
 
 
-	@Test(groups = "Trainer", priority = 7, dependsOnMethods = "clickProfileTab")
+	@Test(groups = "Trainer", enabled=false, priority = 7, dependsOnMethods = "clickProfileTab")
 	public void addResume() {
 		ProfilePage.selectAddResume(wd).click();
 	}

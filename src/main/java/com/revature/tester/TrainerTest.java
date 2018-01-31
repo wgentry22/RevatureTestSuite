@@ -16,6 +16,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Trainer;
+import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.TrainerPage;
 
@@ -26,9 +28,12 @@ public class TrainerTest {
 	public WebDriver wd;
 	Properties props;
 	com.revature.hibernate.model.Batch batch;
+	Trainer t;
 	
 	public TrainerTest() {
 		this.wd =  DriverFactory.getDriver("chrome");
+		batch = AssignForce.getAllBatches().get(0);
+		t = batch.getTrainer();
 	}
 	
 	public TrainerTest(WebDriver wd, Properties props) {
@@ -40,6 +45,7 @@ public class TrainerTest {
 		this.wd = wd;
 		this.props = props;
 		this.batch = b;
+		t = batch.getTrainer();
 	}
 
 	/*
@@ -69,7 +75,8 @@ public class TrainerTest {
 	 */
 	@When("^I select save$")
 	public void clickAcceptTrainerInput() {
-		TrainerPage.selectSaveNewTrainer(wd).click();
+//		TrainerPage.selectSaveNewTrainer(wd).click();
+		MethodUtil.executeJSClick(wd, TrainerPage.selectSaveNewTrainer(wd));
 	}
 
 	/*
@@ -181,7 +188,8 @@ public class TrainerTest {
 	 */
 	@Given("^I click add trainer$")
 	public void clickAddTrainer() {
-		TrainerPage.selectAddTrainer(wd).click();
+//		TrainerPage.selectAddTrainer(wd).click();
+		MethodUtil.executeJSClick(wd, TrainerPage.selectAddTrainer(wd));
 	}
 
 	/*
@@ -199,7 +207,7 @@ public class TrainerTest {
 	@Test(groups = { "VP" }, priority = 1, enabled = true)
 	public void addTrainerSave() {
 		clickAddTrainer();
-		writeTrainerFullName("Testing1r", "Testing2p");
+		writeTrainerFullName("Damon", "Salvatore");
 		clickAcceptTrainerInput();
 	}
 
@@ -223,7 +231,7 @@ public class TrainerTest {
 		clickPTOCalendar();
 		clickNewPTORequest();
 		holdOn(300);
-		enterPTODate("1/1/2018", "1/2/2017");
+//		enterPTODate("1/1/2018", "1/2/2017");
 		holdOn(1000);
 		clickCancelPTORequest();
 		clickCancelPTOCalendar();

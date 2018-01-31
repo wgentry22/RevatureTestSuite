@@ -34,6 +34,8 @@ public class CurriculumTester {
 		this.driver = wd;
 		this.props = props;
 		this.batch = batch;
+		this.curriculum = batch.getCurriculum();
+		this.focus = batch.getFocus();
 	}
 
 	public CurriculumTester() {
@@ -43,12 +45,11 @@ public class CurriculumTester {
 		this.curriculum = batch.getCurriculum();
 	}
 
-	public CurriculumTester() {}
 
-	@BeforeTest(groups = { "VP", "Hib"})
-	public void loginVP() {
-		CirriculaPage.loginVPCredentials(driver);
-	}
+//	@BeforeTest(groups = { "VP", "Hib"})
+//	public void loginVP() {
+//		CirriculaPage.loginVPCredentials(driver);
+//	}
 
 	@BeforeTest(groups = "Trainer")
 	public void loginTrainer() {
@@ -62,8 +63,8 @@ public class CurriculumTester {
 
 	@BeforeSuite(groups = { "VP", "Trainer" , "Hib"})
 	public void beforeSuite() {
-
 		CirriculaPage.openSalesforceChrome(driver);
+		CirriculaPage.loginVPCredentials(driver);
 	}
 
 	@AfterSuite(groups = { "VP", "Trainer", "Hib" })
@@ -239,7 +240,6 @@ public class CurriculumTester {
 
 	@Test(priority = 11, enabled = false, groups = {"VP", "Hib"})
 	public void addSkillCurriculum() {
-		curriculum = batch.getCurriculum();									//ADD CURRICULUM
 		if (CirriculaPage.isSkillPanelOpen(driver)) {
 			try {
 				for (Skill s : curriculum.getCurriculumSkill()) {
@@ -272,7 +272,6 @@ public class CurriculumTester {
 
 	@Test(priority=12, enabled=true, groups= {"VP", "Hib"})
 	public void addSkillFocus() {
-		focus = batch.getFocus();											//ADD FOCUS
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
 			try {
 				for (Skill s : focus.getFocusSkill()) {
@@ -446,7 +445,6 @@ public class CurriculumTester {
 
 	@Test(priority = 15, enabled = false, groups = {"VP", "Hib"})
 	public void addNewCurriculum() {
-		curriculum = batch.getCurriculum();								//ADD CURRICULUM
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 			try {
 				Thread.sleep(1000);
@@ -526,7 +524,6 @@ public class CurriculumTester {
 
 	@Test(priority = 16, enabled = true, groups = {"VP", "Hib"})
 	public void addNewFocus() {
-		focus = batch.getFocus();												//ADD FOCUS
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
 			try {
 				Thread.sleep(1000);

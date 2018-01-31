@@ -102,23 +102,23 @@ public class AssignForce {
 //			}
 //		}
 		
-		Batch batch = batches.get(2);
-//		System.out.println("Batch: "+batch.getBatchName());
-//		System.out.println("Trainer: " + batch.getTrainer().getTrainerFirstName() + " " + batch.getTrainer().getTrainerLastName());
-//		for (Skill s : batch.getTrainer().getTrainerSkill()) {
-//			System.out.println("Trainer Skill: " + s.getSkillName());
-//		}
-//		System.out.println("Curriculum: "+batch.getCurriculum().getCurriculumName());
-//		for (Skill s : batch.getCurriculum().getCurriculumSkill()) {
-//			System.out.println("Curriculum Skill: "+s.getSkillName());
-//		}
-//		System.out.println("Focus: " + batch.getFocus().getFocusName());
-//		for (Skill s : batch.getFocus().getFocusSkill()) {
-//			System.out.println("Focus Skill: " + s.getSkillName());
-//		}
-//		System.out.println("Location: "+batch.getRoom().getBuilding().getLocation().getLocationName());
-//		System.out.println("Building: " + batch.getRoom().getBuilding().getBuildingName());
-//		System.out.println("Room: " + batch.getRoom().getRoomNumber());
+		Batch batch = batches.get(0);
+		System.out.println("Batch: "+batch.getBatchName());
+		System.out.println("Trainer: " + batch.getTrainer().getTrainerFirstName() + " " + batch.getTrainer().getTrainerLastName());
+		for (Skill s : batch.getTrainer().getTrainerSkill()) {
+			System.out.println("Trainer Skill: " + s.getSkillName());
+		}
+		System.out.println("Curriculum: "+batch.getCurriculum().getCurriculumName());
+		for (Skill s : batch.getCurriculum().getCurriculumSkill()) {
+			System.out.println("Curriculum Skill: "+s.getSkillName());
+		}
+		System.out.println("Focus: " + batch.getFocus().getFocusName());
+		for (Skill s : batch.getFocus().getFocusSkill()) {
+			System.out.println("Focus Skill: " + s.getSkillName());
+		}
+		System.out.println("Location: "+batch.getRoom().getBuilding().getLocation().getLocationName());
+		System.out.println("Building: " + batch.getRoom().getBuilding().getBuildingName());
+		System.out.println("Room: " + batch.getRoom().getRoomNumber());
 		
 		
 		

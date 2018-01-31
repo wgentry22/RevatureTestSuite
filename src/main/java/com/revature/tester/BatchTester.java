@@ -14,25 +14,34 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Curriculum;
+import com.revature.hibernate.model.Focus;
 import com.revature.hibernate.model.Skill;
 import com.revature.pageObjectModel.BatchPage;
 import com.revature.pageObjectModel.LoginPage;
 
 public class BatchTester {
-	WebDriver wd = null;
+	WebDriver wd;
 	Properties props = new Properties();
+	Curriculum curriculum;
+	Focus focus;
 	
 	String err = " not input correctly";
 	Batch b = new Batch();
-	private com.revature.hibernate.model.Batch batch = null;
+	private com.revature.hibernate.model.Batch batch;
 
 	public BatchTester(WebDriver wd2, Properties props2, com.revature.hibernate.model.Batch batch) {
 		this.wd = wd2;
 		this.props = props2;
 		this.batch = batch;
+		this.focus = batch.getFocus();
+		this.curriculum = batch.getCurriculum();
 	}
 	
-	public BatchTester() {}
+	public BatchTester() {
+		this.focus = batch.getFocus();
+		this.curriculum = batch.getCurriculum();
+	}
 	
 	@BeforeSuite
 	public void initWebDriver() {
@@ -63,13 +72,13 @@ public class BatchTester {
 	public void fillCurriculum() {
 		BatchPage.getBatchCurriculumSelect(wd).click();
 		BatchPage.getBatchCurriculumOption(wd, batch.getCurriculumName()).click();
-		assertTrue(BatchPage.getBatchCurriculumSelect(wd).getText().contains(batch.getCurriculumName()),"Curriculum"+err);
+		assertTrue(BatchPage.getBatchCurriculumSelect(wd).getText().contains(curriculum.getCurriculumName()),"Curriculum"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 2)
 	public void fillFocus() {
 		BatchPage.getBatchFocusSelect(wd).click();
 		BatchPage.getBatchFocusOption(wd, batch.getFocusName()).click();
-		assertTrue(BatchPage.getBatchFocusSelect(wd).getText().contains(batch.getFocusName()),"Focus"+err);
+		assertTrue(BatchPage.getBatchFocusSelect(wd).getText().contains(focus.getFocusName()),"Focus"+err);
 	}
 	@Test(enabled=true,groups = { "VP" }, priority = 3)
 	public void fillSkills() {
@@ -170,6 +179,17 @@ public class BatchTester {
 	public void testRefresh() {
 		wd.get(props.getProperty("BatchesURL"));
 		assertTrue(MethodUtil.waitForLoad(wd, "//div[@id=\"batchInfoDiv\"]").getText().contains("Create New Batch"),"Create new batch panel does not exist on refresh");
+	}
+	
+	@Test(enabled=true, groups="Trainer", priority=16)
+	public void testTableSort() {
+		try { Thread.sleep(2500); } catch (InterruptedException e) { e.printStackTrace(); }
+		for (int i=2;i<=10;i++) {// for each column...
+			// Sort ascending
+			MethodUtil.executeJSClick(wd, BatchPage.getColumnSortBtn(wd, i));
+			// Sort descending
+			MethodUtil.executeJSClick(wd, BatchPage.getColumnSortBtn(wd, i));
+		}
 	}
 }
 
