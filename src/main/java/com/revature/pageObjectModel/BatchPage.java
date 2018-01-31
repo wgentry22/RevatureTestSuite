@@ -17,9 +17,7 @@ public class BatchPage {
 	}
 	
 	public static WebElement getOptionByText(WebDriver wd,int menuIndex, String text) {
-		//List<WebElement> list = wd.findElements(By.xpath("//md-option/div[@class=\"md-text ng-binding\"]"));
 		List<WebElement> list = wd.findElements(By.xpath("//md-option/div[1]"));
-		//System.out.println(list);
 		for (int i=0; i<list.size();i++) {
 			if (list.get(i).getText().contains(text))
 				return list.get(i);
@@ -34,9 +32,7 @@ public class BatchPage {
 	}
 	
 	public static WebElement getSkillsOptsByText(WebDriver wd,int menuIndex, String text) {
-		//List<WebElement> list = wd.findElements(By.xpath("//md-option/div[@class=\"md-text ng-binding\"]"));
 		List<WebElement> list = wd.findElements(By.xpath("//md-option/div[2]"));
-		//System.out.println(list);
 		for (int i=0; i<list.size();i++) {
 			if (list.get(i).getText().contains(text))
 				return list.get(i);
