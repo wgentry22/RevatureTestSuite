@@ -42,12 +42,12 @@ public class TesterServlet extends HttpServlet {
 		case "all":
 			System.out.println("adding all classes");
 			classes.add(new XmlClass("com.revature.tester.OverviewTester"));
-//			classes.add(new XmlClass("com.revature.tester.BatchTester"));
-//			classes.add(new XmlClass("com.revature.tester.CurriculumTester"));
-//			classes.add(new XmlClass("com.revature.tester.LocationTester"));
-//			classes.add(new XmlClass("com.revature.tester.TrainerTester"));
-//			classes.add(new XmlClass("com.revature.tester.ReportTester"));
-//			classes.add(new XmlClass("com.revature.tester.SettingTester"));
+			classes.add(new XmlClass("com.revature.tester.BatchTester"));
+			classes.add(new XmlClass("com.revature.tester.CurriculumTester"));
+			classes.add(new XmlClass("com.revature.tester.LocationTester"));
+			classes.add(new XmlClass("com.revature.tester.TrainerTest"));
+			classes.add(new XmlClass("com.revature.tester.ReportTester"));
+			classes.add(new XmlClass("com.revature.tester.SettingSD"));
 			break;
 		case "VP":
 			System.out.println("adding VPGroupTester classes");

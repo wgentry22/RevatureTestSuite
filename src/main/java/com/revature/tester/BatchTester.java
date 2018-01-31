@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
 import com.revature.hibernate.model.Skill;
-import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.BatchPage;
 import com.revature.pageObjectModel.LoginPage;
 
@@ -32,6 +31,8 @@ public class BatchTester {
 		this.props = props2;
 		this.batch = batch;
 	}
+	
+	public BatchTester() {}
 	
 	@BeforeSuite
 	public void initWebDriver() {

@@ -20,6 +20,8 @@ public class ReportTester {
 		this.wd = wd2;
 		this.props = props2;
 	}
+	
+	public ReportTester() {}
 
 	@BeforeGroups(enabled = true, groups = "VP")
 	public void loginAsVP() {

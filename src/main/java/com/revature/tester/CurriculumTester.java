@@ -14,10 +14,10 @@ import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
 import com.revature.driver.DriverFactory;
+import com.revature.hibernate.model.Batch;
 import com.revature.hibernate.model.Curriculum;
 import com.revature.hibernate.model.Focus;
 import com.revature.hibernate.model.Skill;
-import com.revature.hibernate.model.Batch;
 import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.CirriculaPage;
 
@@ -25,15 +25,22 @@ public class CurriculumTester {
 
 	private static final Logger logger = Logger.getLogger(CurriculumTester.class);
 	private Batch batch = null;
-	WebDriver driver = DriverFactory.getDriver("chrome");
-	Curriculum curriculum = batch.getCurriculum();
-	Focus focus = batch.getFocus();
+	WebDriver driver;
+	Curriculum curriculum;
+	Focus focus;
 	Properties props;
 
 	public CurriculumTester(WebDriver wd, Properties props, Batch batch) {
 		this.driver = wd;
 		this.props = props;
 		this.batch = batch;
+	}
+	
+	public CurriculumTester() {
+		this.batch = AssignForce.getAllBatches().get(0);
+		this.driver = DriverFactory.getDriver("chrome");
+		this.focus = batch.getFocus();
+		this.curriculum = batch.getCurriculum();
 	}
 
 	@BeforeTest(groups = { "VP", "Hib"})

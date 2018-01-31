@@ -12,8 +12,8 @@ import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.CirriculaPage;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.ProfilePage;
-import com.revature.tester.test.ProfileTest;
-import com.revature.tester.test.TrainerTest;
+import com.revature.tester.ProfileTest;
+import com.revature.tester.TrainerTest;
 
 public class TrainerGroupTester {
 
@@ -38,7 +38,7 @@ public class TrainerGroupTester {
 	TrainerTest tt = new TrainerTest(driver,props, batch);
 	ProfileTest pt = new ProfileTest(driver, props, batch);
 	ReportTester rt = new ReportTester(driver,props);
-	SettingTester st = new SettingTester(driver,props);
+	SettingSD st = new SettingSD(driver,props);
 	
 //	Loggin in as Trainer
 	@Test(priority=0)

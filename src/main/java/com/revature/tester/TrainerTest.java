@@ -1,6 +1,7 @@
 package com.revature.tester;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,7 +23,24 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 
 public class TrainerTest {
-	public WebDriver wd = DriverFactory.getDriver("chrome");
+	public WebDriver wd;
+	Properties props;
+	com.revature.hibernate.model.Batch batch;
+	
+	public TrainerTest() {
+		this.wd =  DriverFactory.getDriver("chrome");
+	}
+	
+	public TrainerTest(WebDriver wd, Properties props) {
+		this.wd = wd;
+		this.props = props;
+	}
+	
+	public TrainerTest(WebDriver wd, Properties props, com.revature.hibernate.model.Batch b) {
+		this.wd = wd;
+		this.props = props;
+		this.batch = b;
+	}
 
 	/*
 	 * Clicks on the trainer's download resume button based on the name.

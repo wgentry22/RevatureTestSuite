@@ -8,10 +8,9 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import com.revature.driver.DriverFactory;
-import com.revature.hibernate.model.Focus;
 import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.LoginPage;
-import com.revature.tester.test.TrainerTest;
+import com.revature.tester.TrainerTest;
 
 public class VPGroupTester {
 	WebDriver wd = DriverFactory.getDriver("chrome");
@@ -34,7 +33,7 @@ public class VPGroupTester {
 	CurriculumTester ct = new CurriculumTester(wd,props, batch);
 	TrainerTest tt = new TrainerTest(wd,props, batch);
 	ReportTester rt = new ReportTester(wd,props);
-	SettingTester st = new SettingTester(wd,props);
+	SettingSD st = new SettingSD(wd,props);
 
 //	START LOGIN PAGE TESTING
 	@Test(priority=0)
@@ -325,7 +324,7 @@ public class VPGroupTester {
 	
 	@Test(priority=42)
 	public void settingsTrainerTestSettingsPageAsVP() {
-		st.testSettingsPageAsVP();
+		st.testSettingsPageAsTrainer();
 	}
 	
 	@Test(priority=43)
