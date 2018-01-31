@@ -28,6 +28,27 @@ public class ReportsPage {
 		return wd.findElement(By.id("batchArrow"));
 	}
 	
+	public static WebElement cardTrainersNeeded(WebDriver wd) {
+		return wd.findElement(By.cssSelector("[ng-model='rCtrl.cardArr[$index].requiredGrads']"));
+	}
+	
+	public static WebElement cardHireDate(WebDriver wd) {
+		return wd.findElement(By.cssSelector("[ng-model='rCtrl.cardArr[$index].reqDate']"));
+	}
+	
+	public static WebElement cardCreateButton(WebDriver wd) {
+		return wd.findElement(By.xpath("//*[@id=\"batchCreate\"]/get-batch-gen-template/div/md-content[1]/div/md-card/md-card-content/div[3]/div"));
+//		return wd.findElement(By.cssSelector("[ng-clicl='rCtrl.createBatchClick($index)']"));
+	}
+	
+	public static WebElement cardDeleteButton(WebDriver wd) {
+		return wd.findElement(By.xpath("//*[@id=\"batchCreate\"]/get-batch-gen-template/div/md-content[1]/div/md-card/md-card-content/md-card-title/button"));
+	}
+	
+	public static WebElement cardCurriculum(WebDriver wd) {
+		return wd.findElement(By.cssSelector("[ng-model='rCtrl.cardArr[$index].batchType']"));
+	}
+	
 	// Graduate Summary
 	public static WebElement gradToolbar(WebDriver wd) {
 		return wd.findElement(By.cssSelector("[ng-click*='rCtrl.toggleGradToolbar()']"));
