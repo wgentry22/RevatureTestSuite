@@ -24,10 +24,10 @@ import com.revature.pageObjectModel.CirriculaPage;
 public class CurriculumTester {
 
 	private static final Logger logger = Logger.getLogger(CurriculumTester.class);
-	private Batch batch = null;
+	private Batch batch;
 	WebDriver driver = DriverFactory.getDriver("chrome");
-	Curriculum curriculum = batch.getCurriculum();
-	Focus focus = batch.getFocus();
+	Curriculum curriculum;
+	Focus focus;
 	Properties props;
 
 	public CurriculumTester(WebDriver wd, Properties props, Batch batch) {
@@ -35,6 +35,8 @@ public class CurriculumTester {
 		this.props = props;
 		this.batch = batch;
 	}
+
+	public CurriculumTester() {}
 
 	@BeforeTest(groups = { "VP", "Hib"})
 	public void loginVP() {
@@ -230,6 +232,7 @@ public class CurriculumTester {
 
 	@Test(priority = 11, enabled = false, groups = {"VP", "Hib"})
 	public void addSkillCurriculum() {
+		curriculum = batch.getCurriculum();									//ADD CURRICULUM
 		if (CirriculaPage.isSkillPanelOpen(driver)) {
 			try {
 				for (Skill s : curriculum.getCurriculumSkill()) {
@@ -262,6 +265,7 @@ public class CurriculumTester {
 
 	@Test(priority=12, enabled=true, groups= {"VP", "Hib"})
 	public void addSkillFocus() {
+		focus = batch.getFocus();											//ADD FOCUS
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
 			try {
 				for (Skill s : focus.getFocusSkill()) {
@@ -435,6 +439,7 @@ public class CurriculumTester {
 
 	@Test(priority = 15, enabled = false, groups = {"VP", "Hib"})
 	public void addNewCurriculum() {
+		curriculum = batch.getCurriculum();								//ADD CURRICULUM
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 			try {
 				Thread.sleep(1000);
@@ -514,6 +519,7 @@ public class CurriculumTester {
 
 	@Test(priority = 16, enabled = true, groups = {"VP", "Hib"})
 	public void addNewFocus() {
+		focus = batch.getFocus();												//ADD FOCUS
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
 			try {
 				Thread.sleep(1000);
