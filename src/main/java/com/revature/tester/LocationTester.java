@@ -19,6 +19,10 @@ import com.revature.hibernate.util.AssignForce;
 import com.revature.pageObjectModel.LocationsPage;
 import com.revature.pageObjectModel.LoginPage;
 
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
 public class LocationTester {
 	private Batch batch = null;
 
@@ -43,12 +47,13 @@ public class LocationTester {
 		this.props = props;
 		this.batch = batch;
 	}
-	
+
 	public LocationTester() {
 		Batch batch = AssignForce.getAllBatches().get(0);
 		this.room = batch.getRoom();
 	}
 
+	@Given("^I open up a web browser and I login as VP")
 	@BeforeGroups(enabled = true, groups = {"VP", "VP1", "VP2"})
 	public void loginAsVP() {
 
@@ -67,7 +72,7 @@ public class LocationTester {
 		MethodUtil.waitForLoad(wd, "/html/body/div/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[3]/a", 50).click();
 //		LocationsPage.navigateToLocationsPage(wd).click();
 	}
-
+	@Then("^I logout$")
 	@AfterGroups(enabled = true, groups = {"VP", "VP1", "VP2"})
 	public void logout() {
 		try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -76,6 +81,7 @@ public class LocationTester {
 		wd.quit();
 	}
 
+	@When("^I add a location$")
 	@Test(enabled = true, groups = "VP", priority = 0)
 	public void addLocation() {
 
@@ -89,7 +95,7 @@ public class LocationTester {
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		//Added by William for his slow machine
 		LocationsPage.saveButton(wd).click();
 	}
-
+	@When("^I add a building to the location$")
 	@Test(enabled = true, groups = "VP", priority = 1)
 	public void addBuilding() {
 
@@ -104,7 +110,7 @@ public class LocationTester {
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		//Added by William for his slow machine
 		LocationsPage.saveButton(wd).click();
 	}
-
+	@When("^I add a room to the building$")
 	@Test(enabled = true, groups = "VP", priority = 2)
 	public void addRoom() {
 
@@ -120,7 +126,7 @@ public class LocationTester {
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		//Added by William for his slow machine
 		LocationsPage.saveButton(wd).click();
 	}
-
+	@Then("^I can edit the building$")
 	@Test(enabled = true, groups = "VP", priority = 3)
 	public void editBuilding() {
 
@@ -137,7 +143,7 @@ public class LocationTester {
 		try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }		//Added by William for his slow machine
 		LocationsPage.saveButton(wd).click();
 	}
-
+	@When("^I deactivate a location$")
 	@Test(enabled = true, groups = "VP", priority = 4)
 	public void deactivateLocation() {
 

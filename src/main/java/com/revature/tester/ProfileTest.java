@@ -34,6 +34,7 @@ import cucumber.api.java.en.When;
 public class ProfileTest {
 	private Batch batch = null;
 	Properties props = new Properties();
+	WebDriver wd;
 	Trainer t;
 
 	public ProfileTest(WebDriver wd, Properties props, Batch batch) {
@@ -42,35 +43,13 @@ public class ProfileTest {
 		this.batch = batch;
 		this.t = batch.getTrainer();
 	}
-	
+
 	public ProfileTest() {
-		
+
 		this.batch = AssignForce.getAllBatches().get(0);
 		this.t = batch.getTrainer();
 	}
 
-
-	WebDriver wd = null;
-	public WebElement getCurrentSkillByName(String skillName) {
-		for (WebElement we : ProfilePage.getCurrentSkillList(wd)) {
-			if (we.getText().contains(skillName.toUpperCase())) {
-				return we;
-			}
-		}
-		throw new NoSuchElementException(skillName + " was not found");
-	}
-
-	public WebElement getChooseSkillByName(String skillName) {
-		for (WebElement we : ProfilePage.getChooseSkillList(wd)) {
-			if (we.getText().contains(skillName)) {
-				return we;
-			}
-		}
-		throw new NoSuchElementException(skillName + " was not found");
-	}
-	public void clickFirstChooseSkill() {
-		ProfilePage.selectChooseSkill(wd).click();
-	}
 
 	public void clickFirstCurrentSkill() {
 		ProfilePage.selectCurrentSkill(wd).click();
@@ -96,10 +75,29 @@ public class ProfileTest {
 		getChooseSkillByName(skillName).click();
 	}
 
+	public WebElement getCurrentSkillByName(String skillName) {
+		for (WebElement we : ProfilePage.getCurrentSkillList(wd)) {
+			if (we.getText().contains(skillName.toUpperCase())) {
+				return we;
+			}
+		}
+		throw new NoSuchElementException(skillName + " was not found in \"Current Skills\"");
+	}
+
+	public WebElement getChooseSkillByName(String skillName) {
+		for (WebElement we : ProfilePage.getChooseSkillList(wd)) {
+			if (we.getText().contains(skillName)) {
+				return we;
+			}
+		}
+		throw new NoSuchElementException(skillName + " was not found in \"Choose Skills\"");
+	}
+
 	@Then("^I should see \"([^\"]*)\" on the list of skills to choose from$")
 	public void checkForSkillInChooseList(String skillName) {
 		assertNotNull(getChooseSkillByName(skillName));
 	}
+
 	public List<WebElement> getChooseSkillList() {
 		return ProfilePage.getChooseSkillList(wd);
 	}
@@ -137,7 +135,7 @@ public class ProfileTest {
 		ProfilePage.selectProfileTab(wd).click();
 	}
 
-	@Test(groups = "Trainer", priority = 10, dependsOnMethods = "clickProfileTab")
+	@Test(groups = "Trainer", priority = 5, dependsOnMethods = "clickProfileTab")
 	public void changeName() {
 		try {
 			Thread.sleep(100);
@@ -154,8 +152,7 @@ public class ProfileTest {
 		}
 	}
 
-
-	@Test(groups = "Trainer", enabled=false, priority = 7, dependsOnMethods = "clickProfileTab")
+	@Test(groups = "Trainer", priority = 7, dependsOnMethods = "clickProfileTab")
 	public void addResume() {
 		ProfilePage.selectAddResume(wd).click();
 	}
@@ -206,7 +203,7 @@ public class ProfileTest {
 			clickFirstCurrentSkill();
 		Set<Skill> skillStrings = t.getTrainerSkill();
 		System.out.println("Amount of skills: " + skillStrings.size());
-		for (Skill s : skillStrings) 
+		for (Skill s : skillStrings)
 			clickChooseSkillByName(s.getSkillName());
 		clickSaveSkill();
 	}
@@ -244,7 +241,6 @@ public class ProfileTest {
 	@AfterMethod
 	public void afterMethod() {
 	}
-
 
 	@BeforeSuite
 	public void beforeSuite() {

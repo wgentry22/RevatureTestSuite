@@ -1,55 +1,37 @@
-#Author: your.email@your.domain.com
-#Keywords Summary :
-#Feature: List of scenarios.
-#Scenario: Business rule through list of steps with arguments.
-#Given: Some precondition step
-#When: Some key actions
-#Then: To observe outcomes or validation
-#And,But: To enumerate more Given,When,Then steps
-#Scenario Outline: List of steps for data-driven as an Examples and <placeholder>
-#Examples: Container for s table
-#Background: List of steps run before each of the scenarios
-#""" (Doc Strings)
-#| (Data Tables)
-#@ (Tags/Labels):To group Scenarios
-#<> (placeholder)
-#""
-## (Comments)
-#Sample Feature Definition Template
-#@tag
-#Feature: Title of your feature
-  #I want to use this template for my feature file
-#
-  #@tag1
-  #Scenario: Title of your scenario
-    #Given I want to write a step with precondition
-    #And some other precondition
-    #When I complete action
-    #And some other action
-    #And yet another action
-    #Then I validate the outcomes
-    #And check more outcomes
-#
-  #@tag2
-  #Scenario Outline: Title of your scenario outline
-    #Given I want to write a step with <name>
-    #When I check for the <value> in step
-    #Then I verify the <status> in step
-#
-    #Examples: 
-      #| name  | value | status  |
-      #| name1 |     5 | success |
-      #| name2 |     7 | Fail    |
-      
+#Author: robin.pierre16@outlook.com
+#Keywords Summary : feature file for the trainer page on assignforce
+Feature: I want to navigate throughout the trainer page
 
-Feature: We want to navigate throughout the trainer page
+  #Background: I want to look up information on AssignForce trainer page
+    #Given I open a browser to go to AssignForce
+    #And I login as VP
+    #And I click on the trainers tab
+#
+  #@VP
+  Scenario: As a VP, I want to add a trainer
+    #Given I click add trainer
+    When I insert <firstname> and <lastname> onto the firstname and lastname inputs
+    #And I select save
+    Then I should see <firstname> <lastname> on the list of trainers in the deactivated list
+    
 
-@VP
-Scenario: As a VP, I want to add a trainer
-Given I want to go to the "https://dev.assignforce.revaturelabs.com"
-And I login as "test.vpoftech@revature.com.int1" with a valid "p@$$w0rd1"
-When I login, I click on the trainers tab
-Then I click on the add trainer button
-Then I input "TestingR" and "TestingP" of the trainer
-And I click save
-
+  #@VP
+  #Scenario: As a VP, I want to cancel adding a trainer
+    #Given I click add trainer
+    #When I insert <firstname> and<lastname> onto the firstname and lastname inputs
+    #And I select cancel
+    #Then I should not see <firstname> <lastname> on the list of trainers in the deactivated list
+#
+  #@VP
+  #Scenario: As a VP, I want to give paid time off
+    #Given I click on the View PTO Calendar button
+    #And I click new PTO Request
+    #When I insert <startdate> into startdate and <enddate> into enddate
+    #But I click cancel PTO Request
+    #And I click cancel on the Calendar
+#
+  #@VP
+  #Scenario: As A VP, I want to download a resume
+    #Given I am on the trainers page
+    #When I click on the Download Resume button
+    #Then I should get the downloaded resume
