@@ -132,10 +132,10 @@ public class TrainerGroupTester {
 	}
 	
 	
-	@Test(priority=19)
-	public void trainersAddTrainerSave() {
-		tt.addTrainerSave();
-	}
+//	@Test(priority=19)
+//	public void trainersAddTrainerSave() {
+//		tt.addTrainerSave();
+//	}
 	
 	
 	@Test(priority=20)
@@ -150,16 +150,16 @@ public class TrainerGroupTester {
 	}
 	
 	
-	@Test(priority=22)
-	public void trainersDeactivateTrainerByName() {
-		tt.clickDeactivateTrainerByName();
-	}
+//	@Test(priority=22)
+//	public void trainersDeactivateTrainerByName() {
+//		tt.clickDeactivateTrainerByName();
+//	}
 	
 	
-	@Test(priority=23)
-	public void trainersActivateTrainerByName() {
-		tt.clickReactivateTrainerByName();
-	}
+//	@Test(priority=23)
+//	public void trainersActivateTrainerByName() {
+//		tt.clickReactivateTrainerByName();
+//	}
 	
 	
 	@Test(priority=24)
@@ -187,6 +187,11 @@ public class TrainerGroupTester {
 	@Test(priority=28)
 	public void profileChangeName() {
 		pt.changeName();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

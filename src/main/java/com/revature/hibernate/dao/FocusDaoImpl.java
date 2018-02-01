@@ -8,13 +8,11 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 import com.revature.hibernate.HibernateUtil;
 import com.revature.hibernate.model.Focus;
 import com.revature.hibernate.model.Skill;
-import com.revature.hibernate.model.Trainer;
 
 public class FocusDaoImpl implements FocusDao {
 

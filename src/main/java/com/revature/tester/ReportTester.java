@@ -1,8 +1,8 @@
 package com.revature.tester;
 
-import org.openqa.selenium.By;
 import java.util.Properties;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,10 +14,6 @@ import org.testng.annotations.Test;
 import com.revature.driver.DriverFactory;
 import com.revature.pageObjectModel.LoginPage;
 import com.revature.pageObjectModel.ReportsPage;
-
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 
 public class ReportTester {
 
@@ -41,8 +37,8 @@ public class ReportTester {
 		LoginPage.loginAs(wd, "test.vpoftech@revature.com.int1", "yuvi1712");
 
 		// need these for explicit waits won't work
-		wait = new WebDriverWait(wd, 5);
-		act = new Actions(wd);
+		WebDriverWait wait = new WebDriverWait(wd, 5);
+		Actions act = new Actions(wd);
 
 		// Navigating to the Reports Page
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div[1]/ng-include/div/md-content/md-nav-bar/div/nav/ul/li[7]/a")));

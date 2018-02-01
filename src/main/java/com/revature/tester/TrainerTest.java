@@ -109,7 +109,7 @@ public class TrainerTest {
 	 */
 	@When("^I click cancel PTO Request$")
 	public void clickCancelPTORequest() {
-		TrainerPage.selectCancelPTORequest(wd).click();
+		MethodUtil.executeJSClick(wd, TrainerPage.selectCancelPTORequest(wd));
 	}
 
 	/*
@@ -227,13 +227,15 @@ public class TrainerTest {
 	 */
 	@Test(groups = { "VP", "Trainer" }, priority = 4, enabled = true)
 	public void checkPTOCalendar() {
-		holdOn(100);
+		holdOn(3000);
 		clickPTOCalendar();
+		holdOn(1000);
 		clickNewPTORequest();
-		holdOn(300);
+		holdOn(1000);
 //		enterPTODate("1/1/2018", "1/2/2017");
 		holdOn(1000);
 		clickCancelPTORequest();
+		holdOn(1000);
 		clickCancelPTOCalendar();
 	}
 
@@ -242,7 +244,7 @@ public class TrainerTest {
 	 */
 	@Test(groups = { "VP", "Trainer" }, priority = 3, enabled = true)
 	public void clickProfile() {
-		clickProfileByName("Damon", "Salvatore");
+		clickProfileByName("Test7", "Test8");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
