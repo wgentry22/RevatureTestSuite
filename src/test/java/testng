@@ -2,19 +2,21 @@
 
 <suite name="Suite" parallel="false">
 	 <groups>
-	 
 	  <run>
-<<<<<<< HEAD
-	  	<include name="Trainer"/>
-=======
-	    <include name="Trainer"/>
->>>>>>> 63c993b1176202a179eb1f815eaca199a9e1e4ec
+	  	<include name="VP"/>-->
 	  </run>
 	</groups>
   <test name="Test">
     <classes>
-      <!--<class name="com.revature.tester.test.TrainerTestTest"/>-->
-      <class name="com.revature.tester.test.CurriculaTest"/>
+    	<!--<class name="com.revature.tester.BatchTester"/>-->
+      <!--<class name="com.revature.tester.LocationTester"/>-->
+      <!--<class name="com.revature.tester.test.TrainerTest"/>-->
+      <!--<class name="com.revature.tester.CurriculumTester"/>-->
+      <!--<class name="com.revature.tester.test.ProfileTest"/>-->
+      <!--<class name="com.revature.tester.SettingTester"/>-->
+      <!--<class name="com.revature.tester.test.ProtractorCurricula"/>-->
+      <!--<class name="com.revature.tester.PreloadingAllSkills"/>-->
+      <!--<class name="com.revature.tester.test.ProfileTest"/>-->
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

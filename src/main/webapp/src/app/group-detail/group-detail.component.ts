@@ -13,10 +13,10 @@ import { mockArray } from '../mockArray';
   styleUrls: ['./group-detail.component.css']
 })
 export class GroupDetailComponent implements OnInit {
-  private tests: Array<testObject>;
-  private group: groupObject = new groupObject();
-  private groups: string[] = ["VP","Trainer"];
-  private btnIsDisabled: boolean = false;
+  public tests: Array<testObject>;
+  public group: groupObject = new groupObject();
+  public groups: string[] = ["VP","Trainer"];
+  public btnIsDisabled: boolean = false;
 
   constructor(
     private router: Router,
@@ -41,6 +41,7 @@ export class GroupDetailComponent implements OnInit {
 
   ngDoCheck(): void {
     this.showGroup();
+    console.log(this.group.name);
   }
 
   showGroup(): void {

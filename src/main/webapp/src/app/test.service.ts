@@ -28,7 +28,7 @@ export class TestService {
   }
 
   runGroup(groupName: string): Observable<any> {
-    const url : string = "http://localhost:8080/RevatureTestSuite/RunGroup/groups?name=";
+    const url : string = "http://localhost:8080/AssignForce/tests/test?group=";
     return this.http.get<any>(url+groupName)
       .pipe(tap(data => {
         console.log(data);
@@ -38,7 +38,7 @@ export class TestService {
   }
 
   runAllTests(): Observable<any> {
-    const url : string = "http://localhost:8080/RevatureTestSuite/GetAllTests";
+    const url : string = "http://localhost:8080/AssignForce/tests/test?group=all";
     return this.http.get<any>(url)
       .pipe(tap(data => {
         console.log(data);

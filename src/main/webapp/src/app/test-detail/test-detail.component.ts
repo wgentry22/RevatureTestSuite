@@ -13,8 +13,8 @@ import { jsonObject } from '../jsonObject';
   styleUrls: ['./test-detail.component.css']
 })
 export class TestDetailComponent implements OnInit {
-  private allTests: any;
-  private test: testObject;
+  public allTests: any;
+  public test: testObject;
 
   constructor(
     private route: ActivatedRoute,

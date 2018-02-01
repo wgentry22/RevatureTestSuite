@@ -29,6 +29,19 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.0</version>
 		</dependency>
+		<!-- Hibernate Depenedcies for William's Computer -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.1.9.Final</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<!-- End of Hibernate Dependencies for William's Computer -->
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc7</artifactId>
@@ -87,7 +100,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>RevatureTestSuite</finalName>
+		<finalName>AssignForce</finalName>
 	
 	</build>
 </project>
