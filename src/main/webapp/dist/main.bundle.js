@@ -605,7 +605,7 @@ var TestService = (function () {
     };
     TestService.prototype.runGroup = function (groupName) {
         var _this = this;
-        var url = "http://localhost:8080/AssignForce/tests/test?group=";
+        var url = "http://http://ec2-52-15-86-178.us-east-2.compute.amazonaws.com:8080/AssignForce/tests/test?group=";
         return this.http.get(url + groupName)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["b" /* tap */])(function (data) {
             console.log(data);
@@ -615,7 +615,7 @@ var TestService = (function () {
     };
     TestService.prototype.runAllTests = function () {
         var _this = this;
-        var url = "http://localhost:8080/AssignForce/tests/test?group=all";
+        var url = "http://http://ec2-52-15-86-178.us-east-2.compute.amazonaws.com:8080/AssignForce/tests/test?group=all";
         return this.http.get(url)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["b" /* tap */])(function (data) {
             console.log(data);
