@@ -51,42 +51,54 @@ public class CurriculumTester {
 		this.curriculum = batch.getCurriculum();
 	}
 	
-	@Given("^I login as VP in curriculum")
-	@BeforeTest(groups = { "VP" })
-	public void loginVP() {
-		CirriculaPage.loginVPCredentials(driver);
-	}
+//	@Given("^I login as VP in curriculum")
+//	@BeforeTest(groups = { "VP" })
+//	public void loginVP() {
+//		CirriculaPage.loginVPCredentials(driver);
+//	}
 
 //	@BeforeTest(groups = { "VP", "Hib"})
 //	public void loginVP() {
 //		CirriculaPage.loginVPCredentials(driver);
 //	}
 
-	@BeforeTest(groups = "Trainer")
-	public void loginTrainer() {
-		CirriculaPage.loginTrainerCredentials(driver);
-	}
+//	@BeforeTest(groups = "Trainer")
+//	public void loginTrainer() {
+//		CirriculaPage.loginTrainerCredentials(driver);
+//	}
 
-	@AfterTest(groups = { "VP", "Trainer", "Hib"})
-	@Then("^I logout from curriculum page$")
-	public void afterTest() {
-		//MethodUtil.executeJSClick(driver, CirriculaPage.logoutTab(driver));
-		MethodUtil.executeJSClick(driver, LoginPage.getLogout(driver));
-	}
+//	@AfterTest(groups = { "VP", "Trainer", "Hib"})
+//	@Then("^I logout from curriculum page$")
+//	public void afterTest() {
+//		//MethodUtil.executeJSClick(driver, CirriculaPage.logoutTab(driver));
+//		MethodUtil.executeJSClick(driver, LoginPage.getLogout(driver));
+//	}
 
-	@Given("^I open up a web browser$")
-	@BeforeSuite(groups = { "VP", "Trainer" })
-	public void beforeSuite() {
-		CirriculaPage.openSalesforceChrome(driver);
-		CirriculaPage.loginVPCredentials(driver);
-	}
-
-	@Then("^I close the browser$")
-	@AfterSuite(groups = { "VP", "Trainer" })
-	public void afterSuite() {
-		driver.close();
-		driver.quit();
-	}
+	
+	
+	
+	
+	
+	
+	
+	/* Uncomment the following Before and After suites to make individual
+	 * CurriculumTester class run
+	 */
+	
+//	@Given("^I open up a web browser$")
+//	@BeforeSuite(groups = { "VP", "Trainer" })
+//	public void beforeSuite() {
+//		CirriculaPage.openSalesforceChrome(driver);
+//		CirriculaPage.loginVPCredentials(driver);
+//	}
+//
+//	@Then("^I close the browser$")
+//	@AfterSuite(groups = { "VP", "Trainer" })
+//	public void afterSuite() {
+//		MethodUtil.executeJSClick(driver, LoginPage.getLogout(driver));
+//		driver.close();
+//		driver.quit();
+//	}
 
 	@Given("^I navigate to the curriculum tab")
 	@Test(priority = 1, enabled = true, groups = { "VP", "Trainer" })
@@ -133,9 +145,9 @@ public class CurriculumTester {
 	public void removeNthCurriculaButton() {
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 			try {
-				CirriculaPage.removeNthCurriculaButton(driver, 1).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.removeNthCurriculaButton(driver, 1));
 				Thread.sleep(250);
-				CirriculaPage.cancelRemoveCurriculumButton(driver).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.cancelRemoveCurriculumButton(driver));
 				Thread.sleep(250);
 
 			} catch (InterruptedException e) {
@@ -146,9 +158,9 @@ public class CurriculumTester {
 				Thread.sleep(150);
 				MethodUtil.executeJSClick(driver, CirriculaPage.toggleCoreCurriculaPanel(driver));
 				Thread.sleep(250);
-				CirriculaPage.removeNthCurriculaButton(driver, 1).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.removeNthCurriculaButton(driver, 1));
 				Thread.sleep(250);
-				CirriculaPage.cancelRemoveCurriculumButton(driver).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.cancelRemoveCurriculumButton(driver));
 				Thread.sleep(250);
 
 			} catch (InterruptedException e) {
@@ -166,13 +178,15 @@ public class CurriculumTester {
 		if (CirriculaPage.isCoreCurriculaPanelOpen(driver)) {
 			try {
 				Thread.sleep(400);
-				CirriculaPage.editNthCurriculaPanelButton(driver, 1).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.editNthCurriculaPanelButton(driver, 1));
+				Thread.sleep(400);
+				MethodUtil.executeJSClick(driver, CirriculaPage.editCurriculumNameInputField(driver));
 				Thread.sleep(400);
 				CirriculaPage.editCurriculumNameInputField(driver).clear();
 				Thread.sleep(400);
-				CirriculaPage.editCurriculumNameInputField(driver).sendKeys("Definitely Not William");
+				CirriculaPage.editCurriculumNameInputField(driver).sendKeys(curriculum.getCurriculumName());
 				Thread.sleep(400);
-				CirriculaPage.confirmButtonEditCurriculumPopup(driver).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.confirmButtonEditCurriculumPopup(driver));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -181,13 +195,13 @@ public class CurriculumTester {
 				Thread.sleep(150);
 				MethodUtil.executeJSClick(driver, CirriculaPage.toggleCoreCurriculaPanel(driver));
 				Thread.sleep(400);
-				CirriculaPage.editNthCurriculaPanelButton(driver, 1).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.editNthCurriculaPanelButton(driver, 1));
 				Thread.sleep(400);
 				CirriculaPage.editCurriculumNameInputField(driver).clear();
 				Thread.sleep(400);
-				CirriculaPage.editCurriculumNameInputField(driver).sendKeys("Definitely William");
+				CirriculaPage.editCurriculumNameInputField(driver).sendKeys(curriculum.getCurriculumName());
 				Thread.sleep(400);
-				CirriculaPage.confirmButtonEditCurriculumPopup(driver).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.confirmButtonEditCurriculumPopup(driver));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -214,13 +228,13 @@ public class CurriculumTester {
 		if (CirriculaPage.isFocusPanelOpen(driver)) {
 			try {
 				Thread.sleep(400);
-				CirriculaPage.editFirstFocusPanelButton(driver).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.editFirstFocusPanelButton(driver));
 				Thread.sleep(400);
 				CirriculaPage.textInputEditFocusPopup(driver).clear();
 				Thread.sleep(400);
 				CirriculaPage.textInputEditFocusPopup(driver).sendKeys("Ruby on Rails");
 				Thread.sleep(250);
-				CirriculaPage.confirmButtonEditFocusPopup(driver).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.confirmButtonEditFocusPopup(driver));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -229,13 +243,13 @@ public class CurriculumTester {
 				Thread.sleep(150);
 				MethodUtil.executeJSClick(driver, CirriculaPage.toggleFocusPanel(driver));
 				Thread.sleep(400);
-				CirriculaPage.editFirstFocusPanelButton(driver).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.editFirstFocusPanelButton(driver));
 				Thread.sleep(400);
 				CirriculaPage.textInputEditFocusPopup(driver).clear();
 				Thread.sleep(400);
 				CirriculaPage.textInputEditFocusPopup(driver).sendKeys("Ruby on Rails");
 				Thread.sleep(250);
-				CirriculaPage.confirmButtonEditFocusPopup(driver).click();
+				MethodUtil.executeJSClick(driver, CirriculaPage.confirmButtonEditFocusPopup(driver));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

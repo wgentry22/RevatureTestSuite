@@ -46,11 +46,18 @@ public class LocationTester {
 		this.wd = wd2;
 		this.props = props;
 		this.batch = batch;
+		this.room = batch.getRoom();
+		this.locationName = room.getLocationName();
+		this.locationCity = room.getLocationCity();
+		this.locationState = room.getLocationState();
 	}
 
 	public LocationTester() {
 		Batch batch = AssignForce.getAllBatches().get(0);
 		this.room = batch.getRoom();
+		this.locationName = room.getLocationName();
+		this.locationCity = room.getLocationCity();
+		this.locationState = room.getLocationState();
 	}
 
 	@Given("^I open up a web browser and I login as VP")

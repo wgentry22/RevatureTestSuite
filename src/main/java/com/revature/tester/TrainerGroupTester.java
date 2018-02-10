@@ -211,12 +211,12 @@ public class TrainerGroupTester {
 	
 	//Settings Page Tests
 	//Gap in priorities to account for unfinished reports test
-	@Test(priority=40)
+	@Test(priority=29)
 	public void navigateToSettingsPage() {
 		CirriculaPage.settingsTab(driver).click();
 	}
 	
-	@Test(priority=41)
+	@Test(priority=30)
 	public void settingsTestPage() {
 		st.testSettingsPageAsTrainer();
 	}

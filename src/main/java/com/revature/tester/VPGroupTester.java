@@ -192,7 +192,7 @@ public class VPGroupTester {
 	
 	@Test(priority=28)
 	public void currAddSkillCurriculum() {
-		//ct.addSkillCurriculum();
+		ct.addSkill();
 	}
 	
 	@Test(priority=29)
